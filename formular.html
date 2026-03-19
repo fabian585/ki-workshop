@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kostenlose KI-Analyse anfordern | Schmidtke GmbH</title>
+    <meta name="description" content="Fordere jetzt deine kostenlose KI-Sichtbarkeitsanalyse an. In 60 Sekunden erfährst du, ob ChatGPT & Co. dich empfehlen.">
+    <meta name="robots" content="noindex, nofollow">
+    <style>
+        /* ═══════════════════════════════════════════════
+           FORMULAR.HTML – Schmidtke GmbH
+           ─────────────────────────────────────────────
+           ANPASSUNGEN LEICHT GEMACHT:
+
+           Farben ändern?     → Suche nach ":root" (Zeile ~30)
+           Texte ändern?      → Suche nach "TEXTE ANPASSEN"
+           Branchen ändern?   → Suche nach "BRANCHEN ANPASSEN"
+           Webhook eintragen? → Suche nach "WEBHOOK"
+           ═══════════════════════════════════════════════ */
+
+        /* ═══ SCHRIFTART ═══ */
+        @font-face {
+            font-family: 'SK Modernist';
+            src: url('https://aosparadox.github.io/fonts/sk-modernist-regular-webfont.woff') format('woff');
+            font-weight: 400; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'SK Modernist';
+            src: url('https://aosparadox.github.io/fonts/sk-modernist-bold-webfont.woff') format('woff');
+            font-weight: 700; font-style: normal; font-display: swap;
+        }
+
+        /* ═══ FARBEN (hier anpassen!) ═══ */
+        :root {
+            --navy: #07162A;
+            --navy-light: #0c1f3a;
+            --navy-card: #0f2847;
+            --navy-surface: #132d4f;
+            --blue: #3B9AE8;
+            --blue-dark: #277DC1;
+            --red: #E62F1F;
+            --red-dark: #c92518;
+            --gold: #D4A574;
+            --green: #34D399;
+            --white: #ffffff;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255,255,255,0.78);
+            --text-muted: rgba(255,255,255,0.55);
+            --border-subtle: rgba(255,255,255,0.07);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'SK Modernist', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background: var(--navy);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ═══ NAV ═══ */
+        nav {
+            padding: 16px 28px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--gold); }
+        .nav-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--gold); }
+
+        /* ═══ MAIN ═══ */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 28px;
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 560px;
+        }
+
+        /* ═══ HEADER TEXT ═══ */
+        .form-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .form-header .tag {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--green);
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+        .form-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* ═══ PROGRESS BAR ═══ */
+        .progress {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .step-ind {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        .step-ind.active { color: var(--gold); }
+        .step-ind.done { color: var(--green); }
+        .step-dot {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            border: 2px solid var(--border-subtle);
+            background: transparent;
+            transition: all 0.3s;
+        }
+        .step-ind.active .step-dot {
+            border-color: var(--gold);
+            background: rgba(212, 165, 116, 0.15);
+            color: var(--gold);
+        }
+        .step-ind.done .step-dot {
+            border-color: var(--green);
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--green);
+        }
+        .step-line {
+            width: 40px; height: 2px;
+            background: var(--border-subtle);
+            align-self: center;
+            transition: background 0.3s;
+        }
+        .step-line.done { background: var(--green); }
+
+        /* ═══ FORM PANELS ═══ */
+        .panel {
+            display: none;
+            animation: fadeUp 0.4s ease;
+        }
+        .panel.active { display: block; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: linear-gradient(145deg, var(--navy-card), var(--navy-surface));
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 40px 36px;
+        }
+        .card h2 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+        .card .sub {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* ═══ FORM FIELDS ═══ */
+        .field { margin-bottom: 22px; }
+        .field label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+        .field label .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+        .field input,
+        .field select {
+            width: 100%;
+            padding: 15px 18px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            color: var(--white);
+            font-family: 'SK Modernist', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            -webkit-appearance: none;
+        }
+        .field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23ffffff' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 42px;
+            cursor: pointer;
+        }
+        .field select option {
+            background: var(--navy-card);
+            color: var(--white);
+        }
+        .field input::placeholder { color: var(--text-muted); }
+        .field input:focus,
+        .field select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+            outline: none;
+        }
+        .field .hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .field .error {
+            font-size: 12px;
+            color: var(--red);
+            margin-top: 6px;
+            display: none;
+        }
+        .field.has-error input,
+        .field.has-error select {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(230, 47, 31, 0.12);
+        }
+        .field.has-error .error { display: block; }
+
+        /* ═══ BUTTONS ═══ */
+        .btns {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-family: 'SK Modernist', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            border: none;
+            text-align: center;
+            min-height: 52px;
+        }
+        .btn-next {
+            background: var(--red);
+            color: white;
+            box-shadow: 0 8px 28px rgba(230, 47, 31, 0.3);
+        }
+        .btn-next:hover {
+            background: var(--red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(230, 47, 31, 0.4);
+        }
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-back {
+            background: rgba(255,255,255,0.06);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-subtle);
+            flex: 0 0 auto;
+            padding: 16px 20px;
+        }
+        .btn-back:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--white);
+        }
+
+        /* ═══ PRIVACY ═══ */
+        .privacy {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .privacy a { color: var(--gold); text-decoration: underline; }
+
+        /* ═══ TRUST BAR ═══ */
+        .trust-bar {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .trust-item .ico { color: var(--green); }
+
+        /* ═══ FOOTER ═══ */
+        footer {
+            padding: 24px 28px;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+        footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        footer a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 8px;
+            transition: color 0.2s;
+        }
+        footer a:hover { color: var(--gold); }
+
+        /* ═══ RESPONSIVE – TABLET ═══ */
+        @media (max-width: 768px) {
+            main { padding: 28px 20px; }
+            .form-header { margin-bottom: 28px; }
+            .form-header h1 { font-size: 24px; }
+            .form-header p { font-size: 14px; }
+            .card { padding: 28px 22px; }
+            .card h2 { font-size: 20px; }
+            .card .sub { font-size: 13px; margin-bottom: 22px; }
+            .progress { gap: 8px; margin-bottom: 24px; }
+            .field { margin-bottom: 18px; }
+            .field label { font-size: 12px; }
+            .field input, .field select { padding: 13px 16px; font-size: 14px; }
+            .btn { font-size: 14px; padding: 14px 20px; min-height: 48px; }
+            .trust-bar { gap: 16px; margin-top: 22px; }
+            .trust-item { font-size: 12px; }
+            nav { padding: 14px 20px; }
+            .logo { font-size: 20px; }
+            .nav-back { font-size: 13px; }
+            footer { padding: 20px; }
+        }
+
+        /* ═══ RESPONSIVE – MOBILE ═══ */
+        @media (max-width: 480px) {
+            main { padding: 20px 14px; }
+            .form-header h1 { font-size: 22px; }
+            .form-header .tag { font-size: 11px; padding: 5px 14px; margin-bottom: 14px; }
+            .card { padding: 24px 18px; border-radius: 16px; }
+            .card h2 { font-size: 19px; }
+            .progress { gap: 4px; margin-bottom: 20px; }
+            .step-ind span:not(.step-dot) { display: none; }
+            .step-dot { width: 30px; height: 30px; font-size: 13px; }
+            .step-line { width: 20px; }
+            .btns { flex-direction: column-reverse; gap: 10px; }
+            .btn-back { flex: 1; }
+            .btn-next { font-size: 15px; }
+            .field input, .field select { padding: 12px 14px; font-size: 14px; border-radius: 10px; }
+            .trust-bar { flex-direction: column; align-items: center; gap: 10px; }
+            .privacy { font-size: 11px; }
+            nav { padding: 12px 14px; }
+            .logo { font-size: 18px; }
+            .nav-back { font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+    <a href="landingpage-ki-workshop.html" class="logo">schmidtke<span>.</span></a>
+    <a href="landingpage-ki-workshop.html" class="nav-back">&#8592; Zurück zur Übersicht</a>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main>
+    <div class="form-container">
+
+        <!-- ══════════════════════════════════════
+             TEXTE ANPASSEN – Header-Bereich
+             ══════════════════════════════════════ -->
+        <div class="form-header">
+            <span class="tag">Kostenlos &amp; unverbindlich</span>
+            <h1>Deine KI-Sichtbarkeitsanalyse</h1>
+            <p>In 60 Sekunden. Wir prüfen, ob ChatGPT, Gemini &amp; Co. dich kennen.</p>
+        </div>
+
+        <!-- Progress Indicators -->
+        <div class="progress" id="progress">
+            <div class="step-ind active" data-step="1">
+                <span class="step-dot">1</span>
+                <span>Dein Business</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-ind" data-step="2">
+                <span class="step-dot">2</span>
+                <span>Kontaktdaten</span>
+            </div>
+        </div>
+
+        <!-- ═══ FORMULAR ═══ -->
+        <form id="leadForm" novalidate>
+            <!-- Hidden UTM + Tracking Fields -->
+            <input type="hidden" name="utm_source" id="utm_source">
+            <input type="hidden" name="utm_medium" id="utm_medium">
+            <input type="hidden" name="utm_campaign" id="utm_campaign">
+            <input type="hidden" name="utm_content" id="utm_content">
+            <input type="hidden" name="utm_term" id="utm_term">
+            <input type="hidden" name="landing_page" id="landing_page">
+            <input type="hidden" name="referrer" id="form_referrer">
+            <input type="hidden" name="submitted_at" id="submitted_at">
+
+            <!-- ══════════════════════════════════════
+                 STEP 1: Business-Infos
+                 ══════════════════════════════════════ -->
+            <div class="panel active" data-panel="1">
+                <div class="card">
+                    <h2>Was machst du beruflich?</h2>
+                    <p class="sub">Damit wir deine KI-Sichtbarkeit richtig einordnen können.</p>
+
+                    <div class="field">
+                        <label for="branche">Deine Branche</label>
+                        <!-- ══════════════════════════════════
+                             BRANCHEN ANPASSEN – Hier Optionen ändern/ergänzen
+                             ══════════════════════════════════ -->
+                        <select id="branche" name="branche" required>
+                            <option value="" disabled selected>Bitte auswählen…</option>
+                            <option value="coach">Coach / Trainer</option>
+                            <option value="berater">Berater / Consultant</option>
+                            <option value="agentur">Agentur (Marketing, Design, etc.)</option>
+                            <option value="dienstleister">Dienstleister (Handwerk, IT, etc.)</option>
+                            <option value="ecommerce">E-Commerce / Online-Shop</option>
+                            <option value="arzt-praxis">Arzt / Praxis / Gesundheit</option>
+                            <option value="anwalt-steuer">Anwalt / Steuerberater</option>
+                            <option value="immobilien">Immobilien / Makler</option>
+                            <option value="gastronomie">Gastronomie / Hotellerie</option>
+                            <option value="sonstiges">Sonstiges</option>
+                        </select>
+                        <p class="error">Bitte wähle deine Branche aus.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="website">Deine Website</label>
+                        <input type="url" id="website" name="website" placeholder="https://www.deine-seite.de" required>
+                        <p class="hint">Wir prüfen, wie KI-Systeme deine Seite aktuell wahrnehmen.</p>
+                        <p class="error">Bitte gib deine Website-URL ein.</p>
+                    </div>
+
+                    <div class="btns">
+                        <button type="button" class="btn btn-next" onclick="goNext(1)">
+                            Weiter &#8594;
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 STEP 2: Kontaktdaten
+                 ══════════════════════════════════════ -->
+            <div class="panel" data-panel="2">
+                <div class="card">
+                    <h2>Wie können wir dich erreichen?</h2>
+                    <p class="sub">Für deine persönliche Analyse und das kostenlose Erstgespräch.</p>
+
+                    <div class="field">
+                        <label for="vorname">Vorname</label>
+                        <input type="text" id="vorname" name="vorname" placeholder="Max" required>
+                        <p class="error">Bitte gib deinen Vornamen ein.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="email">E-Mail-Adresse</label>
+                        <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
+                        <p class="error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="telefon">Telefon <span class="optional">(optional)</span></label>
+                        <input type="tel" id="telefon" name="telefon" placeholder="+49 123 456789">
+                    </div>
+
+                    <div class="btns">
+                        <button type="button" class="btn btn-back" onclick="goBack(2)">
+                            &#8592; Zurück
+                        </button>
+                        <button type="submit" class="btn btn-next" id="submitBtn">
+                            Analyse anfordern &#8594;
+                        </button>
+                    </div>
+
+                    <p class="privacy">
+                        Deine Daten sind sicher. Kein Spam, versprochen.<br>
+                        <a href="https://www.schmidtke-gmbh.de/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+
+        <!-- Trust Bar -->
+        <div class="trust-bar">
+            <div class="trust-item"><span class="ico">&#10003;</span> 100 % kostenlos</div>
+            <div class="trust-item"><span class="ico">&#9919;</span> DSGVO-konform</div>
+            <div class="trust-item"><span class="ico">&#9889;</span> Ergebnis in 24h</div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+    <p>
+        &copy; 2026 Schmidtke GmbH
+        <a href="https://www.schmidtke-gmbh.de/impressum">Impressum</a>
+        <a href="https://www.schmidtke-gmbh.de/datenschutz">Datenschutz</a>
+    </p>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script>
+    // ══════════════════════════════════
+    // 1. UTM TRACKING
+    // ══════════════════════════════════
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+        utmKeys.forEach(key => {
+            const urlVal = params.get(key);
+            const stored = sessionStorage.getItem(key);
+            const value = urlVal || stored || '';
+
+            if (urlVal) sessionStorage.setItem(key, urlVal);
+
+            const el = document.getElementById(key);
+            if (el) el.value = value;
+        });
+
+        // Landing page & referrer (from landing page or direct)
+        const lp = document.getElementById('landing_page');
+        if (lp) lp.value = sessionStorage.getItem('landing_page') || window.location.href;
+
+        const ref = document.getElementById('form_referrer');
+        if (ref) ref.value = sessionStorage.getItem('original_referrer') || document.referrer || 'direct';
+    })();
+
+    // ══════════════════════════════════
+    // 2. STEP NAVIGATION
+    // ══════════════════════════════════
+    let currentStep = 1;
+
+    function updateProgress(step) {
+        document.querySelectorAll('.step-ind').forEach(ind => {
+            const s = parseInt(ind.dataset.step);
+            ind.classList.remove('active', 'done');
+            if (s < step) ind.classList.add('done');
+            if (s === step) ind.classList.add('active');
+        });
+        document.querySelectorAll('.step-line').forEach((line, i) => {
+            line.classList.toggle('done', i < step - 1);
+        });
+    }
+
+    function showPanel(step) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        const target = document.querySelector('[data-panel="' + step + '"]');
+        if (target) {
+            target.classList.add('active');
+            target.style.animation = 'none';
+            target.offsetHeight;
+            target.style.animation = '';
+        }
+        currentStep = step;
+        updateProgress(step);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(step) {
+        let valid = true;
+        const panel = document.querySelector('[data-panel="' + step + '"]');
+
+        panel.querySelectorAll('[required]').forEach(field => {
+            const parent = field.closest('.field');
+            parent.classList.remove('has-error');
+
+            if (!field.value.trim()) {
+                parent.classList.add('has-error');
+                valid = false;
+            }
+
+            if (field.type === 'email' && field.value.trim()) {
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value.trim())) {
+                    parent.classList.add('has-error');
+                    valid = false;
+                }
+            }
+
+            if (field.type === 'url' && field.value.trim()) {
+                const v = field.value.trim();
+                if (!v.match(/^https?:\/\/.+\..+/) && !v.match(/^[a-zA-Z0-9-]+\..+/)) {
+                    parent.classList.add('has-error');
+                    valid = false;
+                }
+            }
+        });
+
+        return valid;
+    }
+
+    function goNext(fromStep) {
+        if (!validateStep(fromStep)) return;
+
+        // Auto-prepend https://
+        if (fromStep === 1) {
+            const w = document.getElementById('website');
+            if (w && w.value && !w.value.match(/^https?:\/\//)) {
+                w.value = 'https://' + w.value;
+            }
+        }
+        showPanel(fromStep + 1);
+    }
+
+    function goBack(fromStep) {
+        showPanel(fromStep - 1);
+    }
+
+    // Clear errors on input
+    document.querySelectorAll('.field input, .field select').forEach(f => {
+        f.addEventListener('input', () => f.closest('.field').classList.remove('has-error'));
+    });
+
+    // ══════════════════════════════════════════════════════════
+    // 3. FORM SUBMISSION
+    // ══════════════════════════════════════════════════════════
+    document.getElementById('leadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!validateStep(2)) return;
+
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Wird gesendet…';
+
+        // Timestamp
+        document.getElementById('submitted_at').value = new Date().toISOString();
+
+        // Collect data
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((v, k) => { data[k] = v; });
+
+        // Log for debugging (remove in production)
+        console.log('=== LEAD SUBMITTED ===', JSON.stringify(data, null, 2));
+
+        // ┌─────────────────────────────────────────────────────┐
+        // │  WEBHOOK – Trage hier deine Webhook-URL ein:        │
+        // │                                                      │
+        // │  Für Make.com:  https://hook.eu1.make.com/xxx       │
+        // │  Für Zapier:    https://hooks.zapier.com/hooks/xxx  │
+        // │  Für n8n:       https://n8n.deine-domain.de/xxx     │
+        // │  Für Formspree: https://formspree.io/f/xxx          │
+        // └─────────────────────────────────────────────────────┘
+        const WEBHOOK_URL = ''; // <── DEINE WEBHOOK-URL HIER EINTRAGEN
+
+        if (WEBHOOK_URL) {
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(() => redirectToThankYou(data))
+            .catch(() => redirectToThankYou(data)); // Trotzdem weiterleiten
+        } else {
+            // Kein Webhook konfiguriert → direkt zur Danke-Seite
+            redirectToThankYou(data);
+        }
+    });
+
+    function redirectToThankYou(data) {
+        // Vorname für Danke-Seite in sessionStorage speichern
+        sessionStorage.setItem('lead_vorname', data.vorname || '');
+        sessionStorage.setItem('lead_email', data.email || '');
+
+        // Weiterleitung zur Danke-Seite
+        window.location.href = 'danke.html';
+    }
+</script>
+
+</body>
+</html>
