@@ -211,6 +211,105 @@
         }
         .nav-cta:hover { background: var(--red-dark); box-shadow: 0 6px 24px var(--red-glow); transform: translateY(-1px); }
 
+        /* ═══ MOBILE MENU ═══ */
+        .burger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 200;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .burger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+        .burger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .burger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .burger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(7, 22, 42, 0.97);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 150;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+        .mobile-overlay a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 700;
+            padding: 16px 32px;
+            transition: color 0.2s;
+            text-align: center;
+        }
+        .mobile-overlay a:hover,
+        .mobile-overlay a:active {
+            color: var(--gold);
+        }
+        .mobile-overlay .mobile-cta {
+            margin-top: 20px;
+            background: var(--red);
+            color: white;
+            padding: 18px 44px;
+            border-radius: 100px;
+            font-size: 17px;
+            font-weight: 700;
+            box-shadow: 0 8px 28px rgba(230, 47, 31, 0.3);
+            transition: all 0.3s;
+        }
+        .mobile-overlay .mobile-cta:hover {
+            background: var(--red-dark);
+            color: white;
+        }
+        .mobile-overlay .mobile-legal {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-subtle);
+        }
+        .mobile-overlay .mobile-legal a {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .burger { display: flex; }
+        }
+
         /* ═══ HERO ═══ */
         .hero {
             padding: 100px 0 80px;
@@ -1176,8 +1275,28 @@
             <a href="#foerderung">Förderung</a>
             <a href="formular.html" class="nav-cta">Kostenlose Analyse</a>
         </div>
+        <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 </nav>
+
+<!-- ═══ MOBILE MENU OVERLAY ═══ -->
+<div class="mobile-overlay" id="mobileMenu" aria-hidden="true">
+    <a href="#analyse" class="mobile-link">KI-Analyse</a>
+    <a href="#leistungen" class="mobile-link">Leistungen</a>
+    <a href="#warum" class="mobile-link">Warum wir</a>
+    <a href="#fallstudien" class="mobile-link">Fallstudien</a>
+    <a href="#foerderung" class="mobile-link">Förderung</a>
+    <a href="formular.html" class="mobile-cta">Kostenlose Analyse &#8594;</a>
+    <div class="mobile-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+        <a href="agb.html">AGB</a>
+    </div>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="top">
@@ -1778,8 +1897,9 @@
             <p>&copy; 2026 Schmidtke GmbH · YouTube & Video Marketing Agentur · Rottweil</p>
         </div>
         <div class="footer-links">
-            <a href="https://www.schmidtke-gmbh.de/impressum">Impressum</a>
-            <a href="https://www.schmidtke-gmbh.de/datenschutz">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="datenschutz.html">Datenschutz</a>
+            <a href="agb.html">AGB</a>
             <a href="https://www.schmidtke-gmbh.de/kontakt">Kontakt</a>
         </div>
     </div>
@@ -1857,6 +1977,52 @@
 
         document.querySelectorAll('a[href*="formular.html"]').forEach(link => {
             link.href = appendUtms(link.href);
+        });
+    })();
+
+    // ══════════════════════════════════════════════════
+    // MOBILE MENU
+    // ══════════════════════════════════════════════════
+    (function() {
+        const burger = document.getElementById('burger');
+        const menu = document.getElementById('mobileMenu');
+        if (!burger || !menu) return;
+
+        function toggleMenu() {
+            const isOpen = menu.classList.contains('open');
+            if (isOpen) {
+                menu.classList.remove('open');
+                burger.classList.remove('active');
+                burger.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            } else {
+                menu.classList.add('open');
+                burger.classList.add('active');
+                burger.setAttribute('aria-expanded', 'true');
+                menu.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        burger.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.remove('open');
+                burger.classList.remove('active');
+                burger.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menu.classList.contains('open')) {
+                toggleMenu();
+            }
         });
     })();
 </script>
