@@ -108,8 +108,9 @@
         }
 
         .thank-you {
-            max-width: 580px;
+            max-width: 900px;
             text-align: center;
+            width: 100%;
         }
 
         /* Success animation */
@@ -217,6 +218,58 @@
             line-height: 1.5;
         }
 
+        /* Cal.com Booking Section */
+        .booking-section {
+            margin-top: 36px;
+            margin-bottom: 36px;
+            text-align: center;
+        }
+        .booking-section h2 {
+            font-family: 'SK Modernist', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+        .booking-section h2 .highlight { color: var(--green); }
+        .booking-section .booking-sub {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+        .booking-card {
+            background: linear-gradient(145deg, var(--navy-card), var(--navy-surface));
+            border: 2px solid rgba(52, 211, 153, 0.2);
+            border-radius: 20px;
+            padding: 4px;
+            overflow: hidden;
+        }
+        .booking-card #my-cal-inline-20-min-forderanfrage-gesprach-am-telefon {
+            width: 100%;
+            min-height: 580px;
+            overflow: auto;
+            border-radius: 16px;
+        }
+        .booking-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--green);
+            animation: bounce-arrow 2s ease-in-out infinite;
+        }
+        .booking-arrow span {
+            font-size: 24px;
+        }
+        @keyframes bounce-arrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
         /* CTA Button */
         .btn-home {
             display: inline-block;
@@ -315,19 +368,24 @@
         /* ═══ RESPONSIVE – TABLET ═══ */
         @media (max-width: 768px) {
             .burger { display: flex; }
-            main { padding: 40px 20px; }
-            .thank-you h1 { font-size: 26px; }
-            .lead-text { font-size: 15px; margin-bottom: 32px; }
-            .check-circle { width: 72px; height: 72px; margin-bottom: 24px; }
-            .check-circle svg { width: 32px; height: 32px; }
-            .steps-card { padding: 28px 22px; margin-bottom: 28px; }
-            .steps-card h3 { font-size: 14px; margin-bottom: 18px; }
-            .step-item { gap: 14px; padding: 12px 0; }
-            .step-num { width: 32px; height: 32px; font-size: 13px; border-radius: 8px; }
+            main { padding: 32px 16px; align-items: flex-start; }
+            .thank-you h1 { font-size: 24px; }
+            .lead-text { font-size: 14px; margin-bottom: 24px; }
+            .check-circle { width: 64px; height: 64px; margin-bottom: 20px; }
+            .check-circle svg { width: 30px; height: 30px; }
+            .booking-section { margin-top: 24px; margin-bottom: 28px; }
+            .booking-section h2 { font-size: 20px; }
+            .booking-section .booking-sub { font-size: 14px; margin-bottom: 16px; }
+            .booking-card { padding: 2px; border-radius: 16px; }
+            .booking-card #my-cal-inline-20-min-forderanfrage-gesprach-am-telefon { min-height: 500px; }
+            .steps-card { padding: 24px 18px; margin-bottom: 24px; }
+            .steps-card h3 { font-size: 14px; margin-bottom: 16px; }
+            .step-item { gap: 12px; padding: 10px 0; }
+            .step-num { width: 30px; height: 30px; font-size: 12px; border-radius: 8px; }
             .step-text h4 { font-size: 14px; }
             .step-text p { font-size: 13px; }
             .btn-home { padding: 14px 28px; font-size: 14px; }
-            .social-hint { font-size: 13px; margin-top: 28px; }
+            .social-hint { font-size: 13px; margin-top: 24px; }
             nav { padding: 14px 20px; }
             .logo { font-size: 20px; }
             footer { padding: 20px; }
@@ -335,13 +393,17 @@
 
         /* ═══ RESPONSIVE – MOBILE ═══ */
         @media (max-width: 480px) {
-            main { padding: 32px 14px; }
-            .thank-you h1 { font-size: 22px; }
-            .lead-text { font-size: 14px; margin-bottom: 28px; }
-            .check-circle { width: 64px; height: 64px; margin-bottom: 20px; }
-            .check-circle svg { width: 28px; height: 28px; }
-            .steps-card { padding: 22px 18px; border-radius: 16px; }
-            .step-item { gap: 12px; }
+            main { padding: 24px 10px; }
+            .thank-you h1 { font-size: 20px; }
+            .lead-text { font-size: 13px; margin-bottom: 20px; max-width: 100%; }
+            .check-circle { width: 56px; height: 56px; margin-bottom: 16px; }
+            .check-circle svg { width: 26px; height: 26px; }
+            .booking-section { margin-top: 20px; margin-bottom: 24px; }
+            .booking-section h2 { font-size: 18px; }
+            .booking-card { border-radius: 14px; border-width: 1px; }
+            .booking-card #my-cal-inline-20-min-forderanfrage-gesprach-am-telefon { min-height: 460px; border-radius: 12px; }
+            .steps-card { padding: 20px 16px; border-radius: 14px; }
+            .step-item { gap: 10px; }
             .btn-home { padding: 14px 24px; font-size: 14px; width: 100%; text-align: center; display: block; border-radius: 12px; }
             .social-hint { font-size: 12px; }
             nav { padding: 12px 14px; }
@@ -392,6 +454,18 @@
             Wir analysieren jetzt deine KI-Sichtbarkeit und melden uns innerhalb von <strong>24 Stunden</strong>
             mit deinem persönlichen Ergebnis per E-Mail<span id="emailDisplay"></span>.
         </p>
+
+        <!-- ══════════════════════════════════════
+             CAL.COM BOOKING WIDGET
+             ══════════════════════════════════════ -->
+        <div class="booking-section">
+            <p class="booking-arrow">↓</p>
+            <h2>Buche jetzt dein Erstgespräch</h2>
+            <p class="booking-sub">Sichere dir direkt einen Termin für dein kostenloses telefonisches Erstgespräch — so können wir deine Ergebnisse persönlich besprechen.</p>
+            <div class="booking-card">
+                <div style="width:100%;height:100%;overflow:scroll" id="my-cal-inline-20-min-forderanfrage-gesprach-am-telefon"></div>
+            </div>
+        </div>
 
         <!-- ══════════════════════════════════════
              SCHRITTE ANPASSEN – Was passiert als nächstes
@@ -498,6 +572,18 @@
             if (e.key === 'Escape' && menu.classList.contains('open')) toggleMenu();
         });
     })();
+</script>
+
+<!-- ═══ CAL.COM EMBED ═══ -->
+<script type="text/javascript">
+  (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+  Cal("init", "20-min-forderanfrage-gesprach-am-telefon", {origin:"https://app.cal.com"});
+  Cal.ns["20-min-forderanfrage-gesprach-am-telefon"]("inline", {
+    elementOrSelector:"#my-cal-inline-20-min-forderanfrage-gesprach-am-telefon",
+    config: {"layout":"month_view","useSlotsViewOnSmallScreen":"true"},
+    calLink: "schmidtke-gmbh/20-min-forderanfrage-gesprach-am-telefon",
+  });
+  Cal.ns["20-min-forderanfrage-gesprach-am-telefon"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
 </script>
 
 </body>
