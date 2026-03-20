@@ -137,6 +137,21 @@
             border-radius: 4px;
         }
 
+        /* ═══ BOTTOM FADE / BLUR OVERLAY ═══ */
+        .bottom-fade {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            pointer-events: none;
+            z-index: 90;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+        }
+
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
@@ -676,6 +691,106 @@
         .proof-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
         .proof-item strong { color: var(--navy); font-weight: 800; }
 
+        /* ═══ BRANCHEN MARQUEE ═══ */
+        .branchen {
+            padding: 48px 0;
+            background: #f0f4f8;
+            overflow: hidden;
+        }
+        .branchen-label {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #9CA3AF;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 28px;
+        }
+        .marquee-row {
+            display: flex;
+            width: max-content;
+            gap: 12px;
+        }
+        .marquee-row.left {
+            animation: marquee-left 45s linear infinite;
+        }
+        .marquee-row.right {
+            animation: marquee-right 50s linear infinite;
+            margin-top: 12px;
+        }
+        @keyframes marquee-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .branchen-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--navy);
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .branchen-tag:hover {
+            border-color: var(--blue-dark);
+            box-shadow: 0 4px 16px rgba(7, 22, 42, 0.06);
+        }
+        .branchen-tag .bt-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        /* Fade-Ränder */
+        .marquee-wrap {
+            position: relative;
+        }
+        .marquee-wrap::before,
+        .marquee-wrap::after {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .marquee-wrap::before {
+            left: 0;
+            background: linear-gradient(to right, #f0f4f8, transparent);
+        }
+        .marquee-wrap::after {
+            right: 0;
+            background: linear-gradient(to left, #f0f4f8, transparent);
+        }
+        /* Pause bei Hover */
+        .marquee-wrap:hover .marquee-row {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .branchen { padding: 36px 0; }
+            .branchen-label { font-size: 11px; margin-bottom: 20px; }
+            .branchen-tag { padding: 10px 18px; font-size: 13px; gap: 8px; border-radius: 10px; }
+            .branchen-tag .bt-icon { width: 24px; height: 24px; font-size: 13px; border-radius: 6px; }
+            .marquee-wrap::before,
+            .marquee-wrap::after { width: 40px; }
+        }
+
         /* ═══ SECTION COMMON ═══ */
         .section-tag {
             display: inline-block;
@@ -973,25 +1088,27 @@
         }
 
         /* ═══ SOLUTION ═══ */
-        .solution { padding: 100px 0; background: var(--navy-light); }
+        .solution { padding: 100px 0; background: #ffffff; }
         .solution-header { text-align: center; margin-bottom: 64px; }
-        .solution-header .sub { color: var(--text-secondary); max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .solution-header h2 { color: var(--navy); }
+        .solution-header .section-tag { color: var(--blue-dark); }
+        .solution-header .sub { color: #4B5563; max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
         .solution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .solution-card {
-            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-card) 100%);
-            border: 1px solid var(--border-subtle);
+            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 44px 36px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
         }
-        .solution-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .solution-card:hover { border-color: var(--blue-dark); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(7, 22, 42, 0.08); }
         .solution-card .step-num {
             position: absolute;
             top: -14px; left: 50%; transform: translateX(-50%);
-            background: var(--gold);
-            color: var(--navy);
+            background: var(--blue-dark);
+            color: #ffffff;
             width: 28px; height: 28px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
@@ -1003,46 +1120,222 @@
             margin-bottom: 20px;
             display: block;
         }
-        .solution-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
-        .solution-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+        .solution-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--navy); }
+        .solution-card p { color: #4B5563; font-size: 15px; line-height: 1.7; }
 
-        /* ═══ LEISTUNGEN (Services) ═══ */
-        .services { padding: 100px 0; background: #ffffff; }
-        .services-header { text-align: center; margin-bottom: 64px; }
+        /* ═══ LEISTUNGEN (Services) – Accordion + Sticky Image ═══ */
+        .services { padding: 100px 0 60px; background: #f8fafc; }
+        .services-header { text-align: center; margin-bottom: 72px; }
         .services-header h2 { color: var(--navy); }
         .services-header .section-tag { color: var(--blue-dark); }
         .services-header .sub { color: #4B5563; max-width: 620px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
-        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-        .service-card {
-            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 40px;
-            display: flex;
-            gap: 24px;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+        .services-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
         }
-        .service-card:hover { border-color: var(--blue-dark); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(7, 22, 42, 0.08); }
-        .service-icon {
-            width: 56px; height: 56px;
-            border-radius: 16px;
-            background: rgba(39, 125, 193, 0.08);
-            border: 1px solid rgba(39, 125, 193, 0.15);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
+
+        /* Scroll-Accordion links */
+        .services-accordion { display: flex; flex-direction: column; }
+        .acc-item {
+            border-top: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            min-height: 220px;
+        }
+        .acc-item:last-child {
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 120px;
+        }
+        .acc-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 28px 0;
+        }
+        .acc-num {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #4B5563;
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        .acc-item.active .acc-num {
+            background: var(--navy);
+            color: #ffffff;
+        }
+        .acc-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            flex: 1;
+            transition: opacity 0.3s ease;
+        }
+        .acc-item:not(.active) .acc-title { opacity: 0.4; }
+        .acc-chevron {
+            width: 24px; height: 24px;
+            color: #9CA3AF;
+            transition: transform 0.3s ease;
             flex-shrink: 0;
         }
-        .service-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
-        .service-card p { color: #4B5563; font-size: 15px; line-height: 1.7; }
-        .service-tag {
-            display: inline-block;
-            margin-top: 12px;
-            background: rgba(59, 154, 232, 0.1);
-            color: var(--blue);
-            font-size: 12px;
-            font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 6px;
+        .acc-item.active .acc-chevron { transform: rotate(180deg); color: var(--navy); }
+        .acc-body {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.4s ease;
+        }
+        .acc-item.active .acc-body {
+            grid-template-rows: 1fr;
+        }
+        .acc-body-inner {
+            overflow: hidden;
+            padding: 0 0 0 60px;
+            color: #6B7280;
+            font-size: 16px;
+            line-height: 1.7;
+            transition: padding 0.3s ease;
+        }
+        .acc-item.active .acc-body-inner {
+            padding: 0 0 32px 60px;
+        }
+        /* Fortschritts-Linie */
+        .acc-progress {
+            width: 3px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            position: absolute;
+            left: 19px;
+            top: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+        .acc-progress-fill {
+            width: 100%;
+            background: var(--navy);
+            border-radius: 3px;
+            transition: height 0.4s ease;
+        }
+
+        /* Sticky Bild rechts */
+        .services-visual {
+            position: sticky;
+            top: 120px;
+        }
+        .services-img-wrap {
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 60px rgba(7, 22, 42, 0.08);
+            position: relative;
+        }
+        .services-img-slide {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            padding: 32px;
+        }
+        .services-img-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Mockup-Visuals innerhalb der Slides */
+        .svc-mock {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .svc-mock-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 18px;
+            background: var(--navy);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+        .svc-mock-bar .dot { width: 8px; height: 8px; border-radius: 50%; }
+        .svc-mock-bar .dot.r { background: #ef4444; }
+        .svc-mock-bar .dot.y { background: #f59e0b; }
+        .svc-mock-bar .dot.g { background: #22c55e; }
+        .svc-mock-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+        .svc-mock-card {
+            background: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+        .svc-mock-card .val {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--navy);
+            line-height: 1;
+        }
+        .svc-mock-card .val.green { color: var(--green); }
+        .svc-mock-card .val.blue { color: var(--blue); }
+        .svc-mock-card .val.red { color: var(--red); }
+        .svc-mock-card .lbl {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            margin-top: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .svc-mock-text {
+            padding: 16px 20px;
+            background: #f1f5f9;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #4B5563;
+            line-height: 1.6;
+        }
+        .svc-mock-text strong { color: var(--navy); }
+        .svc-mock-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .svc-mock-list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #4B5563;
+        }
+        .svc-mock-list-item .check {
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--green);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700;
+            flex-shrink: 0;
         }
 
         /* ═══ WARUM SCHMIDTKE ═══ */
@@ -1107,26 +1400,28 @@
         /* why-us responsive handled in main media queries below */
 
         /* ═══ FALLSTUDIEN (Case Studies) ═══ */
-        .cases { padding: 100px 0; background: var(--navy-light); }
+        .cases { padding: 100px 0; background: #f8fafc; }
         .cases-header { text-align: center; margin-bottom: 64px; }
-        .cases-header .sub { color: var(--text-secondary); max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .cases-header h2 { color: var(--navy); }
+        .cases-header .section-tag { color: var(--blue-dark); }
+        .cases-header .sub { color: #4B5563; max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
         .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
         .case-card {
-            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-card) 100%);
-            border: 1px solid var(--border-subtle);
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .case-card:hover { border-color: var(--border-hover); transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+        .case-card:hover { border-color: var(--blue-dark); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(7, 22, 42, 0.08); }
         .case-top {
             padding: 32px 36px 24px;
-            border-bottom: 1px solid var(--border-subtle);
+            border-bottom: 1px solid #e2e8f0;
         }
         .case-industry {
             display: inline-block;
-            background: rgba(212, 165, 116, 0.1);
-            color: var(--gold);
+            background: rgba(39, 125, 193, 0.08);
+            color: var(--blue-dark);
             font-size: 11px;
             font-weight: 700;
             letter-spacing: 1px;
@@ -1135,53 +1430,41 @@
             border-radius: 6px;
             margin-bottom: 16px;
         }
-        .case-top h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-        .case-top p { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
+        .case-top h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; color: var(--navy); }
+        .case-top p { color: #4B5563; font-size: 14px; line-height: 1.7; }
         .case-metrics {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1px;
-            background: var(--border-subtle);
+            background: #e2e8f0;
         }
         .case-metric {
             padding: 20px 16px;
             text-align: center;
-            background: var(--navy-card);
+            background: #ffffff;
         }
         .case-metric .val {
             font-family: 'SK Modernist', sans-serif;
             font-size: 28px;
             font-weight: 800;
-            color: var(--green);
+            color: var(--blue-dark);
             line-height: 1;
         }
         .case-metric .lbl {
             font-size: 11px;
-            color: var(--text-muted);
+            color: #6B7280;
             margin-top: 4px;
             line-height: 1.3;
         }
         .case-img {
             width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, var(--navy-card) 0%, rgba(39, 125, 193, 0.15) 100%);
+            height: 220px;
+            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-        }
-        .case-img::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 20px,
-                rgba(39, 125, 193, 0.04) 20px,
-                rgba(39, 125, 193, 0.04) 40px
-            );
         }
         .case-img img {
             width: 100%;
@@ -1276,8 +1559,8 @@
 
         /* Funding seal */
         .funding-seal {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(52, 211, 153, 0.15) 0%, rgba(52, 211, 153, 0.05) 100%);
             border: 2px solid rgba(52, 211, 153, 0.3);
@@ -1294,9 +1577,85 @@
             border-radius: 50%;
             border: 1px dashed rgba(52, 211, 153, 0.3);
         }
-        .funding-seal-text {
-            font-size: 32px;
-            line-height: 1;
+        .funding-seal svg {
+            width: 52px;
+            height: 52px;
+        }
+
+        /* Trust Badges */
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 48px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(52, 211, 153, 0.12);
+        }
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 22px;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 14px;
+            transition: all 0.3s;
+        }
+        .trust-badge:hover {
+            background: rgba(0,0,0,0.3);
+            border-color: rgba(52, 211, 153, 0.2);
+        }
+        .trust-badge-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .trust-badge-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .trust-badge-text {
+            text-align: left;
+        }
+        .trust-badge-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+        .trust-badge-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        /* CTA trust row */
+        .cta-trust-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 28px;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .cta-trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        .cta-trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--green);
+            flex-shrink: 0;
         }
 
         /* ═══ FÖRDERUNG (Funding) ═══ */
@@ -1369,20 +1728,22 @@
         .funding-step p { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
 
         /* ═══ SOCIAL PROOF ═══ */
-        .testimonials { padding: 100px 0; background: var(--navy-light); }
+        .testimonials { padding: 100px 0; background: #ffffff; }
         .testimonials-header { text-align: center; margin-bottom: 64px; }
-        .testimonials-header .sub { color: var(--text-secondary); max-width: 520px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .testimonials-header h2 { color: var(--navy); }
+        .testimonials-header .section-tag { color: var(--blue-dark); }
+        .testimonials-header .sub { color: #4B5563; max-width: 520px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
         .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
         .testimonial-card {
-            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-card) 100%);
-            border: 1px solid var(--border-subtle);
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
             padding: 40px;
             transition: all 0.3s;
         }
-        .testimonial-card:hover { border-color: var(--border-hover); }
+        .testimonial-card:hover { border-color: var(--blue-dark); box-shadow: 0 12px 40px rgba(7, 22, 42, 0.08); }
         .testimonial-stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; margin-bottom: 16px; }
-        .testimonial-text { color: var(--text-secondary); font-size: 15px; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+        .testimonial-text { color: #4B5563; font-size: 15px; line-height: 1.8; margin-bottom: 24px; font-style: italic; }
         .testimonial-author { display: flex; align-items: center; gap: 14px; }
         .testimonial-avatar {
             width: 44px; height: 44px; border-radius: 50%;
@@ -1390,11 +1751,11 @@
             display: flex; align-items: center; justify-content: center;
             font-weight: 800; font-size: 16px; color: var(--navy);
         }
-        .testimonial-name { font-weight: 700; font-size: 15px; }
-        .testimonial-role { font-size: 13px; color: var(--text-muted); }
+        .testimonial-name { font-weight: 700; font-size: 15px; color: var(--navy); }
+        .testimonial-role { font-size: 13px; color: #6B7280; }
 
         /* ═══ FAQ ═══ */
-        .faq { padding: 100px 0; background: #ffffff; }
+        .faq { padding: 100px 0; background: #f8fafc; }
         .faq-header { text-align: center; margin-bottom: 56px; }
         .faq-header h2 { color: var(--navy); }
         .faq-header .section-tag { color: var(--blue-dark); }
@@ -1488,10 +1849,10 @@
         @media (max-width: 1024px) {
             .container { padding: 0 24px; }
             .solution-grid { grid-template-columns: 1fr 1fr; }
-            .services-grid { grid-template-columns: 1fr; }
+            .services-layout { grid-template-columns: 1fr; gap: 40px; }
+            .services-visual { position: relative; top: auto; }
             .why-us-layout { grid-template-columns: 1fr; gap: 36px; }
-            .founder-layout { grid-template-columns: 1fr; gap: 36px; }
-            .founder-layout .founder-img { max-width: 320px; margin: 0 auto; }
+            /* Bento handled in its own media queries */
             .cases-grid { grid-template-columns: 1fr; }
             .problem-header { grid-template-columns: 1fr; gap: 16px; }
             .problem-grid { grid-template-columns: 1fr 1fr; }
@@ -1532,7 +1893,7 @@
             .hero-trust { display: none; }
             .hero-content .trustmarkt-widget { display: none; }
             .hero-cta-row { flex-direction: column; align-items: stretch; width: 100%; }
-            .btn-primary { font-size: 15px; padding: 16px 28px; width: 100%; text-align: center; }
+            .btn-primary { font-size: 15px; padding: 16px 28px; width: 100%; text-align: center; justify-content: center; }
             .btn-secondary { font-size: 14px; padding: 14px 24px; width: 100%; text-align: center; }
             .btn-ghost { font-size: 14px; padding: 14px 24px; width: 100%; text-align: center; justify-content: center; border-color: rgba(255,255,255,0.2); }
             .hero-stats { flex-direction: column; gap: 0; margin-top: 24px; }
@@ -1589,23 +1950,19 @@
             .solution-card h3 { font-size: 18px; }
             .solution-card p { font-size: 14px; }
 
-            /* Founder */
-            .founder-layout { grid-template-columns: 1fr; gap: 28px; }
-            .founder-layout .founder-img {
-                max-width: 280px;
-                margin: 0 auto;
-                aspect-ratio: 1/1;
-            }
-            .founder-content p { font-size: 14px; }
-            .founder-quote { font-size: 15px; padding: 18px; }
-            .team-images { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
-            .team-img { aspect-ratio: 16/10; }
+            /* Founder Bento – handled in section media queries */
 
-            /* Services */
-            .services-grid { grid-template-columns: 1fr; gap: 14px; }
-            .service-card { flex-direction: column; padding: 24px 20px; gap: 16px; }
-            .service-card h3 { font-size: 17px; }
-            .service-card p { font-size: 14px; }
+            /* Services Scroll-Accordion */
+            .services-layout { grid-template-columns: 1fr; gap: 24px; }
+            .services-visual { position: sticky; top: 80px; order: -1; z-index: 2; }
+            .services-img-wrap { aspect-ratio: 16/10; }
+            .acc-item { min-height: 120px; }
+            .acc-item:last-child { padding-bottom: 60px; }
+            .acc-title { font-size: 17px; }
+            .acc-body-inner { font-size: 15px; }
+            .acc-item.active .acc-body-inner { padding: 0 0 24px 60px; }
+            .svc-mock-card .val { font-size: 22px; }
+            .svc-mock-row { gap: 8px; }
 
             /* Why Us */
             .why-us-layout { grid-template-columns: 1fr; gap: 28px; }
@@ -1639,11 +1996,15 @@
 
             /* Funding */
             .funding-seal { width: 80px; height: 80px; }
-            .funding-seal-text { font-size: 26px; }
+            .funding-seal svg { width: 38px; height: 38px; }
             .funding-card { padding: 32px 20px; border-radius: 20px; }
             .funding-card h2 { margin-bottom: 14px; }
             .funding-steps { grid-template-columns: 1fr; gap: 12px; }
             .funding-step { padding: 20px 16px; }
+            .trust-strip { gap: 12px; margin-top: 32px; padding-top: 28px; }
+            .trust-badge { padding: 12px 16px; width: 100%; }
+            .cta-trust-row { gap: 16px; }
+            .cta-trust-item { font-size: 12px; }
 
             /* Testimonials */
             .testimonials-grid { grid-template-columns: 1fr; gap: 14px; }
@@ -1680,7 +2041,11 @@
             .hero-badge { font-size: 10px; padding: 6px 12px; margin-bottom: 12px; }
             .hero-video .vsl-play-btn { width: 48px; height: 48px; font-size: 18px; }
             .problem-card { padding: 22px 18px; }
-            .service-card { padding: 20px 16px; }
+            .acc-header { padding: 22px 0; gap: 14px; }
+            .acc-num { width: 34px; height: 34px; font-size: 12px; }
+            .acc-title { font-size: 16px; }
+            .acc-body-inner { padding: 0 0 20px 48px; font-size: 14px; }
+            .svc-mock-row { grid-template-columns: 1fr; }
             .solution-card { padding: 24px 18px; }
             .testimonial-card { padding: 22px 18px; }
             .why-us-stats { grid-template-columns: 1fr; }
@@ -1695,59 +2060,221 @@
             .analyse-result { padding: 12px; }
         }
 
-        /* ═══ FOUNDER SECTION ═══ */
-        .founder { padding: 100px 0; background: #ffffff; }
-        .founder-layout {
+        /* ═══ FOUNDER / BENTO BOX ═══ */
+        .founder { padding: 100px 0; background: var(--navy); color: var(--white); }
+        .founder-headline {
+            margin-bottom: 56px;
+        }
+        .founder-headline h2 {
+            color: var(--white) !important;
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.15;
+        }
+        .founder-headline h2 .gold { color: var(--gold); }
+
+        /* Bento Grid */
+        .bento-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            align-items: center;
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: auto;
+            gap: 16px;
         }
-        .founder-img {
-            width: 100%; aspect-ratio: 4/5;
-            border-radius: 24px;
+        .bento-card {
+            border-radius: 20px;
             overflow: hidden;
-        }
-        .founder-content h2 { color: var(--navy); margin-bottom: 20px; }
-        .founder-content .section-tag { color: var(--blue-dark); }
-        .founder-content p { color: #4B5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
-        .founder-content p strong { color: var(--navy); }
-        .founder-quote {
-            margin-top: 24px;
-            padding: 24px;
-            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
-            border-left: 4px solid var(--blue-dark);
-            border-radius: 0 16px 16px 0;
-            font-style: italic;
-            color: var(--navy);
-            font-size: 17px;
-            line-height: 1.7;
-        }
-        .founder-sig {
-            margin-top: 12px;
-            font-style: normal;
-            font-weight: 700;
-            font-size: 15px;
-            color: var(--navy);
+            position: relative;
         }
 
-        /* ═══ TEAM IMAGES ═══ */
-        .team-images {
+        /* Karte 1: Büro Rottweil (links oben, 7 Spalten) */
+        .bento-office {
+            grid-column: span 7;
+            background: var(--navy-card);
+            border: 1px solid var(--border-subtle);
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        .bento-office-photos {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .bento-office-photos .bento-photo {
+            flex: 1;
+            aspect-ratio: 3/2;
+            border-radius: 14px;
+            overflow: hidden;
+            background: linear-gradient(145deg, var(--navy-surface), var(--navy-light));
+        }
+        .bento-office-photos .bento-photo img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .bento-office h3 {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .bento-office p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .bento-office .bento-subtle {
+            color: rgba(255,255,255,0.4);
+            font-size: 14px;
+        }
+
+        /* Karte 2: Landkarte (rechts oben, 5 Spalten) */
+        .bento-map {
+            grid-column: span 5;
+            background: var(--navy-card);
+            border: 1px solid var(--border-subtle);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-map-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--navy);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 8px;
+            z-index: 2;
+        }
+        .bento-map-text {
+            position: relative;
+            z-index: 2;
+            max-width: 65%;
+        }
+        .bento-map-text h3 {
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.35;
+        }
+        .bento-map-text .gold { color: var(--gold); }
+        .bento-map-svg {
+            position: absolute;
+            bottom: -20px;
+            right: -30px;
+            width: 75%;
+            max-width: 320px;
+            pointer-events: none;
+        }
+
+        /* Karte 3: Gründer-Foto (links unten, 5 Spalten) */
+        .bento-founder {
+            grid-column: span 5;
+            aspect-ratio: 4/5;
+            max-height: 480px;
+        }
+        .bento-founder img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .bento-founder-overlay {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(7,22,42,0.95) 0%, transparent 100%);
+        }
+        .bento-founder-overlay h3 { font-size: 20px; font-weight: 800; }
+        .bento-founder-overlay p { font-size: 14px; color: var(--text-secondary); margin-top: 4px; }
+
+        /* Karte 4: Zitat + Fakten (rechts unten, 7 Spalten) */
+        .bento-quote {
+            grid-column: span 7;
+            background: var(--navy-card);
+            border: 1px solid var(--border-subtle);
+            padding: 36px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .bento-quote blockquote {
+            font-size: 19px;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--white);
+            margin-bottom: 16px;
+            padding-left: 20px;
+            border-left: 3px solid var(--gold);
+        }
+        .bento-quote .bento-sig {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gold);
+            padding-left: 20px;
+        }
+        .bento-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 16px;
-            margin-top: 48px;
+            margin-top: 28px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border-subtle);
         }
-        .team-img {
-            aspect-ratio: 1;
-            border-radius: 16px;
-            overflow: hidden;
+        .bento-stat .bento-stat-val {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+        }
+        .bento-stat .bento-stat-val.blue { color: var(--blue); }
+        .bento-stat .bento-stat-val.gold { color: var(--gold); }
+        .bento-stat .bento-stat-val.green { color: var(--green); }
+        .bento-stat .bento-stat-lbl {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            line-height: 1.4;
         }
 
+        /* Karte 5: Team-Fotos (volle Breite, 12 Spalten) */
+        .bento-team {
+            grid-column: span 12;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .bento-team-photo {
+            aspect-ratio: 4/3;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(145deg, var(--navy-card), var(--navy-surface));
+        }
+        .bento-team-photo img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        /* Bento Responsive – Tablet */
+        @media (max-width: 1024px) {
+            .bento-office { grid-column: span 12; }
+            .bento-map { grid-column: span 12; min-height: 280px; }
+            .bento-founder { grid-column: span 5; }
+            .bento-quote { grid-column: span 7; }
+        }
+        /* Bento Responsive – Mobile */
         @media (max-width: 768px) {
-            .founder-layout { grid-template-columns: 1fr; }
-            .founder-img { max-width: 400px; margin: 0 auto; }
-            .team-images { grid-template-columns: 1fr 1fr; }
+            .founder { padding: 64px 0; }
+            .founder-headline { margin-bottom: 32px; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-office, .bento-map, .bento-founder, .bento-quote { grid-column: span 1; }
+            .bento-founder { aspect-ratio: 3/4; max-height: 400px; }
+            .bento-office h3 { font-size: 19px; }
+            .bento-office p { font-size: 14px; }
+            .bento-quote blockquote { font-size: 16px; }
+            .bento-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .bento-stat .bento-stat-val { font-size: 22px; }
+            .bento-team { grid-column: span 1; grid-template-columns: 1fr 1fr; }
+            .bento-team-photo:last-child { grid-column: 1 / -1; }
+            .bento-map-text h3 { font-size: 17px; }
         }
 
         /* ═══ ANIMATIONS ═══ */
@@ -1778,6 +2305,9 @@
     </style>
 </head>
 <body>
+
+<!-- ═══ BOTTOM BLUR FADE ═══ -->
+<div class="bottom-fade" aria-hidden="true"></div>
 
 <!-- ═══ TOPBAR ═══ -->
 <div class="topbar" role="banner">
@@ -1913,7 +2443,71 @@
     </div>
 </div>
 
-<!-- VSL ist jetzt im Hero integriert -->
+<!-- ═══ BRANCHEN MARQUEE ═══ -->
+<div class="branchen" aria-label="Branchen">
+    <div class="branchen-label">Funktioniert für jede Branche</div>
+    <div class="marquee-wrap">
+
+        <!-- Reihe 1: scrollt nach links -->
+        <div class="marquee-row left">
+            <div class="branchen-tag"><span class="bt-icon">&#129463;</span> Zahnärzte</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128295;</span> Handwerker</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127891;</span> Coaches</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128188;</span> Agenturen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#9878;</span> Steuerberater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127968;</span> Immobilienmakler</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128187;</span> IT-Dienstleister</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128170;</span> Personal Trainer</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127909;</span> Filmproduktionen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128218;</span> Berater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#9879;</span> Rechtsanwälte</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128137;</span> Ärzte &amp; Praxen</div>
+            <!-- Duplikat für nahtlose Schleife -->
+            <div class="branchen-tag"><span class="bt-icon">&#129463;</span> Zahnärzte</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128295;</span> Handwerker</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127891;</span> Coaches</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128188;</span> Agenturen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#9878;</span> Steuerberater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127968;</span> Immobilienmakler</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128187;</span> IT-Dienstleister</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128170;</span> Personal Trainer</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127909;</span> Filmproduktionen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128218;</span> Berater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#9879;</span> Rechtsanwälte</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128137;</span> Ärzte &amp; Praxen</div>
+        </div>
+
+        <!-- Reihe 2: scrollt nach rechts -->
+        <div class="marquee-row right">
+            <div class="branchen-tag"><span class="bt-icon">&#128176;</span> Finanzberater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128640;</span> Startups</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127860;</span> Gastronomie</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128658;</span> Autohäuser</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128247;</span> Fotografen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127979;</span> Bildungsträger</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128139;</span> Beauty &amp; Wellness</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127981;</span> Ingenieurbüros</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128722;</span> E-Commerce</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127918;</span> Kreativagenturen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128736;</span> SaaS &amp; Tech</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127811;</span> Naturheilpraxen</div>
+            <!-- Duplikat für nahtlose Schleife -->
+            <div class="branchen-tag"><span class="bt-icon">&#128176;</span> Finanzberater</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128640;</span> Startups</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127860;</span> Gastronomie</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128658;</span> Autohäuser</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128247;</span> Fotografen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127979;</span> Bildungsträger</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128139;</span> Beauty &amp; Wellness</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127981;</span> Ingenieurbüros</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128722;</span> E-Commerce</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127918;</span> Kreativagenturen</div>
+            <div class="branchen-tag"><span class="bt-icon">&#128736;</span> SaaS &amp; Tech</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127811;</span> Naturheilpraxen</div>
+        </div>
+
+    </div>
+</div>
 
 <!-- ═══ PROBLEM ═══ -->
 <section class="problem" aria-label="Das Problem">
@@ -2121,42 +2715,86 @@
     </div>
 </section>
 
-<!-- ═══ GRÜNDER / AGENTUR ═══ -->
-<section class="founder" aria-label="Über Fabian Schmidtke">
+<!-- ═══ ÜBER UNS / BENTO BOX ═══ -->
+<section class="founder" id="ueberuns" aria-label="Über uns">
     <div class="container">
-        <div class="founder-layout">
-            <div class="founder-img reveal">
-                <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH" style="width:100%; height:100%; object-fit:cover; border-radius:24px;">
-            </div>
-            <div class="founder-content reveal reveal-delay-1">
-                <span class="section-tag">Dein Ansprechpartner</span>
-                <h2>Fabian Schmidtke</h2>
-                <p>Seit 2016 helfe ich Selbstständigen und Unternehmen, über YouTube sichtbar zu werden und planbar Kunden zu gewinnen. <strong>Über 100 Unternehmen</strong> vertrauen bereits auf unsere Arbeit.</p>
-                <p>Heute gehe ich einen Schritt weiter: Denn YouTube-Videos sind nicht nur der stärkste Kanal für Vertrauensaufbau — sie sind auch <strong>das wichtigste Signal für KI-Systeme</strong>. ChatGPT, Gemini und Perplexity zitieren YouTube-Quellen bevorzugt.</p>
-                <p>Genau dieses Wissen nutzen wir jetzt, um dein Unternehmen zur <strong>ersten Empfehlung in KI-Antworten</strong> zu machen — mit YouTube, Pressearbeit und einer datenbasierten KI-Strategie.</p>
-                <div class="founder-quote">
-                    "Wer heute nicht in KI-Antworten auftaucht, verliert morgen seine Kunden an die, die es tun."
-                    <div class="founder-sig">— Fabian Schmidtke, Geschäftsführer</div>
-                </div>
-            </div>
+
+        <div class="founder-headline reveal">
+            <span class="section-tag">Über uns</span>
+            <h2>Dein neuer Auftritt?<br><span class="gold">Entsteht genau hier.</span></h2>
         </div>
 
-        <div class="team-images reveal">
-            <div class="team-img img-placeholder">
-                <span class="ph-icon">&#128247;</span>
-                <span class="ph-label">Team-Foto 1<br>z.B. Büro / Arbeitsplatz</span>
-                <!-- <img src="team-1.jpg" alt="Schmidtke GmbH Team bei der Arbeit"> -->
+        <div class="bento-grid">
+
+            <!-- KARTE 1: Büro in Rottweil (links oben) -->
+            <div class="bento-card bento-office reveal">
+                <div class="bento-office-photos">
+                    <div class="bento-photo">
+                        <img src="buero-1.jpg" alt="Schmidtke GmbH Loft-Büro Rottweil" loading="lazy">
+                    </div>
+                    <div class="bento-photo">
+                        <img src="buero-2.jpg" alt="Schmidtke GmbH Studio" loading="lazy">
+                    </div>
+                </div>
+                <h3>Im Loft-Büro in Rottweil</h3>
+                <p>Von hier aus betreuen wir Unternehmen, Dienstleister und Marken in ganz Baden-Württemberg und darüber hinaus. Komplett digital, persönlich und effizient.</p>
+                <p class="bento-subtle">Du willst vorbeischauen? Gerne — wir freuen uns auf deinen Besuch.</p>
             </div>
-            <div class="team-img img-placeholder">
-                <span class="ph-icon">&#128247;</span>
-                <span class="ph-label">Team-Foto 2<br>z.B. Video-Produktion</span>
-                <!-- <img src="team-2.jpg" alt="Video-Produktion bei Schmidtke GmbH"> -->
+
+            <!-- KARTE 2: Deutschland-Karte (rechts oben) -->
+            <div class="bento-card bento-map reveal reveal-delay-1">
+                <span class="bento-map-badge">100+ Unternehmen betreut</span>
+                <div class="bento-map-text">
+                    <h3>Von Rottweil aus —<br>persönlich, digital &amp;<br><span class="gold">messbar erfolgreich.</span></h3>
+                </div>
+                <img src="deutschland-karte.svg" alt="Deutschland-Karte mit Baden-Württemberg hervorgehoben" class="bento-map-svg" loading="lazy">
             </div>
-            <div class="team-img img-placeholder">
-                <span class="ph-icon">&#128247;</span>
-                <span class="ph-label">Team-Foto 3<br>z.B. Beratung / Workshop</span>
-                <!-- <img src="team-3.jpg" alt="Schmidtke GmbH Workshop mit Kunde"> -->
+
+            <!-- KARTE 3: Gründer-Foto (links unten) -->
+            <div class="bento-card bento-founder reveal">
+                <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH">
+                <div class="bento-founder-overlay">
+                    <h3>Fabian Schmidtke</h3>
+                    <p>Gründer &amp; Geschäftsführer</p>
+                </div>
             </div>
+
+            <!-- KARTE 4: Zitat + Fakten (rechts unten) -->
+            <div class="bento-card bento-quote reveal reveal-delay-1">
+                <blockquote>
+                    „Wer heute nicht in KI-Antworten auftaucht, verliert morgen seine Kunden an die, die es tun."
+                </blockquote>
+                <div class="bento-sig">— Fabian Schmidtke</div>
+
+                <div class="bento-stats">
+                    <div class="bento-stat">
+                        <div class="bento-stat-val gold">2016</div>
+                        <div class="bento-stat-lbl">Gegründet in<br>Rottweil</div>
+                    </div>
+                    <div class="bento-stat">
+                        <div class="bento-stat-val blue">100+</div>
+                        <div class="bento-stat-lbl">Betreute<br>Unternehmen</div>
+                    </div>
+                    <div class="bento-stat">
+                        <div class="bento-stat-val green">3</div>
+                        <div class="bento-stat-lbl">Kernbereiche: YouTube,<br>Presse &amp; KI</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- KARTE 5: Team-Fotos (volle Breite) -->
+            <div class="bento-team">
+                <div class="bento-team-photo reveal">
+                    <img src="team-1.jpg" alt="Schmidtke GmbH Team" loading="lazy">
+                </div>
+                <div class="bento-team-photo reveal reveal-delay-1">
+                    <img src="team-2.jpg" alt="Video-Produktion Schmidtke GmbH" loading="lazy">
+                </div>
+                <div class="bento-team-photo reveal reveal-delay-2">
+                    <img src="team-3.jpg" alt="Schmidtke GmbH Workshop" loading="lazy">
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -2166,59 +2804,139 @@
     <div class="container">
         <div class="services-header">
             <span class="section-tag reveal">Was dich erwartet</span>
-            <h2 class="reveal">Dein Fahrplan zur <span style="color: var(--blue-dark);">KI-Sichtbarkeit</span></h2>
-            <p class="sub reveal">Im Workshop entwickeln wir gemeinsam eine Strategie, die genau auf dein Unternehmen zugeschnitten ist. Hier ein Einblick, woran wir arbeiten.</p>
+            <h2 class="reveal">Meistere KI-Sichtbarkeit und werde zur <span style="color: var(--blue-dark);">#1 in deiner Branche</span></h2>
+            <p class="sub reveal">Im Workshop entwickeln wir gemeinsam eine Strategie, die genau auf dein Unternehmen zugeschnitten ist — damit KI dich empfiehlt.</p>
         </div>
 
-        <div class="services-grid">
-            <div class="service-card reveal reveal-delay-1">
-                <div class="service-icon">&#128269;</div>
-                <div>
-                    <h3>Standortbestimmung</h3>
-                    <p>Wo stehst du aktuell? Wir finden heraus, wie KI-Systeme dein Unternehmen heute wahrnehmen — und wo die größten Lücken sind.</p>
-                    <span class="service-tag">Ist-Zustand</span>
+        <div class="services-layout">
+
+            <!-- LINKS: Accordion -->
+            <div class="services-accordion reveal">
+
+                <div class="acc-item active" data-slide="0">
+                    <div class="acc-header">
+                        <span class="acc-num">01</span>
+                        <span class="acc-title">KI-Sichtbarkeitsanalyse: Wo stehst du?</span>
+                        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">Wir prüfen, wie ChatGPT, Gemini und Perplexity dein Unternehmen heute wahrnehmen. Du siehst schwarz auf weiß, wo du stehst — und wo deine Konkurrenz bereits sichtbar ist.</div>
+                    </div>
+                </div>
+
+                <div class="acc-item" data-slide="1">
+                    <div class="acc-header">
+                        <span class="acc-num">02</span>
+                        <span class="acc-title">Individuelle Strategie für deine Branche</span>
+                        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">Kein 08/15-Template. Du bekommst einen konkreten Maßnahmenplan mit den richtigen Hebeln — zugeschnitten auf deine Zielgruppe, dein Geschäftsmodell und die Signale, die KI-Systeme bevorzugen.</div>
+                    </div>
+                </div>
+
+                <div class="acc-item" data-slide="2">
+                    <div class="acc-header">
+                        <span class="acc-num">03</span>
+                        <span class="acc-title">Wettbewerbsvorteil sichern</span>
+                        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">Während deine Konkurrenz noch auf Google optimiert, positionierst du dich dort, wo die Zukunft der Kundengewinnung stattfindet. Wer jetzt handelt, sichert sich den First-Mover-Vorteil.</div>
+                    </div>
+                </div>
+
+                <div class="acc-item" data-slide="3">
+                    <div class="acc-header">
+                        <span class="acc-num">04</span>
+                        <span class="acc-title">Geförderte Umsetzung mit Begleitung</span>
+                        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">Der Workshop ist staatlich förderfähig — 50–80 % der Investition bekommst du zurück. Und du gehst nicht allein raus: Wir begleiten dich bei der Umsetzung, damit Ergebnisse nicht auf dem Papier bleiben.</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RECHTS: Wechselndes Visual -->
+            <div class="services-visual reveal reveal-delay-1">
+                <div class="services-img-wrap">
+
+                    <!-- Slide 0: Analyse-Dashboard -->
+                    <div class="services-img-slide active" data-index="0">
+                        <div class="svc-mock">
+                            <div class="svc-mock-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span style="margin-left:8px;">KI-Sichtbarkeitsanalyse</span>
+                            </div>
+                            <div class="svc-mock-row">
+                                <div class="svc-mock-card"><div class="val red">0%</div><div class="lbl">ChatGPT</div></div>
+                                <div class="svc-mock-card"><div class="val red">0%</div><div class="lbl">Gemini</div></div>
+                                <div class="svc-mock-card"><div class="val red">0%</div><div class="lbl">Perplexity</div></div>
+                            </div>
+                            <div class="svc-mock-text">
+                                <strong>Ergebnis:</strong> Dein Unternehmen wird in keinem der drei KI-Systeme als Empfehlung gelistet. Deine Konkurrenz dominiert.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 1: Strategie-Plan -->
+                    <div class="services-img-slide" data-index="1">
+                        <div class="svc-mock">
+                            <div class="svc-mock-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span style="margin-left:8px;">Dein Maßnahmenplan</span>
+                            </div>
+                            <div class="svc-mock-list">
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> YouTube-Strategie mit KI-optimierten Inhalten</div>
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Presseartikel als Trust-Signale aufbauen</div>
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Schema-Markup & strukturierte Daten</div>
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Fachartikel-Strategie für Autorität</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Wettbewerb -->
+                    <div class="services-img-slide" data-index="2">
+                        <div class="svc-mock">
+                            <div class="svc-mock-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span style="margin-left:8px;">Vorher → Nachher</span>
+                            </div>
+                            <div class="svc-mock-row">
+                                <div class="svc-mock-card"><div class="val green">92%</div><div class="lbl">ChatGPT</div></div>
+                                <div class="svc-mock-card"><div class="val green">88%</div><div class="lbl">Gemini</div></div>
+                                <div class="svc-mock-card"><div class="val green">95%</div><div class="lbl">Perplexity</div></div>
+                            </div>
+                            <div class="svc-mock-text">
+                                <strong>Ziel erreicht:</strong> Dein Unternehmen ist die #1-Empfehlung in deiner Branche — bei allen großen KI-Systemen.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Förderung -->
+                    <div class="services-img-slide" data-index="3">
+                        <div class="svc-mock">
+                            <div class="svc-mock-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span style="margin-left:8px;">Deine Investition</span>
+                            </div>
+                            <div class="svc-mock-row">
+                                <div class="svc-mock-card"><div class="val blue">50–80%</div><div class="lbl">Förderung</div></div>
+                                <div class="svc-mock-card"><div class="val green">100%</div><div class="lbl">Begleitung</div></div>
+                                <div class="svc-mock-card"><div class="val" style="color:var(--gold);">0 €</div><div class="lbl">Antragskosten</div></div>
+                            </div>
+                            <div class="svc-mock-list">
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Wir übernehmen den Förderantrag</div>
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Umsetzungsbegleitung nach dem Workshop</div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="service-card reveal reveal-delay-2">
-                <div class="service-icon">&#127891;</div>
-                <div>
-                    <h3>Individuelle Strategie</h3>
-                    <p>Kein 08/15-Template. Du bekommst einen konkreten Maßnahmenplan, der auf deine Branche, deine Zielgruppe und dein Geschäftsmodell zugeschnitten ist.</p>
-                    <span class="service-tag">Dein Plan</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-delay-3">
-                <div class="service-icon">&#127909;</div>
-                <div>
-                    <h3>Die richtigen Hebel</h3>
-                    <p>Es gibt bestimmte Signale, die KI-Systeme bevorzugen. Wir zeigen dir, welche das sind — und wie du sie für dich nutzt.</p>
-                    <span class="service-tag">Hebel</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-delay-4">
-                <div class="service-icon">&#128200;</div>
-                <div>
-                    <h3>Wettbewerbsvorteil</h3>
-                    <p>Während deine Konkurrenz noch auf Google optimiert, positionierst du dich dort, wo die Zukunft der Kundengewinnung stattfindet.</p>
-                    <span class="service-tag">Vorsprung</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-delay-1">
-                <div class="service-icon">&#128176;</div>
-                <div>
-                    <h3>Staatlich gefördert</h3>
-                    <p>Unser Workshop ist förderfähig — du bekommst 50–80 % der Investition vom Staat zurück. Wir kümmern uns um den Antrag.</p>
-                    <span class="service-tag">Förderung</span>
-                </div>
-            </div>
-            <div class="service-card reveal reveal-delay-2">
-                <div class="service-icon">&#128640;</div>
-                <div>
-                    <h3>Umsetzungsbegleitung</h3>
-                    <p>Du gehst nicht allein raus. Nach dem Workshop begleiten wir dich bei der Umsetzung — damit Ergebnisse nicht auf dem Papier bleiben.</p>
-                    <span class="service-tag">Begleitung</span>
-                </div>
-            </div>
+
         </div>
     </div>
 </section>
@@ -2272,10 +2990,8 @@
             </div>
 
             <div class="reveal reveal-delay-2" style="display: flex; flex-direction: column; gap: 20px; position: sticky; top: 120px;">
-                <div class="img-placeholder dark" style="width: 100%; aspect-ratio: 4/5; border-radius: 20px;">
-                    <span class="ph-icon">&#128247;</span>
-                    <span class="ph-label">Agentur-Foto<br>z.B. Studio / Set / Team bei Dreh</span>
-                    <!-- <img src="agentur-studio.jpg" alt="Schmidtke GmbH Agentur Studio"> -->
+                <div style="width: 100%; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden;">
+                    <img src="agentur-studio.jpg" alt="Schmidtke GmbH Agentur Studio" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
                 </div>
                 <div class="why-us-stats">
                     <div class="why-stat">
@@ -2306,22 +3022,18 @@
         <div class="cases-header">
             <span class="section-tag reveal">Fallstudien</span>
             <h2 class="reveal">Echte Ergebnisse. <span style="color: var(--gold);">Echte Kunden.</span></h2>
-            <p class="sub reveal">So haben Zahnärzte, Steuerberater und Coaches mit unserer Strategie ihre KI-Sichtbarkeit transformiert — von unsichtbar zur Top-Empfehlung.</p>
+            <p class="sub reveal">Von Handwerk über Zahnmedizin bis Coaching — so haben unsere Kunden mit der richtigen Strategie ihre digitale Sichtbarkeit transformiert.</p>
         </div>
 
         <div class="cases-grid">
             <div class="case-card reveal reveal-delay-1">
                 <div class="case-img">
-                    <!-- Ersetze mit echtem Bild: <img src="case-zahnarzt.jpg" alt="Zahnarztpraxis Zotzmann"> -->
-                    <div class="case-img-placeholder">
-                        <span class="case-emoji">&#129463;</span>
-                        <span>Zahnarztpraxis</span>
-                    </div>
+                    <img src="case-barwig.jpg" alt="Handwerker Barwig — YouTube-Erfolg mit ChatGPT" loading="lazy">
                 </div>
                 <div class="case-top">
-                    <span class="case-industry">Zahnarztpraxis</span>
-                    <h3>YouTube-Content macht Zahnarzt zur KI-Empfehlung</h3>
-                    <p>Eine Zahnarztpraxis für biologische Zahnmedizin hatte null digitale Sichtbarkeit. Durch gezielte YouTube-Videos mit SEO-Strategie wird sie heute von KI-Systemen als Experte in ihrer Region empfohlen — mit dauerhaft neuen Patientenanfragen.</p>
+                    <span class="case-industry">Handwerk</span>
+                    <h3>Handwerker Barwig: YouTube-Erfolg mit ChatGPT</h3>
+                    <p>Handwerker Barwig hatte keine digitale Präsenz — durch strategisch produzierte YouTube-Videos mit KI-gestützter Content-Strategie ist er heute in seiner Region die erste Anlaufstelle. ChatGPT empfiehlt ihn aktiv als Experten.</p>
                 </div>
                 <div class="case-metrics">
                     <div class="case-metric">
@@ -2341,45 +3053,37 @@
 
             <div class="case-card reveal reveal-delay-2">
                 <div class="case-img">
-                    <!-- Ersetze mit echtem Bild: <img src="case-steuerberater.jpg" alt="Steuerberater YouTube"> -->
-                    <div class="case-img-placeholder">
-                        <span class="case-emoji">&#128202;</span>
-                        <span>Steuerberatung</span>
-                    </div>
+                    <img src="case-zotzmann.jpg" alt="Zahnarzt Zotzmann — KI-Sichtbarkeit für Zahnarztpraxis" loading="lazy">
                 </div>
                 <div class="case-top">
-                    <span class="case-industry">Steuerberatung</span>
-                    <h3>Steuerberater wird KI-Quelle Nr. 1</h3>
-                    <p>Ein bekannter Steuerberater aus Süddeutschland nutzte gezielte YouTube-Videos zu Themen wie "Holding gründen" und "Steuern sparen", um von ChatGPT und Gemini als Experte zitiert zu werden — und genau die Mandanten zu gewinnen, die er will.</p>
+                    <span class="case-industry">Zahnarztpraxis</span>
+                    <h3>Zahnarzt Zotzmann: Von unsichtbar zur KI-Empfehlung</h3>
+                    <p>Zahnarzt Zotzmann aus Balingen hatte online kaum Sichtbarkeit. Durch gezielte Content-Strategie und YouTube-Präsenz wird seine Praxis heute von KI-Systemen als Experte für biologische Zahnmedizin empfohlen — mit dauerhaft neuen Patientenanfragen.</p>
                 </div>
                 <div class="case-metrics">
                     <div class="case-metric">
                         <div class="val">3</div>
-                        <div class="lbl">KI-Systeme zitieren ihn</div>
+                        <div class="lbl">KI-Systeme empfehlen ihn</div>
                     </div>
                     <div class="case-metric">
-                        <div class="val">+420%</div>
+                        <div class="val">+380%</div>
                         <div class="lbl">Sichtbarkeit</div>
                     </div>
                     <div class="case-metric">
-                        <div class="val">60min</div>
-                        <div class="lbl">Aufwand / Woche</div>
+                        <div class="val">#1</div>
+                        <div class="lbl">Region Balingen</div>
                     </div>
                 </div>
             </div>
 
             <div class="case-card reveal reveal-delay-3">
                 <div class="case-img">
-                    <!-- Ersetze mit echtem Bild: <img src="case-coaching.jpg" alt="B2B Coaching YouTube"> -->
-                    <div class="case-img-placeholder">
-                        <span class="case-emoji">&#127891;</span>
-                        <span>B2B Coaching</span>
-                    </div>
+                    <img src="case-boerner.jpg" alt="Benjamin Börner — Börner Lebenswerk" loading="lazy">
                 </div>
                 <div class="case-top">
-                    <span class="case-industry">B2B Coaching</span>
-                    <h3>3.295 Aufrufe in 24h — organisch</h3>
-                    <p>Ein B2B-Coach veröffentlichte strategisch produzierte Videos und erzielte damit innerhalb von 24 Stunden tausende organische Aufrufe. KI-Systeme greifen diese Inhalte als Quelle auf — ohne einen Euro Werbebudget.</p>
+                    <span class="case-industry">Coaching</span>
+                    <h3>Benjamin Börner: Börner Lebenswerk sichtbar gemacht</h3>
+                    <p>Benjamin Börner von Börner Lebenswerk wollte als Coach digital sichtbar werden. Mit strategisch aufgebautem Content und gezielter KI-Optimierung erzielt er heute organische Reichweite — ohne einen Euro Werbebudget.</p>
                 </div>
                 <div class="case-metrics">
                     <div class="case-metric">
@@ -2405,7 +3109,12 @@
     <div class="container">
         <div class="funding-card reveal">
             <div class="funding-seal">
-                <span class="funding-seal-text">&#128737;</span>
+                <!-- Bundesadler / Staatliches Siegel -->
+                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="30" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" fill="none"/>
+                    <path d="M32 8c-1.5 2-3 5-3 8 0 2 .5 3 1 4-2-1-5-2-8-2-2.5 0-4 .5-5 1.5 2 1 4 3 5 5 1 2 1.5 4 1.5 6-1.5-2-4-4-7-5-2-.5-3.5 0-4 1 2 2 3.5 4 4 6.5.5 2.5.5 4-.5 5.5 1.5 0 3-.5 5-2 2-1.5 3-3 3.5-4.5.5 2 1.5 4 3 5.5 1.5 1.5 3 2 4.5 2v5h2v-5c1.5 0 3-.5 4.5-2 1.5-1.5 2.5-3.5 3-5.5.5 1.5 1.5 3 3.5 4.5 2 1.5 3.5 2 5 2-1-1.5-1-3-.5-5.5.5-2.5 2-4.5 4-6.5-.5-1-1.5-1.5-4-1-3 1-5.5 3-7 5 0-2 .5-4 1.5-6 1-2 3-4 5-5-1-1-2.5-1.5-5-1.5-3 0-6 1-8 2 .5-1 1-2 1-4 0-3-1.5-6-3-8z" fill="rgba(52,211,153,0.7)"/>
+                    <circle cx="32" cy="38" r="3" fill="rgba(52,211,153,0.9)"/>
+                </svg>
             </div>
             <div class="funding-badge">&#9989; Staatlich geförderte Beratung</div>
             <h2>Du zahlst nur <span class="green">20–50 %</span><br>der Investition</h2>
@@ -2430,6 +3139,74 @@
             </div>
 
             <a href="formular.html" class="btn-primary">Erstgespräch vereinbaren &#8594;</a>
+
+            <!-- Trust Badges -->
+            <div class="trust-strip">
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">
+                        <!-- Bundesadler Siegel -->
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
+                            <path d="M20 6c-1 1.5-2 3.5-2 5.5 0 1.5.5 2.5 1 3.2-1.5-.8-3.5-1.5-5.5-1.5-1.8 0-3 .4-3.8 1.2 1.5.8 3 2.2 3.8 3.8.8 1.5 1 3 1 4.3-1.2-1.5-3-3-5.2-3.8-.8-.2-1.5 0-2 .5 1.5 1.5 2.5 3.2 3 4.8.3 1.5.3 3-.3 4 1 0 2.2-.3 3.7-1.5 1.5-1 2.2-2.2 2.7-3.3.3 1.5 1 3 2.2 4 1 1 2.2 1.5 3.4 1.5v3.5h1.5v-3.5c1.2 0 2.4-.5 3.4-1.5 1.2-1 1.9-2.5 2.2-4 .5 1.1 1.2 2.3 2.7 3.3 1.5 1.2 2.7 1.5 3.7 1.5-.6-1-.6-2.5-.3-4 .5-1.6 1.5-3.3 3-4.8-.5-.5-1.2-.7-2-.5-2.2.8-4 2.3-5.2 3.8 0-1.3.2-2.8 1-4.3.8-1.6 2.3-3 3.8-3.8-.8-.8-2-1.2-3.8-1.2-2 0-4 .7-5.5 1.5.5-.7 1-1.7 1-3.2 0-2-1-4-2-5.5z" fill="rgba(52,211,153,0.8)"/>
+                            <circle cx="20" cy="26.5" r="2" fill="rgba(52,211,153,1)"/>
+                        </svg>
+                    </div>
+                    <div class="trust-badge-text">
+                        <div class="trust-badge-title">Zertifizierter Berater</div>
+                        <div class="trust-badge-sub">Autorisiert für staatliche Förderprogramme</div>
+                    </div>
+                </div>
+
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">
+                        <!-- Schild / Geprüft -->
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
+                            <path d="M20 6L8 12v8c0 7.7 5.1 14.9 12 17 6.9-2.1 12-9.3 12-17v-8L20 6z" fill="rgba(52,211,153,0.15)" stroke="rgba(52,211,153,0.6)" stroke-width="1.2"/>
+                            <path d="M16 20l3 3 6-6" stroke="rgba(52,211,153,1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="trust-badge-text">
+                        <div class="trust-badge-title">Geprüfte Qualität</div>
+                        <div class="trust-badge-sub">100+ erfolgreiche Beratungsprojekte</div>
+                    </div>
+                </div>
+
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">
+                        <!-- Deutschland -->
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
+                            <rect x="8" y="11" width="24" height="6" rx="1" fill="rgba(255,255,255,0.25)"/>
+                            <rect x="8" y="17" width="24" height="6" rx="0" fill="rgba(230,47,31,0.4)"/>
+                            <rect x="8" y="23" width="24" height="6" rx="1" fill="rgba(212,165,116,0.5)"/>
+                        </svg>
+                    </div>
+                    <div class="trust-badge-text">
+                        <div class="trust-badge-title">Deutschlandweit tätig</div>
+                        <div class="trust-badge-sub">Förderung in allen 16 Bundesländern</div>
+                    </div>
+                </div>
+
+                <div class="trust-badge">
+                    <div class="trust-badge-icon">
+                        <!-- Urkunde / Zertifikat -->
+                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
+                            <rect x="10" y="7" width="20" height="26" rx="2" fill="rgba(52,211,153,0.1)" stroke="rgba(52,211,153,0.5)" stroke-width="1"/>
+                            <line x1="14" y1="13" x2="26" y2="13" stroke="rgba(52,211,153,0.6)" stroke-width="1.2"/>
+                            <line x1="14" y1="17" x2="26" y2="17" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
+                            <line x1="14" y1="21" x2="22" y2="21" stroke="rgba(52,211,153,0.4)" stroke-width="1"/>
+                            <circle cx="20" cy="28" r="3" fill="rgba(52,211,153,0.2)" stroke="rgba(52,211,153,0.7)" stroke-width="1"/>
+                            <path d="M18.5 30.5L18 34l2-1 2 1-.5-3.5" stroke="rgba(52,211,153,0.7)" stroke-width="0.8"/>
+                        </svg>
+                    </div>
+                    <div class="trust-badge-text">
+                        <div class="trust-badge-title">Seit 2016 am Markt</div>
+                        <div class="trust-badge-sub">Erfahrene Agentur mit Qualitätsanspruch</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -2461,7 +3238,7 @@
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">D</div>
                     <div>
-                        <div class="testimonial-name">Dr. Zotzmann</div>
+                        <div class="testimonial-name">Zahnarzt Zotzmann</div>
                         <div class="testimonial-role">Zahnarztpraxis · Balingen</div>
                     </div>
                 </div>
@@ -2571,6 +3348,25 @@
                 Jetzt Erstgespräch sichern &#8594;
             </a>
             <p style="margin-top: 16px; font-size: 14px; color: var(--text-muted);">Dauert nur 60 Sekunden. Kein Risiko.</p>
+        </div>
+
+        <div class="cta-trust-row reveal">
+            <div class="cta-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 7v5c0 5.5 3.4 10.7 8 12 4.6-1.3 8-6.5 8-12V7l-8-5z"/><path d="M9 12l2 2 4-4"/></svg>
+                Zertifizierte Beratungsagentur
+            </div>
+            <div class="cta-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0"/><path d="M2 10h4M18 10h4"/></svg>
+                50–80 % staatlich gefördert
+            </div>
+            <div class="cta-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                100+ betreute Unternehmen
+            </div>
+            <div class="cta-trust-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                Seit 2016 am Markt
+            </div>
         </div>
     </div>
 </section>
@@ -2725,6 +3521,50 @@
                 toggleMenu();
             }
         });
+    })();
+
+    // ══════════════════════════════════════════════════
+    // SERVICES SCROLL-ACCORDION
+    // ══════════════════════════════════════════════════
+    (function() {
+        const items = document.querySelectorAll('.acc-item');
+        const slides = document.querySelectorAll('.services-img-slide');
+        if (!items.length) return;
+
+        let currentActive = 0;
+
+        function setActive(idx) {
+            if (idx === currentActive) return;
+            currentActive = idx;
+            items.forEach((item, i) => {
+                item.classList.toggle('active', i === idx);
+            });
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === idx);
+            });
+        }
+
+        // Klick funktioniert weiterhin als Fallback
+        items.forEach((item, i) => {
+            item.querySelector('.acc-header').addEventListener('click', () => setActive(i));
+        });
+
+        // Scroll-basierte Aktivierung via IntersectionObserver
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const idx = parseInt(entry.target.getAttribute('data-slide'));
+                        setActive(idx);
+                    }
+                });
+            }, {
+                // Trigger wenn Item im oberen Drittel des Viewports ist
+                rootMargin: '-30% 0px -60% 0px',
+                threshold: 0
+            });
+            items.forEach(item => observer.observe(item));
+        }
     })();
 
     // ══════════════════════════════════════════════════
