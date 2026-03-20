@@ -1,0 +1,11 @@
+# Schmidtke GmbH – KI-Sichtbarkeit Landing Page
+# Ersetze DEINE-DOMAIN.de mit deiner echten Domain
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://DEINE-DOMAIN.de/sitemap.xml
+
+# Seiten die nicht indexiert werden sollen
+Disallow: /danke.html
