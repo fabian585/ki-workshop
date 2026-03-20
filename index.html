@@ -667,14 +667,14 @@
 
         /* ═══ PROOF BAR ═══ */
         .proof-bar {
-            padding: 24px 0;
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
+            padding: 40px 0;
+            background: #f8fafc;
+            border: none;
         }
-        .proof-bar .container { display: flex; align-items: center; justify-content: center; gap: 36px; flex-wrap: wrap; }
-        .proof-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text-secondary); }
-        .proof-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-        .proof-item strong { color: var(--white); font-weight: 700; }
+        .proof-bar .container { display: flex; align-items: center; justify-content: center; gap: 48px; flex-wrap: wrap; }
+        .proof-item { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #4B5563; }
+        .proof-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+        .proof-item strong { color: var(--navy); font-weight: 800; }
 
         /* ═══ SECTION COMMON ═══ */
         .section-tag {
@@ -1542,9 +1542,9 @@
             .hero-stat .label { font-size: 11px; }
 
             /* Proof Bar */
-            .proof-bar { padding: 16px 0; }
-            .proof-bar .container { gap: 16px; justify-content: center; }
-            .proof-item { font-size: 12px; }
+            .proof-bar { padding: 28px 0; }
+            .proof-bar .container { gap: 20px; justify-content: center; }
+            .proof-item { font-size: 13px; }
 
             /* Section Tags & Headers */
             .section-tag { font-size: 11px; }
@@ -1687,7 +1687,7 @@
             .case-metrics { grid-template-columns: 1fr; }
             .case-metric .val { font-size: 26px; }
             .funding-card { padding: 28px 16px; }
-            .proof-bar .container { flex-direction: column; gap: 8px; }
+            .proof-bar .container { flex-direction: column; gap: 10px; }
             .hero-stat .number { font-size: 24px; }
             .analyse-content { padding: 14px; }
             .analyse-user-bubble { font-size: 12px; padding: 8px 12px; }
@@ -2125,10 +2125,8 @@
 <section class="founder" aria-label="Über Fabian Schmidtke">
     <div class="container">
         <div class="founder-layout">
-            <div class="founder-img img-placeholder reveal">
-                <span class="ph-icon">&#128247;</span>
-                <span class="ph-label">Foto: Fabian Schmidtke<br>Gründer & Geschäftsführer</span>
-                <!-- <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH"> -->
+            <div class="founder-img reveal">
+                <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH" style="width:100%; height:100%; object-fit:cover; border-radius:24px;">
             </div>
             <div class="founder-content reveal reveal-delay-1">
                 <span class="section-tag">Dein Ansprechpartner</span>
