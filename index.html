@@ -417,6 +417,14 @@
             background: radial-gradient(circle, rgba(212, 165, 116, 0.08) 0%, rgba(59, 154, 232, 0.04) 40%, transparent 70%);
             pointer-events: none;
         }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(7, 22, 42, 0.85) 0%, rgba(7, 22, 42, 0.55) 35%, rgba(7, 22, 42, 0.1) 60%, transparent 80%);
+            pointer-events: none;
+            z-index: 0;
+        }
         #heroCanvas {
             position: absolute;
             inset: 0;
@@ -650,6 +658,12 @@
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(212, 165, 116, 0.12);
+            transform: scale(0.97);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+        .hero-stats.zoomed {
+            transform: scale(1);
         }
         .hero-stat {
             flex: 1;
@@ -1400,90 +1414,203 @@
         /* why-us responsive handled in main media queries below */
 
         /* ═══ FALLSTUDIEN (Case Studies) ═══ */
-        .cases { padding: 100px 0; background: #f8fafc; }
-        .cases-header { text-align: center; margin-bottom: 64px; }
-        .cases-header h2 { color: var(--navy); }
-        .cases-header .section-tag { color: var(--blue-dark); }
-        .cases-header .sub { color: #4B5563; max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
-        .cases-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+        .cases { padding: 100px 0; background: var(--navy); }
+        .cases-header { text-align: center; margin-bottom: 72px; }
+        .cases-header h2 { color: #ffffff; }
+        .cases-header .section-tag { color: var(--blue); }
+        .cases-header .sub { color: var(--text-secondary); max-width: 600px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .cases-grid { display: flex; flex-direction: column; gap: 32px; }
+
+        /* Full-width case card — Umsetzer style */
         .case-card {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            border-radius: 24px;
+            padding: 1.5px;
+            background: rgba(255,255,255,0.06);
+            perspective: 1200px;
         }
-        .case-card:hover { border-color: var(--blue-dark); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(7, 22, 42, 0.08); }
-        .case-top {
-            padding: 32px 36px 24px;
-            border-bottom: 1px solid #e2e8f0;
+        /* Border glow layer — sits behind inner-bg, visible through 1.5px gap */
+        .case-card-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .case-card:hover .case-card-border {
+            opacity: 1;
+        }
+        /* Inner card — 3D tilt + border glow reveal */
+        .case-card-inner-bg {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(145deg, #0c1a2e 0%, #101f33 100%);
+            border-radius: 23px;
+            overflow: hidden;
+            transition: transform 0.35s ease;
+            transform-style: preserve-3d;
+            will-change: transform;
+        }
+
+        /* Two-column inner layout */
+        .case-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 380px;
+        }
+
+        /* Left: Text content */
+        .case-content {
+            padding: 48px 48px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
         }
         .case-industry {
-            display: inline-block;
-            background: rgba(39, 125, 193, 0.08);
-            color: var(--blue-dark);
-            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(59,154,232,0.1);
+            color: var(--blue);
+            font-size: 12px;
             font-weight: 700;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
             text-transform: uppercase;
-            padding: 5px 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(59,154,232,0.15);
+            margin-bottom: 20px;
+            width: fit-content;
         }
-        .case-top h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; color: var(--navy); }
-        .case-top p { color: #4B5563; font-size: 14px; line-height: 1.7; }
-        .case-metrics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: #e2e8f0;
+        .case-content h3 {
+            font-size: clamp(22px, 2.5vw, 30px);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .case-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .case-bullets li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+        .case-bullets li .cb-check {
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .case-bullets li strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Metrics row inside card */
+        .case-metrics-row {
+            display: flex;
+            gap: 28px;
+            margin-top: auto;
         }
         .case-metric {
-            padding: 20px 16px;
-            text-align: center;
-            background: #ffffff;
+            text-align: left;
         }
         .case-metric .val {
             font-family: 'SK Modernist', sans-serif;
             font-size: 28px;
             font-weight: 800;
-            color: var(--blue-dark);
+            color: var(--gold);
             line-height: 1;
         }
         .case-metric .lbl {
-            font-size: 11px;
-            color: #6B7280;
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
             margin-top: 4px;
             line-height: 1.3;
         }
+
+        /* Right: Image */
         .case-img {
-            width: 100%;
-            height: 220px;
-            background: linear-gradient(135deg, #e2e8f0 0%, #f1f5f9 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
             overflow: hidden;
+            background: #0a1525;
         }
         .case-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s ease;
         }
-        .case-img-placeholder {
+        .case-card:hover .case-img img {
+            transform: scale(1.03);
+        }
+
+        /* Quote bar below card */
+        .case-quote {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            font-size: 13px;
-            z-index: 1;
+            gap: 20px;
+            padding: 28px 48px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            background: rgba(0,0,0,0.15);
         }
-        .case-img-placeholder .case-emoji {
-            font-size: 48px;
-            line-height: 1;
-            filter: grayscale(0.2);
+        .case-quote-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid rgba(212,165,116,0.3);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--navy);
+        }
+        .case-quote-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .case-quote-text {
+            flex: 1;
+        }
+        .case-quote-text blockquote {
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            font-style: italic;
+            line-height: 1.6;
+            margin: 0 0 6px;
+        }
+        .case-quote-text blockquote::before { content: '„'; color: var(--gold); font-weight: 700; }
+        .case-quote-text blockquote::after { content: '"'; color: var(--gold); font-weight: 700; }
+        .case-quote-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .case-quote-role {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
         }
 
         /* Problem visual illustration */
@@ -1853,7 +1980,9 @@
             .services-visual { position: relative; top: auto; }
             .why-us-layout { grid-template-columns: 1fr; gap: 36px; }
             /* Bento handled in its own media queries */
-            .cases-grid { grid-template-columns: 1fr; }
+            .case-inner { grid-template-columns: 1fr 1fr; }
+            .case-content { padding: 36px 32px 28px; }
+            .case-content h3 { font-size: 24px; }
             .problem-header { grid-template-columns: 1fr; gap: 16px; }
             .problem-grid { grid-template-columns: 1fr 1fr; }
             .problem-grid .problem-card:last-child { grid-column: 1 / -1; }
@@ -1983,16 +2112,18 @@
             .problem-visual-arrow { transform: rotate(90deg); }
 
             /* Case Studies */
-            .cases-grid { grid-template-columns: 1fr; gap: 16px; }
-            .case-img { height: 140px; }
-            .case-img-placeholder .case-emoji { font-size: 36px; }
-            .case-top { padding: 24px 20px 18px; }
-            .case-top h3 { font-size: 18px; }
-            .case-top p { font-size: 13px; }
-            .case-metrics { grid-template-columns: repeat(3, 1fr); }
-            .case-metric { padding: 14px 8px; }
-            .case-metric .val { font-size: 22px; }
-            .case-metric .lbl { font-size: 10px; }
+            .cases-grid { gap: 20px; }
+            .case-inner { grid-template-columns: 1fr; }
+            .case-img { min-height: 240px; }
+            .case-content { padding: 28px 24px 24px; }
+            .case-content h3 { font-size: 22px; }
+            .case-bullets li { font-size: 14px; }
+            .case-metrics-row { gap: 20px; }
+            .case-metric .val { font-size: 24px; }
+            .case-metric .lbl { font-size: 11px; }
+            .case-quote { padding: 20px 24px; gap: 14px; }
+            .case-quote-text blockquote { font-size: 13px; }
+            .case-card::before { width: 140px; height: 140px; }
 
             /* Funding */
             .funding-seal { width: 80px; height: 80px; }
@@ -2049,8 +2180,10 @@
             .solution-card { padding: 24px 18px; }
             .testimonial-card { padding: 22px 18px; }
             .why-us-stats { grid-template-columns: 1fr; }
-            .case-metrics { grid-template-columns: 1fr; }
-            .case-metric .val { font-size: 26px; }
+            .case-metrics-row { flex-wrap: wrap; gap: 16px; }
+            .case-metric .val { font-size: 22px; }
+            .case-content { padding: 24px 20px 20px; }
+            .case-quote { flex-direction: column; align-items: flex-start; padding: 20px; }
             .funding-card { padding: 28px 16px; }
             .proof-bar .container { flex-direction: column; gap: 10px; }
             .hero-stat .number { font-size: 24px; }
@@ -2386,26 +2519,10 @@
             <!-- RECHTE SEITE: VSL Video + Buttons -->
             <div class="hero-video reveal reveal-delay-2">
                 <div class="vsl-wrapper">
-                    <!-- ══════════════════════════════════════════════════
-                         WISTIA VIDEO EINBETTEN
-                         Ersetze DEINE-WISTIA-VIDEO-ID mit deiner echten ID
-                         ══════════════════════════════════════════════════ -->
-                    <!--
-                    <script src="https://fast.wistia.com/embed/medias/DEINE-WISTIA-VIDEO-ID.jsonp" async></script>
-                    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
-                    <div class="wistia_embed wistia_async_DEINE-WISTIA-VIDEO-ID" style="width:100%;aspect-ratio:16/9;"></div>
-                    -->
-
-                    <!-- YouTube (braucht Cookie-Consent) -->
-                    <!--
-                    <iframe data-cookieconsent="marketing" data-src="https://www.youtube-nocookie.com/embed/DEINE-VIDEO-ID" style="width:100%;aspect-ratio:16/9;border:none;border-radius:16px;" allowfullscreen loading="lazy"></iframe>
-                    -->
-
-                    <!-- Platzhalter bis Video eingebettet wird -->
-                    <div class="vsl-placeholder">
-                        <div class="vsl-play-btn">&#9654;</div>
-                        <p>Video-Platzhalter<br><span style="font-size: 13px; color: var(--text-muted);">Bette hier dein VSL ein</span></p>
-                    </div>
+                    <script src="https://fast.wistia.com/player.js" async></script>
+                    <script src="https://fast.wistia.com/embed/gey802nkza.js" async type="module"></script>
+                    <style>wistia-player[media-id='gey802nkza']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/gey802nkza/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+                    <wistia-player media-id="gey802nkza" seo="false" aspect="1.7777777777777777"></wistia-player>
                 </div>
                 <div class="hero-cta-row reveal reveal-delay-3">
                     <a href="formular.html" class="btn-primary">Kostenloses Erstgespräch vereinbaren &#8594;</a>
@@ -2415,7 +2532,7 @@
         </div>
 
         <!-- Stats unter dem Split -->
-        <div class="hero-stats reveal reveal-delay-4">
+        <div class="hero-stats" id="heroStats">
             <div class="hero-stat">
                 <div class="number">100+</div>
                 <div class="label">Unternehmen vertrauen<br>Schmidtke seit 2016</div>
@@ -2438,7 +2555,7 @@
     <div class="container">
         <div class="proof-item"><span class="proof-dot"></span> <strong>Seit 2016</strong> am Markt</div>
         <div class="proof-item"><span class="proof-dot"></span> <strong>100+</strong> betreute Unternehmen</div>
-        <div class="proof-item"><span class="proof-dot"></span> <strong>YouTube, Presse</strong> & KI-Strategie</div>
+        <div class="proof-item"><span class="proof-dot"></span> <strong>YouTube</strong> & KI-Strategie</div>
         <div class="proof-item"><span class="proof-dot"></span> <strong>Staatlich</strong> geförderte Beratung</div>
     </div>
 </div>
@@ -2605,7 +2722,7 @@
                     </svg>
                 </div>
                 <h3>Ohne Quellen keine<br>Empfehlung</h3>
-                <p>KI braucht Quellen: YouTube-Videos, Presseartikel, Fachartikel. Ohne diese Signale wirst du nie in KI-Antworten auftauchen — egal wie gut du bist.</p>
+                <p>KI braucht Quellen: YouTube-Videos, Fachartikel, Bewertungen. Ohne diese Signale wirst du nie in KI-Antworten auftauchen — egal wie gut du bist.</p>
             </div>
 
         </div>
@@ -2650,7 +2767,7 @@
                                 <span class="rank top">#1</span>
                                 <div class="result-info">
                                     <div class="company">Dein Wettbewerber A</div>
-                                    <div class="detail">Wird in 9 von 10 KI-Antworten empfohlen — starke YouTube-Präsenz, Presseartikel</div>
+                                    <div class="detail">Wird in 9 von 10 KI-Antworten empfohlen — starke YouTube-Präsenz, Trust-Signale</div>
                                 </div>
                                 <div class="result-bar-wrap"><div class="result-bar high"></div></div>
                             </div>
@@ -2776,8 +2893,8 @@
                         <div class="bento-stat-lbl">Betreute<br>Unternehmen</div>
                     </div>
                     <div class="bento-stat">
-                        <div class="bento-stat-val green">3</div>
-                        <div class="bento-stat-lbl">Kernbereiche: YouTube,<br>Presse &amp; KI</div>
+                        <div class="bento-stat-val green">2</div>
+                        <div class="bento-stat-lbl">Kernbereiche:<br>YouTube &amp; KI</div>
                     </div>
                 </div>
             </div>
@@ -2849,6 +2966,17 @@
                 <div class="acc-item" data-slide="3">
                     <div class="acc-header">
                         <span class="acc-num">04</span>
+                        <span class="acc-title">Klare Auswertung & Analyse-Report</span>
+                        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                    </div>
+                    <div class="acc-body">
+                        <div class="acc-body-inner">Nach dem Workshop erhältst du eine vollständige Auswertung: Wo stehst du bei ChatGPT, Gemini und Perplexity? Wo liegen die Lücken? Was sind die nächsten Schritte? Alles visualisiert, messbar und als konkreter Fahrplan aufbereitet.</div>
+                    </div>
+                </div>
+
+                <div class="acc-item" data-slide="4">
+                    <div class="acc-header">
+                        <span class="acc-num">05</span>
                         <span class="acc-title">Geförderte Umsetzung mit Begleitung</span>
                         <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                     </div>
@@ -2890,7 +3018,7 @@
                             </div>
                             <div class="svc-mock-list">
                                 <div class="svc-mock-list-item"><span class="check">&#10003;</span> YouTube-Strategie mit KI-optimierten Inhalten</div>
-                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Presseartikel als Trust-Signale aufbauen</div>
+                                <div class="svc-mock-list-item"><span class="check">&#10003;</span> Vertrauensquellen systematisch aufbauen</div>
                                 <div class="svc-mock-list-item"><span class="check">&#10003;</span> Schema-Markup & strukturierte Daten</div>
                                 <div class="svc-mock-list-item"><span class="check">&#10003;</span> Fachartikel-Strategie für Autorität</div>
                             </div>
@@ -2915,8 +3043,56 @@
                         </div>
                     </div>
 
-                    <!-- Slide 3: Förderung -->
+                    <!-- Slide 3: Auswertung / Analyse-Report -->
                     <div class="services-img-slide" data-index="3">
+                        <div class="svc-mock">
+                            <div class="svc-mock-bar">
+                                <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                                <span style="margin-left:8px;">Dein Analyse-Report</span>
+                            </div>
+                            <div style="padding: 16px 0 8px;">
+                                <svg viewBox="0 0 400 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+                                    <!-- Score Ring -->
+                                    <circle cx="70" cy="72" r="48" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="none"/>
+                                    <circle cx="70" cy="72" r="48" stroke="url(#scoreGrad)" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="220 302" transform="rotate(-90 70 72)"/>
+                                    <text x="70" y="68" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="sans-serif">73%</text>
+                                    <text x="70" y="84" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-size="8" font-family="sans-serif">KI-SCORE</text>
+                                    <!-- Bar Chart -->
+                                    <rect x="155" y="100" width="44" height="20" rx="3" fill="rgba(52,211,153,0.25)"/>
+                                    <rect x="155" y="100" width="38" height="20" rx="3" fill="#34D399"/>
+                                    <text x="160" y="114" fill="#0a1525" font-size="9" font-weight="700" font-family="sans-serif">ChatGPT</text>
+                                    <rect x="155" y="72" width="44" height="20" rx="3" fill="rgba(59,154,232,0.25)"/>
+                                    <rect x="155" y="72" width="30" height="20" rx="3" fill="#3B9AE8"/>
+                                    <text x="160" y="86" fill="#ffffff" font-size="9" font-weight="700" font-family="sans-serif">Gemini</text>
+                                    <rect x="155" y="44" width="44" height="20" rx="3" fill="rgba(212,165,116,0.25)"/>
+                                    <rect x="155" y="44" width="35" height="20" rx="3" fill="#D4A574"/>
+                                    <text x="160" y="58" fill="#0a1525" font-size="9" font-weight="700" font-family="sans-serif">Perplexity</text>
+                                    <text x="155" y="36" fill="rgba(255,255,255,0.35)" font-size="8" font-weight="600" font-family="sans-serif">SICHTBARKEIT PRO KI</text>
+                                    <!-- Checklist -->
+                                    <rect x="230" y="36" width="160" height="90" rx="10" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                                    <text x="246" y="54" fill="rgba(255,255,255,0.35)" font-size="8" font-weight="600" font-family="sans-serif">HANDLUNGSEMPFEHLUNGEN</text>
+                                    <circle cx="246" cy="72" r="5" fill="#34D399"/>
+                                    <text x="256" y="75" fill="rgba(255,255,255,0.7)" font-size="9" font-family="sans-serif">YouTube-Strategie starten</text>
+                                    <circle cx="246" cy="90" r="5" fill="#3B9AE8"/>
+                                    <text x="256" y="93" fill="rgba(255,255,255,0.7)" font-size="9" font-family="sans-serif">Trust-Signale aufbauen</text>
+                                    <circle cx="246" cy="108" r="5" fill="#D4A574"/>
+                                    <text x="256" y="111" fill="rgba(255,255,255,0.7)" font-size="9" font-family="sans-serif">Schema-Markup optimieren</text>
+                                    <!-- Bottom label -->
+                                    <rect x="0" y="145" width="400" height="32" rx="6" fill="rgba(52,211,153,0.08)"/>
+                                    <text x="200" y="165" text-anchor="middle" fill="#34D399" font-size="10" font-weight="700" font-family="sans-serif">&#10003;  Vollständige Auswertung nach dem Workshop — als PDF &amp; in der Präsentation</text>
+                                    <defs>
+                                        <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
+                                            <stop offset="0%" stop-color="#34D399"/>
+                                            <stop offset="100%" stop-color="#3B9AE8"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Förderung -->
+                    <div class="services-img-slide" data-index="4">
                         <div class="svc-mock">
                             <div class="svc-mock-bar">
                                 <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
@@ -2953,9 +3129,9 @@
         <div class="why-us-layout">
             <div class="why-us-content reveal">
                 <h3>Warum eine YouTube-Agentur der richtige Partner für KI-Sichtbarkeit ist</h3>
-                <p>KI-Systeme wie ChatGPT und Gemini brauchen <strong>vertrauenswürdige Quellen</strong>, um dich zu empfehlen. Die drei stärksten Signale? <strong>YouTube-Videos, Presseartikel und hochwertiger Content.</strong></p>
+                <p>KI-Systeme wie ChatGPT und Gemini brauchen <strong>vertrauenswürdige Quellen</strong>, um dich zu empfehlen. Die stärksten Signale? <strong>YouTube-Videos, Fachartikel und hochwertiger Content.</strong></p>
                 <p>Genau das machen wir seit Jahren. Als spezialisierte YouTube- und Video-Marketing-Agentur produzieren wir Content, der nicht nur Menschen überzeugt — sondern auch KI-Modelle dazu bringt, dich als Experten zu empfehlen.</p>
-                <p>Wir kombinieren das mit gezielter <strong>Pressearbeit</strong> und <strong>Content-Strategie</strong> — und liefern dir damit die drei entscheidenden Bausteine für KI-Dominanz.</p>
+                <p>Wir bauen systematisch <strong>Vertrauensquellen</strong> auf und kombinieren das mit einer klaren <strong>Content-Strategie</strong> — damit KI dich als Autorität in deiner Branche erkennt.</p>
 
                 <div class="why-us-points">
                     <div class="why-point">
@@ -2966,10 +3142,10 @@
                         </div>
                     </div>
                     <div class="why-point">
-                        <div class="point-icon press">&#128240;</div>
+                        <div class="point-icon press">&#128200;</div>
                         <div>
-                            <h4>Pressearbeit & Medien</h4>
-                            <p>Fachartikel in relevanten Medien — KI zitiert Pressequellen bevorzugt</p>
+                            <h4>Vertrauensquellen & Autorität</h4>
+                            <p>Systematischer Aufbau von Trust-Signalen — Fachartikel, Bewertungen, strukturierte Daten</p>
                         </div>
                     </div>
                     <div class="why-point">
@@ -3026,80 +3202,136 @@
         </div>
 
         <div class="cases-grid">
-            <div class="case-card reveal reveal-delay-1">
-                <div class="case-img">
-                    <img src="case-barwig.jpg" alt="Handwerker Barwig — YouTube-Erfolg mit ChatGPT" loading="lazy">
-                </div>
-                <div class="case-top">
-                    <span class="case-industry">Handwerk</span>
-                    <h3>Handwerker Barwig: YouTube-Erfolg mit ChatGPT</h3>
-                    <p>Handwerker Barwig hatte keine digitale Präsenz — durch strategisch produzierte YouTube-Videos mit KI-gestützter Content-Strategie ist er heute in seiner Region die erste Anlaufstelle. ChatGPT empfiehlt ihn aktiv als Experten.</p>
-                </div>
-                <div class="case-metrics">
-                    <div class="case-metric">
-                        <div class="val">600k+</div>
-                        <div class="lbl">YouTube-Aufrufe</div>
+
+            <!-- FALLSTUDIE 1: Handwerker Barwig -->
+            <div class="case-card reveal">
+                <div class="case-card-border"></div>
+                <div class="case-card-inner-bg">
+                    <div class="case-inner">
+                        <div class="case-content">
+                            <span class="case-industry">Handwerk</span>
+                            <h3>Handwerker Barwig:<br>YouTube-Erfolg mit ChatGPT</h3>
+                            <ul class="case-bullets">
+                                <li><span class="cb-check">&#10003;</span> <strong>600k+ YouTube-Aufrufe</strong> durch strategisch produzierte Videos mit KI-gestützter Content-Strategie</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>16.000+ Abonnenten</strong> aufgebaut — organisch, ohne Werbebudget</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>#1 KI-Empfehlung</strong> in seiner Region — ChatGPT empfiehlt ihn aktiv als Experten</li>
+                            </ul>
+                            <div class="case-metrics-row">
+                                <div class="case-metric">
+                                    <div class="val">600k+</div>
+                                    <div class="lbl">YouTube-Aufrufe</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">16k+</div>
+                                    <div class="lbl">Abonnenten</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">#1</div>
+                                    <div class="lbl">KI-Empfehlung</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="case-img">
+                            <img src="case-barwig.jpg" alt="Handwerker Barwig — YouTube-Erfolg mit ChatGPT" loading="lazy">
+                        </div>
                     </div>
-                    <div class="case-metric">
-                        <div class="val">16k+</div>
-                        <div class="lbl">Abonnenten</div>
-                    </div>
-                    <div class="case-metric">
-                        <div class="val">#1</div>
-                        <div class="lbl">KI-Empfehlung regional</div>
+                    <div class="case-quote">
+                        <div class="case-quote-avatar">B</div>
+                        <div class="case-quote-text">
+                            <blockquote>Ich hätte nie gedacht, dass YouTube mein Business so verändern kann. Heute rufen mich Kunden an, die mich über ChatGPT gefunden haben.</blockquote>
+                            <span class="case-quote-name">Handwerker Barwig</span>
+                            <span class="case-quote-role"> · Handwerksbetrieb</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="case-card reveal reveal-delay-2">
-                <div class="case-img">
-                    <img src="case-zotzmann.jpg" alt="Zahnarzt Zotzmann — KI-Sichtbarkeit für Zahnarztpraxis" loading="lazy">
-                </div>
-                <div class="case-top">
-                    <span class="case-industry">Zahnarztpraxis</span>
-                    <h3>Zahnarzt Zotzmann: Von unsichtbar zur KI-Empfehlung</h3>
-                    <p>Zahnarzt Zotzmann aus Balingen hatte online kaum Sichtbarkeit. Durch gezielte Content-Strategie und YouTube-Präsenz wird seine Praxis heute von KI-Systemen als Experte für biologische Zahnmedizin empfohlen — mit dauerhaft neuen Patientenanfragen.</p>
-                </div>
-                <div class="case-metrics">
-                    <div class="case-metric">
-                        <div class="val">3</div>
-                        <div class="lbl">KI-Systeme empfehlen ihn</div>
+            <!-- FALLSTUDIE 2: Zahnarzt Zotzmann -->
+            <div class="case-card reveal">
+                <div class="case-card-border"></div>
+                <div class="case-card-inner-bg">
+                    <div class="case-inner">
+                        <div class="case-content">
+                            <span class="case-industry">Zahnarztpraxis</span>
+                            <h3>Zahnarzt Zotzmann:<br>Von unsichtbar zur KI-Empfehlung</h3>
+                            <ul class="case-bullets">
+                                <li><span class="cb-check">&#10003;</span> <strong>3 KI-Systeme</strong> empfehlen ihn aktiv als Experten für biologische Zahnmedizin</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>+380 % Sichtbarkeit</strong> durch gezielte Content-Strategie und YouTube-Präsenz</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>#1 in Region Balingen</strong> — dauerhaft neue Patientenanfragen ohne Werbung</li>
+                            </ul>
+                            <div class="case-metrics-row">
+                                <div class="case-metric">
+                                    <div class="val">3</div>
+                                    <div class="lbl">KI-Systeme</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">+380%</div>
+                                    <div class="lbl">Sichtbarkeit</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">#1</div>
+                                    <div class="lbl">Region Balingen</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="case-img">
+                            <img src="case-zotzmann.jpg" alt="Zahnarzt Zotzmann — KI-Sichtbarkeit für Zahnarztpraxis" loading="lazy">
+                        </div>
                     </div>
-                    <div class="case-metric">
-                        <div class="val">+380%</div>
-                        <div class="lbl">Sichtbarkeit</div>
-                    </div>
-                    <div class="case-metric">
-                        <div class="val">#1</div>
-                        <div class="lbl">Region Balingen</div>
+                    <div class="case-quote">
+                        <div class="case-quote-avatar">Z</div>
+                        <div class="case-quote-text">
+                            <blockquote>Patienten sagen mir regelmäßig, dass sie mich über KI gefunden haben. Ohne die Schmidtke GmbH wäre das nie passiert.</blockquote>
+                            <span class="case-quote-name">Zahnarzt Zotzmann</span>
+                            <span class="case-quote-role"> · Zahnarztpraxis · Balingen</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="case-card reveal reveal-delay-3">
-                <div class="case-img">
-                    <img src="case-boerner.jpg" alt="Benjamin Börner — Börner Lebenswerk" loading="lazy">
-                </div>
-                <div class="case-top">
-                    <span class="case-industry">Coaching</span>
-                    <h3>Benjamin Börner: Börner Lebenswerk sichtbar gemacht</h3>
-                    <p>Benjamin Börner von Börner Lebenswerk wollte als Coach digital sichtbar werden. Mit strategisch aufgebautem Content und gezielter KI-Optimierung erzielt er heute organische Reichweite — ohne einen Euro Werbebudget.</p>
-                </div>
-                <div class="case-metrics">
-                    <div class="case-metric">
-                        <div class="val">3.295</div>
-                        <div class="lbl">Aufrufe in 24h</div>
+            <!-- FALLSTUDIE 3: Benjamin Börner -->
+            <div class="case-card reveal">
+                <div class="case-card-border"></div>
+                <div class="case-card-inner-bg">
+                    <div class="case-inner">
+                        <div class="case-content">
+                            <span class="case-industry">Coaching</span>
+                            <h3>Benjamin Börner:<br>Börner Lebenswerk sichtbar gemacht</h3>
+                            <ul class="case-bullets">
+                                <li><span class="cb-check">&#10003;</span> <strong>3.295 Aufrufe in 24h</strong> — rein organisch, ohne einen Euro Werbebudget</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>KI-Sichtbarkeit in 24h</strong> aufgebaut mit strategischem Content und KI-Optimierung</li>
+                                <li><span class="cb-check">&#10003;</span> <strong>Dauerhafte Reichweite</strong> als Coach — digital sichtbar ohne laufende Werbekosten</li>
+                            </ul>
+                            <div class="case-metrics-row">
+                                <div class="case-metric">
+                                    <div class="val">3.295</div>
+                                    <div class="lbl">Aufrufe in 24h</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">0 €</div>
+                                    <div class="lbl">Werbebudget</div>
+                                </div>
+                                <div class="case-metric">
+                                    <div class="val">24h</div>
+                                    <div class="lbl">bis KI-Sichtbarkeit</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="case-img">
+                            <img src="case-boerner.jpg" alt="Benjamin Börner — Börner Lebenswerk" loading="lazy">
+                        </div>
                     </div>
-                    <div class="case-metric">
-                        <div class="val">0 €</div>
-                        <div class="lbl">Werbebudget</div>
-                    </div>
-                    <div class="case-metric">
-                        <div class="val">24h</div>
-                        <div class="lbl">bis KI-Sichtbarkeit</div>
+                    <div class="case-quote">
+                        <div class="case-quote-avatar">B</div>
+                        <div class="case-quote-text">
+                            <blockquote>Vom ersten Tag an habe ich gemerkt: Hier arbeiten Profis, die genau wissen, was sie tun. Meine Reichweite hat sich komplett verändert.</blockquote>
+                            <span class="case-quote-name">Benjamin Börner</span>
+                            <span class="case-quote-role"> · Börner Lebenswerk</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -3674,6 +3906,53 @@
             }, { threshold: 0 });
             heroObs.observe(canvas.parentElement);
         }
+    })();
+
+    // ═══ HERO-STATS SCROLL ZOOM ═══
+    (function() {
+        const heroStats = document.getElementById('heroStats');
+        if (!heroStats) return;
+        const zoomObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    heroStats.classList.add('zoomed');
+                }
+            });
+        }, { threshold: 0.3 });
+        zoomObserver.observe(heroStats);
+    })();
+
+    // ═══ CASE CARD MOUSE-TRACKING BORDER GLOW + 3D TILT ═══
+    (function() {
+        const cards = document.querySelectorAll('.case-card');
+        if (!cards.length) return;
+
+        cards.forEach(card => {
+            const border = card.querySelector('.case-card-border');
+            const inner = card.querySelector('.case-card-inner-bg');
+            if (!border || !inner) return;
+
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const w = rect.width;
+                const h = rect.height;
+
+                // Border glow follows cursor
+                border.style.background = 'radial-gradient(400px circle at ' + x + 'px ' + y + 'px, rgba(59,154,232,0.8) 0%, rgba(59,154,232,0.2) 25%, transparent 55%)';
+
+                // 3D tilt — map mouse position to rotation
+                var rotateY = ((x / w) - 0.5) * 6;   // -3 to +3 degrees
+                var rotateX = ((y / h) - 0.5) * -4;   // -2 to +2 degrees
+                inner.style.transform = 'rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                border.style.background = '';
+                inner.style.transform = '';
+            });
+        });
     })();
 </script>
 
