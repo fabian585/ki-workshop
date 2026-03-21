@@ -38,7 +38,7 @@
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Rottweil",
-        "addressRegion": "Baden-Württemberg",
+        "addressRegion": "Baden-Württemberg (Büro in Rottweil — Kunden DACH-weit)",
         "addressCountry": "DE"
       },
       "aggregateRating": {
@@ -223,15 +223,17 @@
 
         /* ═══ TOPBAR – Förderung Highlight ═══ */
         .topbar {
-            background: linear-gradient(90deg, var(--green), #10B981);
-            color: #064E3B;
+            background: linear-gradient(90deg, #0a1e36, #0f2844);
+            color: rgba(255,255,255,0.85);
             text-align: center;
             padding: 13px 16px;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             letter-spacing: 0.3px;
+            border-bottom: 1px solid rgba(52,211,153,0.25);
         }
-        .topbar strong { font-weight: 800; }
+        .topbar strong { font-weight: 800; color: #fff; }
+        .topbar .highlight { font-weight: 900; color: var(--green); font-size: 15px; }
         .topbar .emoji { margin: 0 4px; }
 
         /* ═══ NAV ═══ */
@@ -493,6 +495,54 @@
         }
         @keyframes pulse-ring { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(2); } }
 
+        /* ═══ FOUND-IN ROTATOR ═══ */
+        .found-in {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.3px;
+        }
+        .found-in-label {
+            white-space: nowrap;
+        }
+        .found-in-carousel {
+            position: relative;
+            height: 26px;
+            overflow: hidden;
+        }
+        .found-in-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            white-space: nowrap;
+        }
+        .found-in-item.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .found-in-item svg,
+        .found-in-item img {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            border-radius: 5px;
+        }
+        .found-in-item .fi-name {
+            font-weight: 700;
+            color: rgba(255,255,255,0.85);
+            font-size: 15px;
+        }
+
         .hero h1 {
             font-family: 'SK Modernist', sans-serif;
             font-size: clamp(32px, 4.5vw, 56px);
@@ -581,7 +631,7 @@
             height: 38px;
             border-radius: 50%;
             border: 2px solid var(--navy);
-            margin-left: -10px;
+            margin-left: -14px;
             background: linear-gradient(135deg, var(--navy-card), var(--blue-dark));
             display: flex;
             align-items: center;
@@ -628,16 +678,16 @@
             justify-content: center;
             margin-top: 48px;
             max-width: 100%;
-            gap: 2px;
-            border-radius: 20px;
+            gap: 0;
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(212, 165, 116, 0.35);
+            border: 1px solid rgba(255,255,255,0.08);
             transform: scale(0.97);
             transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             will-change: transform;
-            background: rgba(212, 165, 116, 0.08);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
         .hero-stats.zoomed {
             transform: scale(1);
@@ -645,29 +695,29 @@
         .hero-stat {
             flex: 1;
             text-align: center;
-            padding: 28px 20px;
-            background: linear-gradient(180deg, rgba(212,165,116,0.14) 0%, rgba(212,165,116,0.06) 100%);
+            padding: 30px 20px;
+            background: transparent;
             position: relative;
         }
         .hero-stat + .hero-stat::before {
             content: '';
             position: absolute;
-            left: 0; top: 20%; height: 60%;
+            left: 0; top: 22%; height: 56%;
             width: 1px;
-            background: rgba(212, 165, 116, 0.3);
+            background: rgba(255,255,255,0.1);
         }
         .hero-stat .number {
             font-family: 'SK Modernist', sans-serif;
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 800;
-            color: var(--gold);
+            color: #fff;
             letter-spacing: -1px;
             line-height: 1;
         }
         .hero-stat .label {
             font-size: 12px;
-            color: rgba(255,255,255,0.85);
-            margin-top: 8px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 10px;
             line-height: 1.4;
         }
 
@@ -919,12 +969,13 @@
         .wb-icon {
             width: 52px; height: 52px; border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px; flex-shrink: 0;
+            flex-shrink: 0;
         }
-        .wb-icon.blue { background: rgba(39,125,193,0.1); }
-        .wb-icon.gold { background: rgba(212,165,116,0.12); }
-        .wb-icon.green { background: rgba(52,211,153,0.12); }
-        .wb-icon.red { background: rgba(230,47,31,0.08); }
+        .wb-icon svg { width: 26px; height: 26px; }
+        .wb-icon.blue { background: rgba(39,125,193,0.1); color: var(--blue); }
+        .wb-icon.gold { background: rgba(212,165,116,0.12); color: var(--gold); }
+        .wb-icon.green { background: rgba(52,211,153,0.12); color: var(--green); }
+        .wb-icon.red { background: rgba(230,47,31,0.08); color: var(--red); }
         .wb-text h4 { font-size: 19px; font-weight: 800; margin-bottom: 6px; color: var(--navy); }
         .wb-text p { color: #6B7280; font-size: 15px; line-height: 1.65; }
 
@@ -984,7 +1035,8 @@
             .workshop-intro-header { margin-bottom: 40px; }
             .workshop-layout { grid-template-columns: 1fr; gap: 28px; }
             .workshop-benefit { padding: 20px 18px; gap: 14px; }
-            .wb-icon { width: 44px; height: 44px; min-width: 44px; font-size: 20px; border-radius: 12px; }
+            .wb-icon { width: 44px; height: 44px; min-width: 44px; border-radius: 12px; }
+            .wb-icon svg { width: 22px; height: 22px; }
             .wb-text h4 { font-size: 17px; }
             .wb-text p { font-size: 14px; }
             .workshop-card { padding: 28px 20px; border-radius: 18px; }
@@ -1318,10 +1370,15 @@
             font-size: 13px;
         }
         .solution-card .icon {
-            font-size: 36px;
             margin-bottom: 20px;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px; height: 56px;
+            border-radius: 14px;
+            background: rgba(39,125,193,0.08);
         }
+        .solution-card .icon svg { width: 28px; height: 28px; color: var(--blue); }
         .solution-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--navy); }
         .solution-card p { color: #4B5563; font-size: 15px; line-height: 1.7; }
 
@@ -2438,6 +2495,81 @@
         .final-cta .benefit-tag .check { color: var(--green); font-weight: 800; }
 
 
+        /* ═══ URGENCY BLOCK ═══ */
+        .urgency-block {
+            padding: 56px 0;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .urgency-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(230,47,31,0.3), transparent);
+        }
+        .urgency-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        .urgency-icon-col {
+            flex-shrink: 0;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(230,47,31,0.1);
+            border: 1px solid rgba(230,47,31,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .urgency-icon-col svg {
+            width: 32px;
+            height: 32px;
+            color: var(--red);
+        }
+        .urgency-text-col h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .urgency-text-col h3 .gold { color: var(--gold); }
+        .urgency-text-col p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 16px;
+        }
+        .urgency-deadline {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        .urgency-deadline svg {
+            width: 14px;
+            height: 14px;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .urgency-block { padding: 40px 0; }
+            .urgency-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            .urgency-deadline { justify-content: center; }
+        }
+
         /* ═══ FOOTER ═══ */
         footer {
             padding: 48px 0 36px;
@@ -2475,7 +2607,7 @@
             /* General */
             .container { padding: 0 18px; }
             section, .problem, .analyse, .solution, .services,
-            .why-us, .cases, .funding, .testimonials, .faq, .final-cta,
+            .why-us, .cases, .funding, .testimonials, .faq, .urgency-block, .final-cta,
             .founder { padding: 64px 0; }
 
             /* Topbar */
@@ -2496,6 +2628,8 @@
             .hero-video .vsl-placeholder { font-size: 13px; }
             .hero-video .hero-cta-row { margin-top: 16px; }
             .hero-badge { font-size: 11px; padding: 8px 16px; margin-bottom: 12px; }
+            .found-in { font-size: 12px; margin-bottom: 12px; gap: 8px; }
+            .found-in-item .fi-name { font-size: 13px; }
             .hero h1 { font-size: clamp(24px, 7vw, 36px); margin-bottom: 10px; }
             .hero-sub { font-size: 14px; margin-bottom: 14px; max-width: 100%; }
             .hero-trust { display: none; }
@@ -2505,12 +2639,12 @@
             .btn-primary { font-size: 15px; padding: 16px 28px; width: 100%; text-align: center; justify-content: center; }
             .btn-secondary { font-size: 14px; padding: 14px 24px; width: 100%; text-align: center; }
             .btn-ghost { font-size: 14px; padding: 14px 24px; width: 100%; text-align: center; justify-content: center; border-color: rgba(255,255,255,0.2); }
-            .hero-stats { flex-direction: column; gap: 0; margin-top: 24px; border: 1px solid rgba(212,165,116,0.4); background: rgba(212,165,116,0.1); }
-            .hero-stat { padding: 20px 18px; background: linear-gradient(180deg, rgba(212,165,116,0.18) 0%, rgba(212,165,116,0.08) 100%); display: flex; align-items: center; gap: 14px; text-align: left; }
+            .hero-stats { flex-direction: column; gap: 0; margin-top: 24px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); }
+            .hero-stat { padding: 20px 18px; background: transparent; display: flex; align-items: center; gap: 14px; text-align: left; }
             .hero-stat + .hero-stat::before { display: none; }
-            .hero-stat + .hero-stat { border-top: 1px solid rgba(212,165,116,0.25); }
+            .hero-stat + .hero-stat { border-top: 1px solid rgba(255,255,255,0.06); }
             .hero-stat .number { font-size: 32px; min-width: 70px; }
-            .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.9); }
+            .hero-stat .label { font-size: 12px; color: rgba(255,255,255,0.5); }
 
             /* Proof Bar */
             .proof-bar { padding: 28px 0; }
@@ -2795,14 +2929,16 @@
         .bento-map-text {
             position: relative;
             z-index: 2;
-            max-width: 65%;
+            max-width: 58%;
         }
         .bento-map-text h3 {
-            font-size: 20px;
+            font-size: 19px;
             font-weight: 800;
             line-height: 1.35;
         }
         .bento-map-text .gold { color: var(--gold); }
+
+
         .bento-map-svg {
             position: absolute;
             bottom: -20px;
@@ -2954,7 +3090,7 @@
 
 <!-- ═══ TOPBAR ═══ -->
 <div class="topbar" role="banner">
-    <span class="emoji">&#9989;</span> <strong>Staatlich gefördert:</strong> 50–80 % der Kosten zurück – für Dienstleister, Berater, Coaches & Agenturen
+    <span class="emoji">&#9989;</span> <strong>Staatlich gefördert:</strong> <span class="highlight">50–80 %</span> der Kosten zurück – für Dienstleister, Berater, Coaches & Agenturen
 </div>
 
 <!-- ═══ NAV ═══ -->
@@ -3002,6 +3138,31 @@
                 <div class="hero-badge reveal">
                     <span class="pulse"></span>
                     50–80 % vom Staat gefördert
+                </div>
+                <div class="found-in reveal reveal-delay-1" id="foundInRotator">
+                    <span class="found-in-label">Werde gefunden in</span>
+                    <div class="found-in-carousel">
+                        <div class="found-in-item active">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8Y2lyY2xlIGN4PSI2IiBjeT0iNiIgcj0iMi4yIiBmaWxsPSIjNDI4NUY0Ii8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSI2IiByPSIyLjIiIGZpbGw9IiNFQTQzMzUiLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjIuMiIgZmlsbD0iI0ZCQkMwNSIvPgogIDxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjMzRBODUzIi8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjNDI4NUY0Ii8+CiAgPGNpcmNsZSBjeD0iMTgiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjRUE0MzM1Ii8+CiAgPGNpcmNsZSBjeD0iNiIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiNGQkJDMDUiLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiMzNEE4NTMiLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiM0Mjg1RjQiLz4KPC9zdmc+" alt="Google AI">
+                            <span class="fi-name">Google AI</span>
+                        </div>
+                        <div class="found-in-item">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzEwQTM3RiIvPgogIDxwYXRoIGQ9Ik0xMiA1LjVjLTEuOCAwLTMuNC45LTQuMyAyLjMtLjQtLjEtLjgtLjItMS4yLS4yQzQuNiA3LjYgMyA5LjIgMyAxMS4xYzAgMSAuNCAxLjkgMS4xIDIuNUM0IDEzLjkgNCAxNC4yIDQgMTQuNGMwIDEuOSAxLjYgMy41IDMuNSAzLjUuNCAwIC44LS4xIDEuMi0uMi45IDEuNCAyLjUgMi4zIDQuMyAyLjNzMy40LS45IDQuMy0yLjNjLjQuMS44LjIgMS4yLjIgMS45IDAgMy41LTEuNiAzLjUtMy41IDAtLjIgMC0uNS0uMS0uOC43LS42IDEuMS0xLjUgMS4xLTIuNSAwLTEuOS0xLjYtMy41LTMuNS0zLjUtLjQgMC0uOC4xLTEuMi4yLS45LTEuNC0yLjUtMi4zLTQuMy0yLjN6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHBhdGggZD0iTTEyIDh2NS41TTEyIDEzLjVsMy0xLjhNMTIgMTMuNWwtMy0xLjgiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=" alt="ChatGPT">
+                            <span class="fi-name">ChatGPT</span>
+                        </div>
+                        <div class="found-in-item">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiBmaWxsPSIjMUIxQjFCIi8+CiAgPHBhdGggZD0iTTEyIDN2OE0xMiAxMWw2LTVNMTIgMTFMNiA2IiBzdHJva2U9IiMyMkQzRUUiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNNiAxMXY3aDV2LTRoMnY0aDV2LTciIHN0cm9rZT0iIzIyRDNFRSIgc3Ryb2tlLXdpZHRoPSIxLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik00IDExaDE2IiBzdHJva2U9IiMyMkQzRUUiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+" alt="Perplexity">
+                            <span class="fi-name">Perplexity</span>
+                        </div>
+                        <div class="found-in-item">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ20xIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiM5QjcyQ0IiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRDk2NTcwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNMTIgMkMxMiAyIDE2IDcgMTYgMTJzLTQgMTAtNCAxMGMwIDAtNC01LTQtMTBTMTIgMiAxMiAyeiIgZmlsbD0idXJsKCNnbTEpIi8+CiAgPHBhdGggZD0iTTIgMTJjMCAwIDUtNCAxMC00czEwIDQgMTAgNGMwIDAtNSA0LTEwIDRTMiAxMiAyIDEyeiIgZmlsbD0idXJsKCNnbTEpIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+" alt="Gemini">
+                            <span class="fi-name">Gemini</span>
+                        </div>
+                        <div class="found-in-item">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiBmaWxsPSIjRDk3NzU3Ii8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMSIgcj0iNS41IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPGNpcmNsZSBjeD0iMTQuNSIgY3k9IjkuNSIgcj0iMS4yIiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPg==" alt="Claude">
+                            <span class="fi-name">Claude</span>
+                        </div>
+                    </div>
                 </div>
                 <h1 class="reveal reveal-delay-1">
                     Dein Business in<br>
@@ -3245,36 +3406,36 @@
     <div class="container">
         <div class="workshop-intro-header">
             <span class="section-tag reveal">Die Lösung</span>
-            <h2 class="reveal">Der <span style="color: var(--blue);">KI-Sichtbarkeits-Workshop</span> — dein Fahrplan nach vorn</h2>
-            <p class="sub reveal">Ein intensiver Workshop, in dem wir gemeinsam analysieren, wo du stehst — und eine klare Strategie entwickeln, damit ChatGPT, Gemini & Co. dich als Experten empfehlen.</p>
+            <h2 class="reveal">Der <span style="color: var(--blue);">KI-Sichtbarkeits-Workshop</span> — in 90 Tagen zur KI-Empfehlung</h2>
+            <p class="sub reveal">Wir analysieren gemeinsam, wo du stehst, decken die Lücken auf und bauen dein Unternehmen so auf, dass ChatGPT, Gemini & Co. dich als Experten empfehlen.</p>
         </div>
 
         <div class="workshop-layout">
             <!-- Links: Was du bekommst -->
             <div class="workshop-benefits">
                 <div class="workshop-benefit reveal">
-                    <div class="wb-icon blue">&#128269;</div>
+                    <div class="wb-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
                     <div class="wb-text">
                         <h4>KI-Sichtbarkeitsanalyse</h4>
                         <p>Wir prüfen live, wie ChatGPT, Gemini und Perplexity dich und deine Wettbewerber aktuell bewerten — mit konkreten Ergebnissen.</p>
                     </div>
                 </div>
                 <div class="workshop-benefit reveal reveal-delay-1">
-                    <div class="wb-icon gold">&#128204;</div>
+                    <div class="wb-icon gold"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
                     <div class="wb-text">
                         <h4>Individuelle Strategie</h4>
                         <p>Kein Standardvortrag — du bekommst einen Maßnahmenplan, der exakt auf dein Unternehmen, deine Branche und deine Zielgruppe zugeschnitten ist.</p>
                     </div>
                 </div>
                 <div class="workshop-benefit reveal reveal-delay-2">
-                    <div class="wb-icon green">&#128640;</div>
+                    <div class="wb-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
                     <div class="wb-text">
                         <h4>Umsetzungsbegleitung</h4>
                         <p>Du wirst nicht allein gelassen. Nach dem Workshop begleiten wir dich bei den ersten Schritten zur Umsetzung — Vertrauensquellen, YouTube, Content.</p>
                     </div>
                 </div>
                 <div class="workshop-benefit reveal reveal-delay-3">
-                    <div class="wb-icon red">&#127891;</div>
+                    <div class="wb-icon red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                     <div class="wb-text">
                         <h4>Für Unternehmer & Teams</h4>
                         <p>Ob Selbstständige, Geschäftsführer oder Marketing-Teams — der Workshop ist so aufgebaut, dass jeder sofort versteht, was zu tun ist.</p>
@@ -3394,20 +3555,20 @@
         <div class="solution-grid">
             <div class="solution-card reveal reveal-delay-1">
                 <span class="step-num">1</span>
-                <span class="icon">&#128222;</span>
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.81.36 1.6.68 2.35a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.75.32 1.54.55 2.35.68A2 2 0 0 1 22 16.92z"/></svg></span>
                 <h3>Erstgespräch</h3>
                 <p>In einem kurzen Telefonat (15–20 Min.) lernen wir dein Business kennen und klären, ob KI-Sichtbarkeit für dich relevant ist.</p>
             </div>
             <div class="solution-card reveal reveal-delay-2">
                 <span class="step-num">2</span>
-                <span class="icon">&#128187;</span>
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><circle cx="12" cy="10" r="0" fill="currentColor"><animate attributeName="r" values="0;2;0" dur="2s" repeatCount="indefinite"/></circle></svg></span>
                 <h3>Strategiegespräch per Zoom</h3>
                 <p>Im ausführlichen Zoom-Call (60–90 Min.) schauen wir uns deine aktuelle Situation an, zeigen dir die Potenziale und besprechen den besten Weg nach vorn.</p>
             </div>
             <div class="solution-card reveal reveal-delay-3">
                 <span class="step-num">3</span>
-                <span class="icon">&#127891;</span>
-                <h3>Workshop & Fahrplan</h3>
+                <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+                <h3>Workshop & Umsetzung</h3>
                 <p>Im intensiven Workshop bekommst du eine detaillierte Analyse und einen individuellen Fahrplan — zugeschnitten auf dein Unternehmen, deine Branche und deine Ziele.</p>
             </div>
         </div>
@@ -3508,18 +3669,18 @@
                         <img src="buero-2.jpg" alt="Schmidtke GmbH Studio" loading="lazy">
                     </div>
                 </div>
-                <h3>Im Loft-Büro in Rottweil</h3>
-                <p>Von hier aus betreuen wir Unternehmen, Dienstleister und Marken in ganz Baden-Württemberg und darüber hinaus. Komplett digital, persönlich und effizient.</p>
-                <p class="bento-subtle">Du willst vorbeischauen? Gerne — wir freuen uns auf deinen Besuch.</p>
+                <h3>Unser Büro liegt in Rottweil im Schwarzwald — unsere Kunden im gesamten DACH-Raum</h3>
+                <p>Von Rottweil aus betreuen wir Unternehmen in ganz Deutschland, Österreich und der Schweiz. Digitale Prozesse und persönliche Beratung — als säßen wir direkt nebenan.</p>
+                <p class="bento-subtle">Du willst trotzdem vorbeischauen? Gerne — wir freuen uns auf deinen Besuch.</p>
             </div>
 
             <!-- KARTE 2: Deutschland-Karte (rechts oben) -->
             <div class="bento-card bento-map reveal reveal-delay-1">
-                <span class="bento-map-badge">100+ Unternehmen betreut</span>
+                <span class="bento-map-badge">DACH-weit aktiv</span>
                 <div class="bento-map-text">
-                    <h3>Von Rottweil aus —<br>persönlich, digital &amp;<br><span class="gold">messbar erfolgreich.</span></h3>
+                    <h3>100+ Kunden —<br>digital &amp; <span class="gold">messbar<br>erfolgreich.</span></h3>
                 </div>
-                <img src="deutschland-karte.svg" alt="Deutschland-Karte mit Baden-Württemberg hervorgehoben" class="bento-map-svg" loading="lazy">
+                <img src="deutschland-karte.svg" alt="DACH-Karte — Schmidtke GmbH Kunden in Deutschland, Österreich und der Schweiz" class="bento-map-svg" loading="lazy">
             </div>
 
             <!-- KARTE 3: Gründer-Foto (links unten) -->
@@ -3545,11 +3706,11 @@
                     </div>
                     <div class="bento-stat">
                         <div class="bento-stat-val blue">100+</div>
-                        <div class="bento-stat-lbl">Betreute<br>Unternehmen</div>
+                        <div class="bento-stat-lbl">Kunden im<br>DACH-Raum</div>
                     </div>
                     <div class="bento-stat">
-                        <div class="bento-stat-val green">2</div>
-                        <div class="bento-stat-lbl">Kernbereiche:<br>YouTube &amp; KI</div>
+                        <div class="bento-stat-val green">100%</div>
+                        <div class="bento-stat-lbl">Digital &amp;<br>ortsunabhängig</div>
                     </div>
                 </div>
             </div>
@@ -3811,24 +3972,24 @@
                 <!-- Channel Rows -->
                 <div class="yt-channels">
                     <div class="yt-channel-row">
-                        <div class="yt-channel-name">Handwerk & Bau</div>
-                        <div class="yt-channel-views">2,4 Mio</div>
+                        <div class="yt-channel-name">Gesundheit & Praxen</div>
+                        <div class="yt-channel-views">4 Mio</div>
                         <div class="yt-channel-bar-wrap"><div class="yt-channel-bar red" data-width="100%"></div></div>
                     </div>
                     <div class="yt-channel-row">
-                        <div class="yt-channel-name">Gesundheit & Praxen</div>
-                        <div class="yt-channel-views">1,8 Mio</div>
-                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar blue" data-width="75%"></div></div>
+                        <div class="yt-channel-name">Handwerk & Bau</div>
+                        <div class="yt-channel-views">2,8 Mio</div>
+                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar blue" data-width="70%"></div></div>
                     </div>
                     <div class="yt-channel-row">
-                        <div class="yt-channel-name">Coaching & Beratung</div>
-                        <div class="yt-channel-views">1,1 Mio</div>
-                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar gold" data-width="46%"></div></div>
+                        <div class="yt-channel-name">Immobilien</div>
+                        <div class="yt-channel-views">900k+</div>
+                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar gold" data-width="23%"></div></div>
                     </div>
                     <div class="yt-channel-row">
                         <div class="yt-channel-name">Weitere Branchen</div>
-                        <div class="yt-channel-views">700k+</div>
-                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar green" data-width="29%"></div></div>
+                        <div class="yt-channel-views">2,3 Mio</div>
+                        <div class="yt-channel-bar-wrap"><div class="yt-channel-bar green" data-width="58%"></div></div>
                     </div>
                 </div>
             </div>
@@ -4370,6 +4531,25 @@
     </div>
 </section>
 
+<!-- ═══ URGENCY BLOCK ═══ -->
+<section class="urgency-block" id="urgencyBlock" aria-label="Begrenzte Plätze">
+    <div class="container">
+        <div class="urgency-inner reveal">
+            <div class="urgency-icon-col">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="urgency-text-col">
+                <h3>Begrenzte <span class="gold">Förderplätze</span> pro Monat</h3>
+                <p>Aufgrund der staatlichen Förderrichtlinien können wir pro Berater nur eine begrenzte Anzahl an Unternehmen im Monat betreuen. Die Förderung gilt nur noch bis Ende 2026 — danach entfällt der staatliche Zuschuss von 50–80 %.</p>
+                <div class="urgency-deadline">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Förderung endet: 31. Dezember 2026
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ═══ FINAL CTA ═══ -->
 <section class="final-cta" id="kontakt" aria-label="Jetzt starten">
     <div class="container">
@@ -4750,6 +4930,20 @@
             }, { threshold: 0 });
             heroObs.observe(canvas.parentElement);
         }
+    })();
+
+    // ═══ FOUND-IN ROTATOR ═══
+    (function() {
+        const rotator = document.getElementById('foundInRotator');
+        if (!rotator) return;
+        const items = rotator.querySelectorAll('.found-in-item');
+        if (items.length < 2) return;
+        let current = 0;
+        setInterval(function() {
+            items[current].classList.remove('active');
+            current = (current + 1) % items.length;
+            items[current].classList.add('active');
+        }, 2800);
     })();
 
     // ═══ HERO-STATS SCROLL ZOOM + COUNT-UP ═══
