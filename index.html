@@ -1053,7 +1053,7 @@
         }
         .qualify-card.no {
             background: #ffffff;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(230,47,31,0.2);
         }
         .qualify-card-header {
             display: flex; align-items: center; gap: 14px;
@@ -1061,14 +1061,14 @@
             border-bottom: 1px solid #f1f5f9;
         }
         .qualify-card.yes .qualify-card-header { border-color: rgba(52,211,153,0.2); }
-        .qualify-card.no .qualify-card-header { border-color: #f1f5f9; }
+        .qualify-card.no .qualify-card-header { border-color: rgba(230,47,31,0.12); }
         .qualify-icon {
             width: 48px; height: 48px; border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
             font-size: 22px; flex-shrink: 0;
         }
-        .qualify-card.yes .qualify-icon { background: rgba(52,211,153,0.12); }
-        .qualify-card.no .qualify-icon { background: rgba(230,47,31,0.06); }
+        .qualify-card.yes .qualify-icon { background: rgba(52,211,153,0.15); color: #059669; }
+        .qualify-card.no .qualify-icon { background: rgba(230,47,31,0.1); color: #dc2626; }
         .qualify-card-title { font-size: 22px; font-weight: 800; }
         .qualify-card.yes .qualify-card-title { color: #059669; }
         .qualify-card.no .qualify-card-title { color: #dc2626; }
@@ -1084,8 +1084,8 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
         }
-        .qualify-card.yes .qualify-check { background: rgba(52,211,153,0.12); color: #059669; }
-        .qualify-card.no .qualify-check { background: rgba(230,47,31,0.06); color: #dc2626; }
+        .qualify-card.yes .qualify-check { background: rgba(52,211,153,0.18); color: #059669; font-weight: 800; }
+        .qualify-card.no .qualify-check { background: rgba(230,47,31,0.12); color: #dc2626; font-weight: 800; }
 
         @media (max-width: 768px) {
             .qualify { padding: 64px 0; }
@@ -2275,6 +2275,74 @@
         .funding-step h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
         .funding-step p { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
 
+        /* Förder-Zielgruppe: Wer wird gefördert / wer nicht */
+        .funding-elig-heading {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .funding-eligibility {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .funding-elig-col {
+            padding: 28px;
+            border-radius: 18px;
+        }
+        .funding-elig-col.yes {
+            background: rgba(52,211,153,0.12);
+            border: 2px solid rgba(52,211,153,0.35);
+        }
+        .funding-elig-col.no {
+            background: rgba(230,47,31,0.08);
+            border: 2px solid rgba(230,47,31,0.25);
+        }
+        .funding-elig-title {
+            font-size: 18px; font-weight: 800;
+            margin-bottom: 18px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .funding-elig-title .fe-title-icon {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; font-weight: 800; flex-shrink: 0;
+        }
+        .funding-elig-col.yes .fe-title-icon { background: rgba(52,211,153,0.2); color: var(--green); }
+        .funding-elig-col.no .fe-title-icon { background: rgba(230,47,31,0.15); color: #ef4444; }
+        .funding-elig-col.yes .funding-elig-title { color: var(--green); }
+        .funding-elig-col.no .funding-elig-title { color: #ef4444; }
+        .funding-elig-list {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .funding-elig-list li {
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 15px; line-height: 1.6;
+            color: rgba(255,255,255,0.75);
+        }
+        .funding-elig-list li .fe-icon {
+            width: 22px; height: 22px; min-width: 22px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 800;
+            flex-shrink: 0; margin-top: 2px;
+        }
+        .funding-elig-col.yes .fe-icon { background: rgba(52,211,153,0.18); color: var(--green); }
+        .funding-elig-col.no .fe-icon { background: rgba(230,47,31,0.12); color: #ef4444; }
+        @media (max-width: 768px) {
+            .funding-eligibility { grid-template-columns: 1fr; gap: 16px; }
+            .funding-elig-col { padding: 24px 20px; }
+            .funding-elig-title { font-size: 16px; }
+            .funding-elig-list li { font-size: 14px; }
+            .funding-elig-heading { font-size: 18px; }
+        }
+
         /* ═══ SOCIAL PROOF ═══ */
         .testimonials { padding: 100px 0; background: #ffffff; }
         .testimonials-header { text-align: center; margin-bottom: 64px; }
@@ -2450,7 +2518,8 @@
             .hero h1 { font-size: clamp(24px, 7vw, 36px); margin-bottom: 10px; }
             .hero-sub { font-size: 14px; margin-bottom: 14px; max-width: 100%; }
             .hero-trust { display: none; }
-            .hero-content .trustmarkt-widget { display: none; }
+            /* Widget: im hero-content verstecken, per JS unter Buttons verschoben */
+            .hero-widget-wrap { display: none; }
             .hero-cta-row { flex-direction: column; align-items: stretch; width: 100%; }
             .btn-primary { font-size: 15px; padding: 16px 28px; width: 100%; text-align: center; justify-content: center; }
             .btn-secondary { font-size: 14px; padding: 14px 24px; width: 100%; text-align: center; }
@@ -2511,15 +2580,35 @@
 
             /* Founder Bento – handled in section media queries */
 
-            /* Services Scroll-Accordion */
-            .services-layout { grid-template-columns: 1fr; gap: 24px; }
-            .services-visual { position: relative; top: auto; order: -1; z-index: 2; }
-            .services-img-wrap { aspect-ratio: 16/10; }
+            /* Services Scroll-Accordion — Mobile: Visual inline unter Text */
+            .services { padding: 64px 0 40px; }
+            .services-header { margin-bottom: 48px; }
+            .services-layout { grid-template-columns: 1fr; gap: 0; }
+            .services-visual { display: none; }
             .acc-item { min-height: auto; }
-            .acc-item:last-child { padding-bottom: 40px; }
+            .acc-item:last-child { padding-bottom: 20px; border-bottom: 1px solid #e2e8f0; }
             .acc-title { font-size: 17px; }
-            .acc-body-inner { font-size: 15px; }
-            .acc-item.active .acc-body-inner { padding: 0 0 24px 60px; }
+            .acc-body-inner { font-size: 14px; padding: 0 0 0 54px; }
+            .acc-item.active .acc-body-inner { padding: 0 0 8px 54px; }
+            .acc-num { width: 36px; height: 36px; font-size: 13px; }
+            .acc-header { padding: 22px 0; gap: 16px; }
+            /* Inline-Visual unter jedem Item */
+            .acc-inline-visual {
+                display: none;
+                margin: 0 0 20px;
+                border-radius: 14px;
+                overflow: hidden;
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                box-shadow: 0 8px 24px rgba(7,22,42,0.06);
+                padding: 20px;
+            }
+            .acc-item.active .acc-inline-visual { display: block; }
+            .acc-inline-visual .svc-mock-card .val { font-size: 20px; }
+            .acc-inline-visual .svc-mock-row { gap: 8px; grid-template-columns: 1fr 1fr 1fr; }
+            .acc-inline-visual .svc-mock-bar { font-size: 12px; padding: 10px 14px; }
+            .acc-inline-visual .svc-mock-text { font-size: 13px; padding: 12px 16px; }
+            .acc-inline-visual .svc-mock-list-item { font-size: 13px; padding: 10px 14px; }
             .svc-mock-card .val { font-size: 22px; }
             .svc-mock-row { gap: 8px; }
 
@@ -2953,7 +3042,7 @@
                 </div>
 
                 <!-- Agenturmarkt Trust-Widget -->
-                <div class="reveal reveal-delay-4" style="margin-top: 20px;">
+                <div class="hero-widget-wrap reveal reveal-delay-4" style="margin-top: 20px;">
                     <div class="trustmarkt-widget" data-company-id="K4QBMeN0lxDb0xdXP9GL" data-widget-id="e4GWL1zP2MlX8EmRgqQa" style="height: 115px;"><a rel="nofollow" href="https://agenturmarkt.de/agentur/schmidtke-gmbh-rottweil" aria-label="Agenturmarkt Profil von Schmidtke GmbH"></a></div>
                 </div>
             </div>
@@ -4066,6 +4155,28 @@
                 </div>
             </div>
 
+            <!-- Wer wird gefördert / wer nicht -->
+            <h4 class="funding-elig-heading">Bist du förderfähig?</h4>
+            <div class="funding-eligibility">
+                <div class="funding-elig-col yes">
+                    <div class="funding-elig-title"><span class="fe-title-icon">&#10003;</span> Wer wird gefördert?</div>
+                    <ul class="funding-elig-list">
+                        <li><span class="fe-icon">&#10003;</span> KMU &amp; Freiberufler der gewerblichen Wirtschaft</li>
+                        <li><span class="fe-icon">&#10003;</span> Sitz und Geschäftsbetrieb in Deutschland</li>
+                        <li><span class="fe-icon">&#10003;</span> Mind. 2 Jahre aktiv am Markt</li>
+                        <li><span class="fe-icon">&#10003;</span> Weniger als 250 Beschäftigte, max. 50 Mio. € Umsatz</li>
+                    </ul>
+                </div>
+                <div class="funding-elig-col no">
+                    <div class="funding-elig-title"><span class="fe-title-icon">&#10007;</span> Nicht förderfähig</div>
+                    <ul class="funding-elig-list">
+                        <li><span class="fe-icon">&#10007;</span> Steuerberater, Wirtschaftsprüfer, Notare, Rechtsanwälte</li>
+                        <li><span class="fe-icon">&#10007;</span> Vereine, Stiftungen, gemeinnützige Organisationen</li>
+                        <li><span class="fe-icon">&#10007;</span> Unternehmen in Insolvenzverfahren</li>
+                    </ul>
+                </div>
+            </div>
+
             <a href="formular.html" class="btn-primary">Erstgespräch vereinbaren &#8594;</a>
 
             <!-- Trust Badges -->
@@ -4357,6 +4468,17 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+    // Mobile: Agenturmarkt-Widget unter die CTA-Buttons verschieben
+    if (window.innerWidth <= 768) {
+        const widgetWrap = document.querySelector('.hero-widget-wrap');
+        const ctaRow = document.querySelector('.hero-video .hero-cta-row');
+        if (widgetWrap && ctaRow) {
+            widgetWrap.style.display = 'block';
+            widgetWrap.style.marginTop = '20px';
+            ctaRow.after(widgetWrap);
+        }
+    }
+
     // Early reveal observer — triggers as soon as 1px enters viewport
     const earlyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -4484,6 +4606,20 @@
         const slides = document.querySelectorAll('.services-img-slide');
         if (!items.length) return;
 
+        const isMobile = window.innerWidth <= 768;
+
+        // Mobile: Inline-Visuals unter jeden Accordion-Body klonen
+        if (isMobile) {
+            items.forEach((item, i) => {
+                if (slides[i]) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'acc-inline-visual';
+                    wrapper.innerHTML = slides[i].innerHTML;
+                    item.appendChild(wrapper);
+                }
+            });
+        }
+
         let currentActive = 0;
 
         function setActive(idx) {
@@ -4497,13 +4633,21 @@
             });
         }
 
-        // Klick funktioniert weiterhin als Fallback
+        // Klick-Toggle (auf Mobile kann man auch zuklappen)
         items.forEach((item, i) => {
-            item.querySelector('.acc-header').addEventListener('click', () => setActive(i));
+            item.querySelector('.acc-header').addEventListener('click', () => {
+                if (isMobile && i === currentActive) {
+                    // Toggle: zuklappen
+                    item.classList.remove('active');
+                    currentActive = -1;
+                } else {
+                    setActive(i);
+                }
+            });
         });
 
-        // Scroll-basierte Aktivierung via IntersectionObserver
-        if ('IntersectionObserver' in window) {
+        // Scroll-basierte Aktivierung nur auf Desktop
+        if (!isMobile && 'IntersectionObserver' in window) {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -4512,7 +4656,6 @@
                     }
                 });
             }, {
-                // Trigger wenn Item im oberen Drittel des Viewports ist
                 rootMargin: '-30% 0px -60% 0px',
                 threshold: 0
             });
