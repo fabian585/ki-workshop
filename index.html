@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>KI-Sichtbarkeitsanalyse | Schmidtke GmbH – Wirst du von KI empfohlen?</title>
     <meta name="description" content="Dein Business in ChatGPT & Co. Finde heraus, ob KI dich empfiehlt. Kostenloses Erstgespräch – 50-80% vom Staat gefördert.">
 
@@ -143,7 +143,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 120px;
+            height: calc(120px + env(safe-area-inset-bottom, 0px));
+            padding-bottom: env(safe-area-inset-bottom, 0px);
             pointer-events: none;
             z-index: 90;
             backdrop-filter: blur(12px);
@@ -902,6 +903,208 @@
         .problem-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; line-height: 1.25; }
         .problem-card p { color: var(--text-secondary); font-size: 15px; line-height: 1.7; margin-top: auto; }
 
+        /* ═══ WORKSHOP ERKLÄRUNG (HELL) ═══ */
+        .workshop-intro {
+            padding: 100px 0;
+            background: #ffffff;
+            position: relative; overflow: hidden;
+        }
+        .workshop-intro .container { position: relative; z-index: 1; }
+        .workshop-intro-header { text-align: center; margin-bottom: 72px; }
+        .workshop-intro-header .section-tag { color: var(--blue-dark); }
+        .workshop-intro-header h2 { color: var(--navy); margin-bottom: 16px; }
+        .workshop-intro-header .sub {
+            color: #4B5563; max-width: 680px;
+            margin: 0 auto; font-size: 18px; line-height: 1.7;
+        }
+
+        .workshop-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: start;
+        }
+
+        /* Linke Seite: Was du bekommst */
+        .workshop-benefits {
+            display: flex; flex-direction: column; gap: 20px;
+        }
+        .workshop-benefit {
+            display: flex; gap: 20px; align-items: flex-start;
+            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
+            border-radius: 18px; padding: 28px 28px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .workshop-benefit:hover {
+            border-color: var(--blue-dark);
+            box-shadow: 0 8px 32px rgba(7,22,42,0.06);
+        }
+        .wb-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; flex-shrink: 0;
+        }
+        .wb-icon.blue { background: rgba(39,125,193,0.1); }
+        .wb-icon.gold { background: rgba(212,165,116,0.12); }
+        .wb-icon.green { background: rgba(52,211,153,0.12); }
+        .wb-icon.red { background: rgba(230,47,31,0.08); }
+        .wb-text h4 { font-size: 19px; font-weight: 800; margin-bottom: 6px; color: var(--navy); }
+        .wb-text p { color: #6B7280; font-size: 15px; line-height: 1.65; }
+
+        /* Rechte Seite: Workshop-Karte (dunkel = Kontrast) */
+        .workshop-card {
+            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-card) 100%);
+            border: 1px solid rgba(59,154,232,0.2);
+            border-radius: 24px;
+            padding: 44px 40px;
+            position: relative;
+            color: #fff;
+        }
+        .workshop-card::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: 40px; right: 40px; height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--gold));
+            border-radius: 0 0 4px 4px;
+        }
+        .wc-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25);
+            color: var(--green); font-size: 13px; font-weight: 700;
+            padding: 8px 16px; border-radius: 50px;
+            margin-bottom: 24px;
+        }
+        .workshop-card h3 { font-size: 28px; font-weight: 800; margin-bottom: 8px; line-height: 1.2; color: #fff; }
+        .workshop-card .wc-sub {
+            color: rgba(255,255,255,0.6); font-size: 16px; line-height: 1.65;
+            margin-bottom: 28px;
+        }
+        .wc-includes { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+        .wc-item {
+            display: flex; align-items: center; gap: 12px;
+            font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.85);
+        }
+        .wc-item .wc-check {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: rgba(52,211,153,0.12); color: var(--green);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; flex-shrink: 0;
+        }
+        .wc-targets {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .wc-target {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 8px 14px;
+            font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.55);
+        }
+
+        @media (max-width: 768px) {
+            .workshop-intro { padding: 64px 0; }
+            .workshop-intro-header { margin-bottom: 40px; }
+            .workshop-layout { grid-template-columns: 1fr; gap: 28px; }
+            .workshop-benefit { padding: 20px 18px; gap: 14px; }
+            .wb-icon { width: 44px; height: 44px; min-width: 44px; font-size: 20px; border-radius: 12px; }
+            .wb-text h4 { font-size: 17px; }
+            .wb-text p { font-size: 14px; }
+            .workshop-card { padding: 28px 20px; border-radius: 18px; }
+            .workshop-card::before { left: 20px; right: 20px; }
+            .workshop-card h3 { font-size: 22px; }
+            .workshop-card .wc-sub { font-size: 14px; margin-bottom: 20px; }
+            .wc-item { font-size: 14px; gap: 10px; }
+            .wc-item .wc-check { width: 20px; height: 20px; font-size: 11px; }
+            .wc-targets { gap: 6px; padding-top: 18px; }
+            .wc-target { font-size: 12px; padding: 6px 12px; }
+            .wc-badge { font-size: 12px; padding: 6px 14px; }
+        }
+        @media (max-width: 420px) {
+            .workshop-benefit { padding: 16px 14px; gap: 12px; flex-direction: column; align-items: flex-start; }
+            .workshop-card { padding: 24px 16px; }
+            .workshop-card h3 { font-size: 20px; }
+        }
+
+        /* ═══ FÜR WEN / QUALIFIZIERUNG ═══ */
+        .qualify { padding: 100px 0; background: #f8fafc; position: relative; overflow: hidden; }
+        .qualify .container { position: relative; z-index: 1; }
+        .qualify-header { text-align: center; margin-bottom: 64px; }
+        .qualify-header .section-tag { color: var(--blue-dark); }
+        .qualify-header h2 { color: var(--navy); }
+        .qualify-header .sub { color: #4B5563; max-width: 620px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .qualify-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .qualify-card {
+            border-radius: 20px;
+            padding: 44px 36px;
+            position: relative;
+        }
+        .qualify-card.yes {
+            background: #ffffff;
+            border: 1px solid rgba(52,211,153,0.3);
+            box-shadow: 0 4px 24px rgba(52,211,153,0.06);
+        }
+        .qualify-card.no {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        .qualify-card-header {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 28px; padding-bottom: 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .qualify-card.yes .qualify-card-header { border-color: rgba(52,211,153,0.2); }
+        .qualify-card.no .qualify-card-header { border-color: #f1f5f9; }
+        .qualify-icon {
+            width: 48px; height: 48px; border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px; flex-shrink: 0;
+        }
+        .qualify-card.yes .qualify-icon { background: rgba(52,211,153,0.12); }
+        .qualify-card.no .qualify-icon { background: rgba(230,47,31,0.06); }
+        .qualify-card-title { font-size: 22px; font-weight: 800; }
+        .qualify-card.yes .qualify-card-title { color: #059669; }
+        .qualify-card.no .qualify-card-title { color: #dc2626; }
+        .qualify-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+        .qualify-list li {
+            display: flex; align-items: flex-start; gap: 14px;
+            font-size: 16px; line-height: 1.6;
+        }
+        .qualify-card.yes .qualify-list li { color: #374151; }
+        .qualify-card.no .qualify-list li { color: #6B7280; }
+        .qualify-check {
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+        }
+        .qualify-card.yes .qualify-check { background: rgba(52,211,153,0.12); color: #059669; }
+        .qualify-card.no .qualify-check { background: rgba(230,47,31,0.06); color: #dc2626; }
+
+        @media (max-width: 768px) {
+            .qualify { padding: 64px 0; }
+            .qualify-header { margin-bottom: 40px; }
+            .qualify-grid { grid-template-columns: 1fr; gap: 20px; }
+            .qualify-card { padding: 28px 20px; border-radius: 18px; }
+            .qualify-card-header { padding: 0 0 16px; margin-bottom: 16px; }
+            .qualify-icon { width: 38px; height: 38px; font-size: 16px; }
+            .qualify-card-title { font-size: 19px; }
+            .qualify-list { gap: 14px; }
+            .qualify-list li { font-size: 14px; line-height: 1.55; }
+            .qualify-check { width: 22px; height: 22px; font-size: 12px; }
+        }
+        @media (max-width: 420px) {
+            .qualify-card { padding: 22px 16px; }
+            .qualify-card-title { font-size: 17px; }
+            .qualify-list li { font-size: 13px; }
+        }
+
         /* ═══ KI-ANALYSE DEMO ═══ */
         .analyse { padding: 100px 0; background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
         .analyse::before {
@@ -910,6 +1113,15 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 900px; height: 900px;
             background: radial-gradient(circle, rgba(59, 154, 232, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .analyse::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(59,154,232,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59,154,232,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
         }
         .analyse .container { position: relative; z-index: 1; }
@@ -1362,6 +1574,15 @@
             background: radial-gradient(circle, rgba(230, 47, 31, 0.06) 0%, transparent 70%);
             pointer-events: none;
         }
+        .yt-results::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(230,47,31,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(230,47,31,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
         .yt-results-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1521,56 +1742,59 @@
         }
         /* Responsive */
         @media (max-width: 768px) {
-            .yt-results-layout { grid-template-columns: 1fr; gap: 40px; }
+            .yt-results { padding: 64px 0; }
+            .yt-results-layout { grid-template-columns: 1fr; gap: 32px; }
             .yt-results-text { order: -1; text-align: center; }
-            .yt-results-stats { grid-template-columns: 1fr 1fr; }
-            .google-partner-badge { margin: 0 auto; }
+            .yt-results-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .yt-result-stat { padding: 16px 14px; }
+            .yt-result-stat .val { font-size: 22px; }
+            .yt-result-stat .lbl { font-size: 12px; }
+            .google-partner-badge { margin: 0 auto; font-size: 13px; padding: 12px 18px; }
+        }
+        @media (max-width: 420px) {
+            .yt-results-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .yt-result-stat .val { font-size: 20px; }
         }
 
-        /* ═══ WARUM SCHMIDTKE ═══ */
-        .why-us { padding: 100px 0; background: var(--navy); position: relative; overflow: hidden; }
-        .why-us::before {
-            content: '';
-            position: absolute;
-            top: 50%; right: -200px; transform: translateY(-50%);
-            width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(59, 154, 232, 0.06) 0%, transparent 60%);
-            pointer-events: none;
-        }
+        /* ═══ WARUM SCHMIDTKE (HELL) ═══ */
+        .why-us { padding: 100px 0; background: #ffffff; position: relative; overflow: hidden; }
+        .why-us .container { position: relative; z-index: 1; }
         .why-us-header { text-align: center; margin-bottom: 64px; }
-        .why-us-header .sub { color: var(--text-secondary); max-width: 640px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .why-us-header h2 { color: var(--navy); }
+        .why-us-header .section-tag { color: var(--blue-dark); }
+        .why-us-header .sub { color: #4B5563; max-width: 640px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
         .why-us-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
-        .why-us-content h3 { font-family: 'SK Modernist', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; }
-        .why-us-content p { color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
-        .why-us-content p strong { color: var(--white); }
+        .why-us-content h3 { font-family: 'SK Modernist', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 20px; line-height: 1.2; color: var(--navy); }
+        .why-us-content p { color: #4B5563; font-size: 16px; line-height: 1.8; margin-bottom: 16px; }
+        .why-us-content p strong { color: var(--navy); }
         .why-us-points { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
         .why-point {
             display: flex; gap: 16px; align-items: flex-start;
-            background: linear-gradient(145deg, var(--navy-light) 0%, var(--navy-card) 100%);
-            border: 1px solid var(--border-subtle);
+            background: linear-gradient(145deg, #f8fafc, #f1f5f9);
+            border: 1px solid #e2e8f0;
             border-radius: 16px;
             padding: 24px;
             transition: all 0.3s;
         }
-        .why-point:hover { border-color: var(--border-hover); }
+        .why-point:hover { border-color: var(--blue-dark); box-shadow: 0 6px 24px rgba(7,22,42,0.06); }
         .why-point .point-icon {
             width: 44px; height: 44px; min-width: 44px;
             border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
             font-size: 20px;
         }
-        .why-point .point-icon.yt { background: rgba(230, 47, 31, 0.1); border: 1px solid rgba(230, 47, 31, 0.2); }
-        .why-point .point-icon.press { background: rgba(59, 154, 232, 0.1); border: 1px solid rgba(59, 154, 232, 0.2); }
+        .why-point .point-icon.yt { background: rgba(230, 47, 31, 0.08); border: 1px solid rgba(230, 47, 31, 0.15); }
+        .why-point .point-icon.press { background: rgba(39, 125, 193, 0.08); border: 1px solid rgba(39, 125, 193, 0.15); }
         .why-point .point-icon.ki { background: rgba(212, 165, 116, 0.1); border: 1px solid rgba(212, 165, 116, 0.2); }
-        .why-point .point-icon.trust { background: rgba(52, 211, 153, 0.1); border: 1px solid rgba(52, 211, 153, 0.2); }
-        .why-point h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-        .why-point p { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin: 0; }
+        .why-point .point-icon.trust { background: rgba(52, 211, 153, 0.08); border: 1px solid rgba(52, 211, 153, 0.15); }
+        .why-point h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; color: var(--navy); }
+        .why-point p { color: #6B7280; font-size: 14px; line-height: 1.6; margin: 0; }
         .why-us-stats {
             display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
         }
         .why-stat {
-            background: linear-gradient(145deg, var(--navy-light) 0%, var(--navy-card) 100%);
-            border: 1px solid var(--border-subtle);
+            background: linear-gradient(145deg, var(--navy) 0%, var(--navy-card) 100%);
+            border: 1px solid rgba(59,154,232,0.15);
             border-radius: 16px;
             padding: 28px;
             text-align: center;
@@ -1584,12 +1808,22 @@
         .why-stat .val.blue-val { color: var(--blue); }
         .why-stat .val.green-val { color: var(--green); }
         .why-stat .val.red-val { color: var(--red); }
-        .why-stat .lbl { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+        .why-stat .lbl { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 6px; }
 
         /* why-us responsive handled in main media queries below */
 
         /* ═══ FALLSTUDIEN (Case Studies) ═══ */
-        .cases { padding: 100px 0; background: var(--navy); }
+        .cases { padding: 100px 0; background: var(--navy); position: relative; overflow: hidden; }
+        .cases::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(212,165,116,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,165,116,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        .cases .container { position: relative; z-index: 1; }
         .cases-header { text-align: center; margin-bottom: 72px; }
         .cases-header h2 { color: #ffffff; }
         .cases-header .section-tag { color: var(--blue); }
@@ -1864,24 +2098,27 @@
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background: linear-gradient(135deg, rgba(52, 211, 153, 0.15) 0%, rgba(52, 211, 153, 0.05) 100%);
-            border: 2px solid rgba(52, 211, 153, 0.3);
+            background: #1a1a1a;
+            border: 3px solid rgba(212,165,116,0.4);
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 24px;
             position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
         }
         .funding-seal::after {
             content: '';
             position: absolute;
-            inset: 6px;
+            inset: 5px;
             border-radius: 50%;
-            border: 1px dashed rgba(52, 211, 153, 0.3);
+            border: 1.5px solid rgba(212,165,116,0.25);
+            pointer-events: none;
         }
         .funding-seal svg {
-            width: 52px;
-            height: 52px;
+            width: 70px;
+            height: 70px;
         }
 
         /* Trust Badges */
@@ -1968,6 +2205,15 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 800px; height: 800px;
             background: radial-gradient(circle, rgba(52, 211, 153, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .funding::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(52,211,153,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(52,211,153,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
         }
         .funding-card {
@@ -2106,6 +2352,15 @@
             top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 800px; height: 800px;
             background: radial-gradient(circle, rgba(230, 47, 31, 0.06) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .final-cta::after {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
         }
         .final-cta h2 { margin-bottom: 20px; }
@@ -2258,10 +2513,10 @@
 
             /* Services Scroll-Accordion */
             .services-layout { grid-template-columns: 1fr; gap: 24px; }
-            .services-visual { position: sticky; top: 80px; order: -1; z-index: 2; }
+            .services-visual { position: relative; top: auto; order: -1; z-index: 2; }
             .services-img-wrap { aspect-ratio: 16/10; }
-            .acc-item { min-height: 120px; }
-            .acc-item:last-child { padding-bottom: 60px; }
+            .acc-item { min-height: auto; }
+            .acc-item:last-child { padding-bottom: 40px; }
             .acc-title { font-size: 17px; }
             .acc-body-inner { font-size: 15px; }
             .acc-item.active .acc-body-inner { padding: 0 0 24px 60px; }
@@ -2269,14 +2524,16 @@
             .svc-mock-row { gap: 8px; }
 
             /* Why Us */
+            .why-us { padding: 64px 0; }
+            .why-us-header { margin-bottom: 40px; }
             .why-us-layout { grid-template-columns: 1fr; gap: 28px; }
-            .why-us-content h3 { font-size: 22px; }
-            .why-us-content p { font-size: 14px; }
-            .why-point { padding: 18px; gap: 12px; }
+            .why-us-content h3 { font-size: 20px; }
+            .why-us-content p { font-size: 14px; line-height: 1.7; }
+            .why-point { padding: 18px; gap: 12px; border-radius: 14px; }
             .why-point h4 { font-size: 15px; }
             .why-point p { font-size: 13px; }
             .why-us-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .why-stat { padding: 20px 14px; }
+            .why-stat { padding: 20px 14px; border-radius: 14px; }
             .why-stat .val { font-size: 28px; }
             .why-stat .lbl { font-size: 11px; }
             .why-us-img { aspect-ratio: 16/9; }
@@ -2328,10 +2585,10 @@
             .final-cta .benefits-row { flex-direction: column; align-items: center; gap: 10px; margin-bottom: 24px; }
             .final-cta .btn-primary { font-size: 16px !important; padding: 18px 32px !important; width: 100%; display: block; text-align: center; }
 
-            /* Footer */
-            footer { padding: 32px 0 24px; }
+            /* Footer — extra bottom-padding for iPhone safe area + fade overlay */
+            footer { padding: 32px 0 calc(24px + 140px + env(safe-area-inset-bottom, 0px)); }
             footer .container { flex-direction: column; text-align: center; gap: 12px; }
-            .footer-links { justify-content: center; gap: 16px; }
+            .footer-links { justify-content: center; gap: 16px; flex-wrap: wrap; }
 
             /* Image Placeholders */
             .img-placeholder { border-radius: 14px; }
@@ -2369,7 +2626,17 @@
         }
 
         /* ═══ FOUNDER / BENTO BOX ═══ */
-        .founder { padding: 100px 0; background: var(--navy); color: var(--white); }
+        .founder { padding: 100px 0; background: var(--navy); color: var(--white); position: relative; overflow: hidden; }
+        .founder::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(212,165,116,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,165,116,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+        .founder .container { position: relative; z-index: 1; }
         .founder-headline {
             margin-bottom: 56px;
         }
@@ -2695,9 +2962,9 @@
             <div class="hero-video reveal reveal-delay-2">
                 <div class="vsl-wrapper">
                     <script src="https://fast.wistia.com/player.js" async></script>
-                    <script src="https://fast.wistia.com/embed/gey802nkza.js" async type="module"></script>
-                    <style>wistia-player[media-id='gey802nkza']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/gey802nkza/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
-                    <wistia-player media-id="gey802nkza" seo="false" aspect="1.7777777777777777"></wistia-player>
+                    <script src="https://fast.wistia.com/embed/7dtek3udq6.js" async type="module"></script>
+                    <style>wistia-player[media-id='7dtek3udq6']:not(:defined) { background: center / contain no-repeat url('https://fast.wistia.com/embed/medias/7dtek3udq6/swatch'); display: block; filter: blur(5px); padding-top:56.25%; }</style>
+                    <wistia-player media-id="7dtek3udq6" seo="false" aspect="1.7777777777777777"></wistia-player>
                 </div>
                 <div class="hero-cta-row reveal reveal-delay-3">
                     <a href="formular.html" class="btn-primary">Kostenloses Erstgespräch vereinbaren &#8594;</a>
@@ -2904,6 +3171,76 @@
     </div>
 </section>
 
+<!-- ═══ DAS IST DER WORKSHOP ═══ -->
+<section class="workshop-intro" aria-label="Der KI-Sichtbarkeits-Workshop">
+    <div class="container">
+        <div class="workshop-intro-header">
+            <span class="section-tag reveal">Die Lösung</span>
+            <h2 class="reveal">Der <span style="color: var(--blue);">KI-Sichtbarkeits-Workshop</span> — dein Fahrplan nach vorn</h2>
+            <p class="sub reveal">Ein intensiver Workshop, in dem wir gemeinsam analysieren, wo du stehst — und eine klare Strategie entwickeln, damit ChatGPT, Gemini & Co. dich als Experten empfehlen.</p>
+        </div>
+
+        <div class="workshop-layout">
+            <!-- Links: Was du bekommst -->
+            <div class="workshop-benefits">
+                <div class="workshop-benefit reveal">
+                    <div class="wb-icon blue">&#128269;</div>
+                    <div class="wb-text">
+                        <h4>KI-Sichtbarkeitsanalyse</h4>
+                        <p>Wir prüfen live, wie ChatGPT, Gemini und Perplexity dich und deine Wettbewerber aktuell bewerten — mit konkreten Ergebnissen.</p>
+                    </div>
+                </div>
+                <div class="workshop-benefit reveal reveal-delay-1">
+                    <div class="wb-icon gold">&#128204;</div>
+                    <div class="wb-text">
+                        <h4>Individuelle Strategie</h4>
+                        <p>Kein Standardvortrag — du bekommst einen Maßnahmenplan, der exakt auf dein Unternehmen, deine Branche und deine Zielgruppe zugeschnitten ist.</p>
+                    </div>
+                </div>
+                <div class="workshop-benefit reveal reveal-delay-2">
+                    <div class="wb-icon green">&#128640;</div>
+                    <div class="wb-text">
+                        <h4>Umsetzungsbegleitung</h4>
+                        <p>Du wirst nicht allein gelassen. Nach dem Workshop begleiten wir dich bei den ersten Schritten zur Umsetzung — Vertrauensquellen, YouTube, Content.</p>
+                    </div>
+                </div>
+                <div class="workshop-benefit reveal reveal-delay-3">
+                    <div class="wb-icon red">&#127891;</div>
+                    <div class="wb-text">
+                        <h4>Für Unternehmer & Teams</h4>
+                        <p>Ob Selbstständige, Geschäftsführer oder Marketing-Teams — der Workshop ist so aufgebaut, dass jeder sofort versteht, was zu tun ist.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rechts: Workshop-Karte -->
+            <div class="workshop-card reveal">
+                <div class="wc-badge">&#9989; 50–80 % staatlich gefördert</div>
+                <h3>KI-Sichtbarkeits-Workshop</h3>
+                <p class="wc-sub">Der Workshop, der dein Unternehmen für die nächste Generation der Kundengewinnung aufstellt.</p>
+
+                <div class="wc-includes">
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> Live KI-Sichtbarkeitsanalyse deines Unternehmens</div>
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> Wettbewerbsvergleich in deiner Branche & Region</div>
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> Konkreter Maßnahmenplan mit Prioritäten</div>
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> YouTube- & Content-Strategie als Vertrauensquelle</div>
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> Umsetzungsbegleitung nach dem Workshop</div>
+                    <div class="wc-item"><span class="wc-check">&#10003;</span> Fördermittel-Check und Antragsunterstützung</div>
+                </div>
+
+                <div class="wc-targets">
+                    <span class="wc-target">Selbstständige</span>
+                    <span class="wc-target">Dienstleister</span>
+                    <span class="wc-target">Berater</span>
+                    <span class="wc-target">Coaches</span>
+                    <span class="wc-target">Agenturen</span>
+                    <span class="wc-target">Marketing-Teams</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ═══ KI-ANALYSE DEMO ═══ -->
 <section class="analyse" id="analyse" aria-label="KI-Sichtbarkeitsanalyse">
     <div class="container">
@@ -3002,6 +3339,79 @@
                 <span class="icon">&#127891;</span>
                 <h3>Workshop & Fahrplan</h3>
                 <p>Im intensiven Workshop bekommst du eine detaillierte Analyse und einen individuellen Fahrplan — zugeschnitten auf dein Unternehmen, deine Branche und deine Ziele.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ FÜR WEN IST DAS? ═══ -->
+<section class="qualify" aria-label="Für wen ist das?">
+    <div class="container">
+        <div class="qualify-header">
+            <span class="section-tag reveal">Passt das zu dir?</span>
+            <h2 class="reveal">Für wen ist der <span style="color: var(--gold);">KI-Sichtbarkeits-Workshop</span></h2>
+            <p class="sub reveal">Damit wir dir wirklich helfen können, sollte mindestens eins davon auf dich zutreffen.</p>
+        </div>
+
+        <div class="qualify-grid">
+            <!-- JA-Karte -->
+            <div class="qualify-card yes reveal">
+                <div class="qualify-card-header">
+                    <div class="qualify-icon">&#10003;</div>
+                    <div class="qualify-card-title">Das ist für dich</div>
+                </div>
+                <ul class="qualify-list">
+                    <li>
+                        <span class="qualify-check">&#10003;</span>
+                        <span>Du bist Dienstleister, Berater, Coach oder Agentur mit einem funktionierenden Angebot</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10003;</span>
+                        <span>Du willst, dass Kunden dich finden — auch wenn sie KI statt Google nutzen</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10003;</span>
+                        <span>Du bist bereit, in deine Sichtbarkeit zu investieren (50–80 % staatlich gefördert)</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10003;</span>
+                        <span>Du willst einen klaren Fahrplan — kein Rätselraten, was als nächstes kommt</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10003;</span>
+                        <span>Du denkst langfristig und willst einen echten Wettbewerbsvorteil aufbauen</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- NEIN-Karte -->
+            <div class="qualify-card no reveal reveal-delay-1">
+                <div class="qualify-card-header">
+                    <div class="qualify-icon">&#10007;</div>
+                    <div class="qualify-card-title">Das ist nichts für dich</div>
+                </div>
+                <ul class="qualify-list">
+                    <li>
+                        <span class="qualify-check">&#10007;</span>
+                        <span>Du suchst einen schnellen Hack, der über Nacht Ergebnisse bringt</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10007;</span>
+                        <span>Du hast noch kein funktionierendes Angebot oder bist gerade erst am Anfang</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10007;</span>
+                        <span>Du willst alles alleine machen und brauchst keine externe Unterstützung</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10007;</span>
+                        <span>Dir reicht klassisches SEO und du glaubst nicht, dass KI relevant wird</span>
+                    </li>
+                    <li>
+                        <span class="qualify-check">&#10007;</span>
+                        <span>Du bist nicht bereit, Zeit für eine Strategie zu investieren</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -3356,12 +3766,12 @@
             <!-- RECHTS: Text -->
             <div class="yt-results-text reveal reveal-delay-1">
                 <span class="section-tag">Bewiesene Ergebnisse</span>
-                <h2>Über <span style="color: #FF0000;">6 Mio.</span> organische Aufrufe<br>für unsere Kunden</h2>
+                <h2>Über <span style="color: #FF0000;">10 Mio.</span> organische Aufrufe<br>für unsere Kunden</h2>
                 <p class="sub">Kein Zufall — System. Seit 2016 produzieren wir YouTube-Content, der nicht nur Reichweite bringt, sondern Vertrauen aufbaut. Genau dieses Vertrauen nutzen KI-Systeme, um dich als Experten zu empfehlen.</p>
 
                 <div class="yt-results-stats">
                     <div class="yt-result-stat">
-                        <div class="val" style="color: #FF0000;">6 Mio.+</div>
+                        <div class="val" style="color: #FF0000;">10 Mio.+</div>
                         <div class="lbl">Organische YouTube-Aufrufe</div>
                     </div>
                     <div class="yt-result-stat">
@@ -3619,11 +4029,19 @@
     <div class="container">
         <div class="funding-card reveal">
             <div class="funding-seal">
-                <!-- Bundesadler / Staatliches Siegel -->
-                <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="32" cy="32" r="30" stroke="rgba(52,211,153,0.4)" stroke-width="1.5" fill="none"/>
-                    <path d="M32 8c-1.5 2-3 5-3 8 0 2 .5 3 1 4-2-1-5-2-8-2-2.5 0-4 .5-5 1.5 2 1 4 3 5 5 1 2 1.5 4 1.5 6-1.5-2-4-4-7-5-2-.5-3.5 0-4 1 2 2 3.5 4 4 6.5.5 2.5.5 4-.5 5.5 1.5 0 3-.5 5-2 2-1.5 3-3 3.5-4.5.5 2 1.5 4 3 5.5 1.5 1.5 3 2 4.5 2v5h2v-5c1.5 0 3-.5 4.5-2 1.5-1.5 2.5-3.5 3-5.5.5 1.5 1.5 3 3.5 4.5 2 1.5 3.5 2 5 2-1-1.5-1-3-.5-5.5.5-2.5 2-4.5 4-6.5-.5-1-1.5-1.5-4-1-3 1-5.5 3-7 5 0-2 .5-4 1.5-6 1-2 3-4 5-5-1-1-2.5-1.5-5-1.5-3 0-6 1-8 2 .5-1 1-2 1-4 0-3-1.5-6-3-8z" fill="rgba(52,211,153,0.7)"/>
-                    <circle cx="32" cy="38" r="3" fill="rgba(52,211,153,0.9)"/>
+                <!-- Deutschland-Flagge (rund) -->
+                <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <clipPath id="flagCircle">
+                            <circle cx="35" cy="35" r="32"/>
+                        </clipPath>
+                    </defs>
+                    <g clip-path="url(#flagCircle)">
+                        <rect x="0" y="3" width="70" height="22" fill="#000000"/>
+                        <rect x="0" y="25" width="70" height="22" fill="#DD0000"/>
+                        <rect x="0" y="47" width="70" height="22" fill="#FFCC00"/>
+                    </g>
+                    <circle cx="35" cy="35" r="32" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
                 </svg>
             </div>
             <div class="funding-badge">&#9989; Staatlich geförderte Beratung</div>
@@ -3654,11 +4072,15 @@
             <div class="trust-strip">
                 <div class="trust-badge">
                     <div class="trust-badge-icon">
-                        <!-- Bundesadler Siegel -->
-                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
-                            <path d="M20 6c-1 1.5-2 3.5-2 5.5 0 1.5.5 2.5 1 3.2-1.5-.8-3.5-1.5-5.5-1.5-1.8 0-3 .4-3.8 1.2 1.5.8 3 2.2 3.8 3.8.8 1.5 1 3 1 4.3-1.2-1.5-3-3-5.2-3.8-.8-.2-1.5 0-2 .5 1.5 1.5 2.5 3.2 3 4.8.3 1.5.3 3-.3 4 1 0 2.2-.3 3.7-1.5 1.5-1 2.2-2.2 2.7-3.3.3 1.5 1 3 2.2 4 1 1 2.2 1.5 3.4 1.5v3.5h1.5v-3.5c1.2 0 2.4-.5 3.4-1.5 1.2-1 1.9-2.5 2.2-4 .5 1.1 1.2 2.3 2.7 3.3 1.5 1.2 2.7 1.5 3.7 1.5-.6-1-.6-2.5-.3-4 .5-1.6 1.5-3.3 3-4.8-.5-.5-1.2-.7-2-.5-2.2.8-4 2.3-5.2 3.8 0-1.3.2-2.8 1-4.3.8-1.6 2.3-3 3.8-3.8-.8-.8-2-1.2-3.8-1.2-2 0-4 .7-5.5 1.5.5-.7 1-1.7 1-3.2 0-2-1-4-2-5.5z" fill="rgba(52,211,153,0.8)"/>
-                            <circle cx="20" cy="26.5" r="2" fill="rgba(52,211,153,1)"/>
+                        <!-- Deutschland-Flagge klein -->
+                        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            <defs><clipPath id="flagSmall"><rect x="1" y="1" width="38" height="38" rx="6"/></clipPath></defs>
+                            <g clip-path="url(#flagSmall)">
+                                <rect x="0" y="0" width="40" height="14" fill="#000000"/>
+                                <rect x="0" y="14" width="40" height="13" fill="#DD0000"/>
+                                <rect x="0" y="27" width="40" height="14" fill="#FFCC00"/>
+                            </g>
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
                         </svg>
                     </div>
                     <div class="trust-badge-text">
@@ -3684,12 +4106,15 @@
 
                 <div class="trust-badge">
                     <div class="trust-badge-icon">
-                        <!-- Deutschland -->
-                        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(52,211,153,0.5)" stroke-width="1.2" fill="rgba(52,211,153,0.08)"/>
-                            <rect x="8" y="11" width="24" height="6" rx="1" fill="rgba(255,255,255,0.25)"/>
-                            <rect x="8" y="17" width="24" height="6" rx="0" fill="rgba(230,47,31,0.4)"/>
-                            <rect x="8" y="23" width="24" height="6" rx="1" fill="rgba(212,165,116,0.5)"/>
+                        <!-- Deutschland-Flagge -->
+                        <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                            <defs><clipPath id="flagSmall2"><rect x="1" y="1" width="38" height="38" rx="6"/></clipPath></defs>
+                            <g clip-path="url(#flagSmall2)">
+                                <rect x="0" y="0" width="40" height="14" fill="#000000"/>
+                                <rect x="0" y="14" width="40" height="13" fill="#DD0000"/>
+                                <rect x="0" y="27" width="40" height="14" fill="#FFCC00"/>
+                            </g>
+                            <rect x="1" y="1" width="38" height="38" rx="6" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
                         </svg>
                     </div>
                     <div class="trust-badge-text">
@@ -4247,7 +4672,7 @@
                 if (entry.isIntersecting && !animated) {
                     animated = true;
                     // Counter: count to 6.000.000+
-                    animateCount(counter, 6000000, '+');
+                    animateCount(counter, 10000000, '+');
                     // Bars animate in
                     bars.forEach(bar => {
                         const w = bar.getAttribute('data-width');
