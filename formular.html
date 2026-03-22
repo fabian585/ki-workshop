@@ -211,52 +211,31 @@
         }
 
         /* ═══ PROGRESS BAR ═══ */
-        .progress {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
+        .progress-wrap {
             margin-bottom: 32px;
         }
-        .step-ind {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .progress-bar-track {
+            width: 100%;
+            height: 6px;
+            background: var(--border-subtle);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), var(--gold));
+            border-radius: 3px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+        .progress-label {
             font-size: 13px;
             font-weight: 600;
             color: var(--text-muted);
-            transition: color 0.3s;
+            text-align: right;
         }
-        .step-ind.active { color: var(--gold); }
-        .step-ind.done { color: var(--green); }
-        .step-dot {
-            width: 34px; height: 34px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            border: 2px solid var(--border-subtle);
-            background: transparent;
-            transition: all 0.3s;
-        }
-        .step-ind.active .step-dot {
-            border-color: var(--gold);
-            background: rgba(212, 165, 116, 0.15);
-            color: var(--gold);
-        }
-        .step-ind.done .step-dot {
-            border-color: var(--green);
-            background: rgba(52, 211, 153, 0.15);
-            color: var(--green);
-        }
-        .step-line {
-            width: 40px; height: 2px;
-            background: var(--border-subtle);
-            align-self: center;
-            transition: background 0.3s;
-        }
-        .step-line.done { background: var(--green); }
+        .progress-label span { color: var(--gold); }
 
         /* ═══ FORM PANELS ═══ */
         .panel {
@@ -450,7 +429,7 @@
             .card { padding: 28px 22px; }
             .card h2 { font-size: 20px; }
             .card .sub { font-size: 13px; margin-bottom: 22px; }
-            .progress { gap: 8px; margin-bottom: 24px; }
+            .progress-wrap { margin-bottom: 24px; }
             .field { margin-bottom: 18px; }
             .field label { font-size: 12px; }
             .field input, .field select { padding: 13px 16px; font-size: 14px; }
@@ -470,10 +449,7 @@
             .form-header .tag { font-size: 11px; padding: 5px 14px; margin-bottom: 14px; }
             .card { padding: 24px 18px; border-radius: 16px; }
             .card h2 { font-size: 19px; }
-            .progress { gap: 4px; margin-bottom: 20px; }
-            .step-ind span:not(.step-dot) { display: none; }
-            .step-dot { width: 30px; height: 30px; font-size: 13px; }
-            .step-line { width: 20px; }
+            .progress-wrap { margin-bottom: 20px; }
             .btns { flex-direction: column-reverse; gap: 10px; }
             .btn-back { flex: 1; }
             .btn-next { font-size: 15px; }
@@ -524,22 +500,12 @@
             <p>In 60 Sekunden. Wir prüfen, ob ChatGPT, Gemini &amp; Co. dich kennen.</p>
         </div>
 
-        <!-- Progress Indicators -->
-        <div class="progress" id="progress">
-            <div class="step-ind active" data-step="1">
-                <span class="step-dot">1</span>
-                <span>Dein Business</span>
+        <!-- Progress Bar -->
+        <div class="progress-wrap" id="progressWrap">
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="progressFill"></div>
             </div>
-            <div class="step-line"></div>
-            <div class="step-ind" data-step="2">
-                <span class="step-dot">2</span>
-                <span>Budget</span>
-            </div>
-            <div class="step-line"></div>
-            <div class="step-ind" data-step="3">
-                <span class="step-dot">3</span>
-                <span>Kontaktdaten</span>
-            </div>
+            <div class="progress-label">Schritt <span id="progressStep">1</span> von <span>6</span></div>
         </div>
 
         <!-- ═══ FORMULAR ═══ -->
@@ -556,16 +522,12 @@
             <input type="hidden" name="referrer" id="form_referrer">
             <input type="hidden" name="submitted_at" id="submitted_at">
 
-            <!-- ══════════════════════════════════════
-                 STEP 1: Business-Infos
-                 ══════════════════════════════════════ -->
+            <!-- STEP 1: Branche -->
             <div class="panel active" data-panel="1">
                 <div class="card">
-                    <h2>Erzähl uns von deinem Business</h2>
-                    <p class="sub">Damit wir deine KI-Sichtbarkeit richtig einordnen können.</p>
-
+                    <h2>In welcher Branche bist du tätig?</h2>
+                    <p class="sub">Wir passen die KI-Analyse auf deine Branche an.</p>
                     <div class="field">
-                        <label for="branche">Deine Branche</label>
                         <select id="branche" name="branche" required>
                             <option value="" disabled selected>Bitte auswählen…</option>
                             <option value="coach">Coach / Trainer</option>
@@ -581,38 +543,50 @@
                         </select>
                         <p class="error">Bitte wähle deine Branche aus.</p>
                     </div>
-
-                    <div class="field">
-                        <label for="dienstleistung">Deine Dienstleistung / dein Produkt</label>
-                        <input type="text" id="dienstleistung" name="dienstleistung" placeholder="z. B. Zahnarztpraxis, SEO-Agentur, Coaching …" required>
-                        <p class="error">Bitte beschreibe kurz, was du anbietest.</p>
-                    </div>
-
-                    <div class="field">
-                        <label for="website">Deine Website</label>
-                        <input type="url" id="website" name="website" placeholder="https://www.deine-seite.de" required>
-                        <p class="hint">Wir prüfen, wie KI-Systeme deine Seite aktuell wahrnehmen.</p>
-                        <p class="error">Bitte gib deine Website-URL ein.</p>
-                    </div>
-
                     <div class="btns">
-                        <button type="button" class="btn btn-next" onclick="goNext(1)">
-                            Weiter &#8594;
-                        </button>
+                        <button type="button" class="btn btn-next" onclick="goNext(1)">Weiter &#8594;</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ══════════════════════════════════════
-                 STEP 2: Budget
-                 ══════════════════════════════════════ -->
+            <!-- STEP 2: Dienstleistung -->
             <div class="panel" data-panel="2">
                 <div class="card">
-                    <h2>Wie viel investierst du aktuell in Werbung?</h2>
-                    <p class="sub">Damit wir einschätzen können, wo du stehst — kein Werbebudget ist auch völlig okay.</p>
-
+                    <h2>Was genau bietest du an?</h2>
+                    <p class="sub">Beschreibe kurz deine Dienstleistung oder dein Produkt.</p>
                     <div class="field">
-                        <label for="budget">Monatliches Werbebudget (ca.)</label>
+                        <input type="text" id="dienstleistung" name="dienstleistung" placeholder="z. B. Zahnarztpraxis, SEO-Agentur, Personal Training …" required>
+                        <p class="error">Bitte beschreibe kurz, was du anbietest.</p>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="btn btn-back" onclick="goBack(2)">&#8592; Zurück</button>
+                        <button type="button" class="btn btn-next" onclick="goNext(2)">Weiter &#8594;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: Website -->
+            <div class="panel" data-panel="3">
+                <div class="card">
+                    <h2>Wie lautet deine Website?</h2>
+                    <p class="sub">Wir prüfen, wie KI-Systeme deine Seite aktuell wahrnehmen.</p>
+                    <div class="field">
+                        <input type="url" id="website" name="website" placeholder="https://www.deine-seite.de" required>
+                        <p class="error">Bitte gib deine Website-URL ein.</p>
+                    </div>
+                    <div class="btns">
+                        <button type="button" class="btn btn-back" onclick="goBack(3)">&#8592; Zurück</button>
+                        <button type="button" class="btn btn-next" onclick="goNext(3)">Weiter &#8594;</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 4: Werbebudget -->
+            <div class="panel" data-panel="4">
+                <div class="card">
+                    <h2>Wie viel investierst du monatlich in Werbung?</h2>
+                    <p class="sub">Kein Werbebudget ist auch völlig okay — wir passen die Strategie an.</p>
+                    <div class="field">
                         <select id="budget" name="budget" required>
                             <option value="" disabled selected>Bitte auswählen…</option>
                             <option value="0">Aktuell kein Werbebudget</option>
@@ -623,59 +597,54 @@
                         </select>
                         <p class="error">Bitte wähle dein ungefähres Budget.</p>
                     </div>
-
                     <div class="btns">
-                        <button type="button" class="btn btn-back" onclick="goBack(2)">
-                            &#8592; Zurück
-                        </button>
-                        <button type="button" class="btn btn-next" onclick="goNext(2)">
-                            Weiter &#8594;
-                        </button>
+                        <button type="button" class="btn btn-back" onclick="goBack(4)">&#8592; Zurück</button>
+                        <button type="button" class="btn btn-next" onclick="goNext(4)">Weiter &#8594;</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ══════════════════════════════════════
-                 STEP 3: Kontaktdaten
-                 ══════════════════════════════════════ -->
-            <div class="panel" data-panel="3">
+            <!-- STEP 5: Name -->
+            <div class="panel" data-panel="5">
                 <div class="card">
-                    <h2>Wie können wir dich erreichen?</h2>
-                    <p class="sub">Für dein kostenloses und unverbindliches Erstgespräch.</p>
-
+                    <h2>Wie heißt du?</h2>
+                    <p class="sub">Damit wir dich persönlich ansprechen können.</p>
                     <div class="field">
                         <label for="vorname">Vorname</label>
                         <input type="text" id="vorname" name="vorname" placeholder="Max" required>
                         <p class="error">Bitte gib deinen Vornamen ein.</p>
                     </div>
-
                     <div class="field">
                         <label for="nachname">Nachname</label>
                         <input type="text" id="nachname" name="nachname" placeholder="Mustermann" required>
                         <p class="error">Bitte gib deinen Nachnamen ein.</p>
                     </div>
+                    <div class="btns">
+                        <button type="button" class="btn btn-back" onclick="goBack(5)">&#8592; Zurück</button>
+                        <button type="button" class="btn btn-next" onclick="goNext(5)">Weiter &#8594;</button>
+                    </div>
+                </div>
+            </div>
 
+            <!-- STEP 6: Kontaktdaten -->
+            <div class="panel" data-panel="6">
+                <div class="card">
+                    <h2>Fast geschafft — wie erreichen wir dich?</h2>
+                    <p class="sub">Für dein kostenloses und unverbindliches Erstgespräch.</p>
                     <div class="field">
                         <label for="email">E-Mail-Adresse</label>
                         <input type="email" id="email" name="email" placeholder="max@beispiel.de" required>
                         <p class="error">Bitte gib eine gültige E-Mail-Adresse ein.</p>
                     </div>
-
                     <div class="field">
                         <label for="telefon">Telefon</label>
                         <input type="tel" id="telefon" name="telefon" placeholder="+49 123 456789" required>
                         <p class="error">Bitte gib deine Telefonnummer ein.</p>
                     </div>
-
                     <div class="btns">
-                        <button type="button" class="btn btn-back" onclick="goBack(3)">
-                            &#8592; Zurück
-                        </button>
-                        <button type="submit" class="btn btn-next" id="submitBtn">
-                            Erstgespräch vereinbaren &#8594;
-                        </button>
+                        <button type="button" class="btn btn-back" onclick="goBack(6)">&#8592; Zurück</button>
+                        <button type="submit" class="btn btn-next" id="submitBtn">Erstgespräch vereinbaren &#8594;</button>
                     </div>
-
                     <p class="privacy">
                         Deine Daten sind sicher. Kein Spam, versprochen.<br>
                         <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>
@@ -738,15 +707,11 @@
     let currentStep = 1;
 
     function updateProgress(step) {
-        document.querySelectorAll('.step-ind').forEach(ind => {
-            const s = parseInt(ind.dataset.step);
-            ind.classList.remove('active', 'done');
-            if (s < step) ind.classList.add('done');
-            if (s === step) ind.classList.add('active');
-        });
-        document.querySelectorAll('.step-line').forEach((line, i) => {
-            line.classList.toggle('done', i < step - 1);
-        });
+        const totalSteps = 6;
+        const fill = document.getElementById('progressFill');
+        const label = document.getElementById('progressStep');
+        if (fill) fill.style.width = ((step / totalSteps) * 100) + '%';
+        if (label) label.textContent = step;
     }
 
     function showPanel(step) {
@@ -798,8 +763,8 @@
     function goNext(fromStep) {
         if (!validateStep(fromStep)) return;
 
-        // Auto-prepend https://
-        if (fromStep === 1) {
+        // Auto-prepend https:// (Website ist Step 3)
+        if (fromStep === 3) {
             const w = document.getElementById('website');
             if (w && w.value && !w.value.match(/^https?:\/\//)) {
                 w.value = 'https://' + w.value;
@@ -812,6 +777,9 @@
         showPanel(fromStep - 1);
     }
 
+    // Initial progress bar state
+    updateProgress(1);
+
     // Clear errors on input
     document.querySelectorAll('.field input, .field select').forEach(f => {
         f.addEventListener('input', () => f.closest('.field').classList.remove('has-error'));
@@ -822,7 +790,7 @@
     // ══════════════════════════════════════════════════════════
     document.getElementById('leadForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        if (!validateStep(3)) return;
+        if (!validateStep(6)) return;
 
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
