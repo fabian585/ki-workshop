@@ -533,6 +533,11 @@
             <div class="step-line"></div>
             <div class="step-ind" data-step="2">
                 <span class="step-dot">2</span>
+                <span>Budget</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-ind" data-step="3">
+                <span class="step-dot">3</span>
                 <span>Kontaktdaten</span>
             </div>
         </div>
@@ -578,17 +583,33 @@
                     </div>
 
                     <div class="field">
+                        <label for="dienstleistung">Deine Dienstleistung / dein Produkt</label>
+                        <input type="text" id="dienstleistung" name="dienstleistung" placeholder="z. B. Zahnarztpraxis, SEO-Agentur, Coaching …" required>
+                        <p class="error">Bitte beschreibe kurz, was du anbietest.</p>
+                    </div>
+
+                    <div class="field">
                         <label for="website">Deine Website</label>
                         <input type="url" id="website" name="website" placeholder="https://www.deine-seite.de" required>
                         <p class="hint">Wir prüfen, wie KI-Systeme deine Seite aktuell wahrnehmen.</p>
                         <p class="error">Bitte gib deine Website-URL ein.</p>
                     </div>
 
-                    <div class="field">
-                        <label for="dienstleistung">Deine Dienstleistung / dein Produkt</label>
-                        <input type="text" id="dienstleistung" name="dienstleistung" placeholder="z. B. Zahnarztpraxis, SEO-Agentur, Coaching …" required>
-                        <p class="error">Bitte beschreibe kurz, was du anbietest.</p>
+                    <div class="btns">
+                        <button type="button" class="btn btn-next" onclick="goNext(1)">
+                            Weiter &#8594;
+                        </button>
                     </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 STEP 2: Budget
+                 ══════════════════════════════════════ -->
+            <div class="panel" data-panel="2">
+                <div class="card">
+                    <h2>Wie viel investierst du aktuell in Werbung?</h2>
+                    <p class="sub">Damit wir einschätzen können, wo du stehst — kein Werbebudget ist auch völlig okay.</p>
 
                     <div class="field">
                         <label for="budget">Monatliches Werbebudget (ca.)</label>
@@ -604,7 +625,10 @@
                     </div>
 
                     <div class="btns">
-                        <button type="button" class="btn btn-next" onclick="goNext(1)">
+                        <button type="button" class="btn btn-back" onclick="goBack(2)">
+                            &#8592; Zurück
+                        </button>
+                        <button type="button" class="btn btn-next" onclick="goNext(2)">
                             Weiter &#8594;
                         </button>
                     </div>
@@ -612,9 +636,9 @@
             </div>
 
             <!-- ══════════════════════════════════════
-                 STEP 2: Kontaktdaten
+                 STEP 3: Kontaktdaten
                  ══════════════════════════════════════ -->
-            <div class="panel" data-panel="2">
+            <div class="panel" data-panel="3">
                 <div class="card">
                     <h2>Wie können wir dich erreichen?</h2>
                     <p class="sub">Für dein kostenloses und unverbindliches Erstgespräch.</p>
@@ -623,6 +647,12 @@
                         <label for="vorname">Vorname</label>
                         <input type="text" id="vorname" name="vorname" placeholder="Max" required>
                         <p class="error">Bitte gib deinen Vornamen ein.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="nachname">Nachname</label>
+                        <input type="text" id="nachname" name="nachname" placeholder="Mustermann" required>
+                        <p class="error">Bitte gib deinen Nachnamen ein.</p>
                     </div>
 
                     <div class="field">
@@ -638,7 +668,7 @@
                     </div>
 
                     <div class="btns">
-                        <button type="button" class="btn btn-back" onclick="goBack(2)">
+                        <button type="button" class="btn btn-back" onclick="goBack(3)">
                             &#8592; Zurück
                         </button>
                         <button type="submit" class="btn btn-next" id="submitBtn">
@@ -792,7 +822,7 @@
     // ══════════════════════════════════════════════════════════
     document.getElementById('leadForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        if (!validateStep(2)) return;
+        if (!validateStep(3)) return;
 
         const btn = document.getElementById('submitBtn');
         btn.disabled = true;
