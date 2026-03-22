@@ -833,11 +833,13 @@
             console.log('✓ Netlify Form submitted');
 
             // Optional: Auch an Webhook (Zapier → salesuite.io) senden
+            // Wichtig: application/x-www-form-urlencoded statt JSON,
+            // damit keine CORS-Preflight-Anfrage nötig ist
             if (WEBHOOK_URL) {
                 return fetch(WEBHOOK_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
                 }).then(() => console.log('✓ Webhook submitted'));
             }
         })
