@@ -422,7 +422,7 @@
 
         /* ═══ RESPONSIVE – TABLET ═══ */
         @media (max-width: 768px) {
-            main { padding: 28px 20px; }
+            main { padding: 28px 20px; align-items: flex-start; }
             .form-header { margin-bottom: 28px; }
             .form-header h1 { font-size: 24px; }
             .form-header p { font-size: 14px; }
@@ -725,7 +725,13 @@
         }
         currentStep = step;
         updateProgress(step);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Zum Progress-Bar scrollen, damit der aktuelle Step immer sichtbar ist
+        var progressEl = document.getElementById('progressWrap');
+        if (progressEl) {
+            progressEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     function validateStep(step) {
