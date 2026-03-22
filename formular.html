@@ -12,19 +12,8 @@
     <meta property="og:description" content="Vereinbare jetzt dein kostenloses Erstgespräch zur KI-Sichtbarkeit.">
     <meta property="og:type" content="website">
 
-    <!-- COOKIEBOT -->
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="DEINE-COOKIEBOT-ID" data-blockingmode="auto" type="text/javascript"></script>
-
-    <!-- META PIXEL (nur nach Consent) -->
-    <script type="text/plain" data-cookieconsent="marketing">
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'DEINE-PIXEL-ID');
-      fbq('track', 'PageView');
-    </script>
+    <!-- Tracking & Cookie-Banner — wird über vibetrack.io eingebunden -->
+    <!-- Facebook Pixel ID: 854548551673414 -->
 
     <style>
         /* ═══════════════════════════════════════════════
@@ -549,7 +538,9 @@
         </div>
 
         <!-- ═══ FORMULAR ═══ -->
-        <form id="leadForm" novalidate>
+        <form id="leadForm" name="erstgespraech" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <!-- Netlify Honeypot (Spam-Schutz, unsichtbar) -->
+            <p class="hidden" style="display:none"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
             <!-- Hidden UTM + Tracking Fields -->
             <input type="hidden" name="utm_source" id="utm_source">
             <input type="hidden" name="utm_medium" id="utm_medium">
@@ -802,27 +793,39 @@
         console.log('=== LEAD SUBMITTED ===', JSON.stringify(data, null, 2));
 
         // ┌─────────────────────────────────────────────────────┐
-        // │  WEBHOOK – Trage hier deine Webhook-URL ein:        │
+        // │  1. NETLIFY FORMS — Daten werden automatisch in     │
+        // │     Netlify gespeichert (Forms-Tab im Dashboard)    │
         // │                                                      │
-        // │  Für Make.com:  https://hook.eu1.make.com/xxx       │
-        // │  Für Zapier:    https://hooks.zapier.com/hooks/xxx  │
-        // │  Für n8n:       https://n8n.deine-domain.de/xxx     │
-        // │  Für Formspree: https://formspree.io/f/xxx          │
+        // │  2. WEBHOOK (Optional) — Für Zapier → salesuite.io  │
+        // │     Trage deine Zapier-Webhook-URL unten ein:       │
         // └─────────────────────────────────────────────────────┘
-        const WEBHOOK_URL = ''; // <── DEINE WEBHOOK-URL HIER EINTRAGEN
+        const WEBHOOK_URL = ''; // <── ZAPIER WEBHOOK-URL HIER EINTRAGEN
 
-        if (WEBHOOK_URL) {
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(() => redirectToThankYou(data))
-            .catch(() => redirectToThankYou(data)); // Trotzdem weiterleiten
-        } else {
-            // Kein Webhook konfiguriert → direkt zur Danke-Seite
+        // An Netlify Forms senden
+        fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Netlify Form Error');
+            console.log('✓ Netlify Form submitted');
+
+            // Optional: Auch an Webhook (Zapier → salesuite.io) senden
+            if (WEBHOOK_URL) {
+                return fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).then(() => console.log('✓ Webhook submitted'));
+            }
+        })
+        .then(() => redirectToThankYou(data))
+        .catch(err => {
+            console.error('Form error:', err);
+            // Trotzdem weiterleiten, damit der User nicht hängen bleibt
             redirectToThankYou(data);
-        }
+        });
     });
 
     function redirectToThankYou(data) {

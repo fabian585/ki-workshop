@@ -6,15 +6,23 @@
     <title>KI-Sichtbarkeitsanalyse | Schmidtke GmbH – Wirst du von KI empfohlen?</title>
     <meta name="description" content="Dein Business in ChatGPT & Co. Finde heraus, ob KI dich empfiehlt. Kostenloses Erstgespräch – 50-80% vom Staat gefördert.">
 
+    <!-- ═══ Preconnect für externe Ressourcen (Performance) ═══ -->
+    <link rel="preconnect" href="https://aosparadox.github.io" crossorigin>
+    <link rel="preconnect" href="https://fast.wistia.com" crossorigin>
+    <link rel="dns-prefetch" href="https://widget.trustmarkt.de">
+
+    <!-- ═══ Font Preload (LCP-relevant) ═══ -->
+    <link rel="preload" href="https://aosparadox.github.io/fonts/sk-modernist-bold-webfont.woff" as="font" type="font/woff" crossorigin>
+
     <!-- ═══ SEO: Canonical ═══ -->
-    <link rel="canonical" href="https://schmidtke-gmbh.de/">
+    <link rel="canonical" href="https://workshop.schmidtke-gmbh.de/">
 
     <!-- ═══ Open Graph (Facebook, LinkedIn, WhatsApp) ═══ -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Dein Business in ChatGPT & Co. | Schmidtke GmbH">
     <meta property="og:description" content="Wirst du von KI empfohlen? Finde es heraus. Kostenloses Erstgespräch — 50-80% vom Staat gefördert.">
-    <meta property="og:url" content="https://schmidtke-gmbh.de/">
-    <meta property="og:image" content="https://schmidtke-gmbh.de/og-image.jpg">
+    <meta property="og:url" content="https://workshop.schmidtke-gmbh.de/">
+    <meta property="og:image" content="https://workshop.schmidtke-gmbh.de/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="de_DE">
@@ -24,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Dein Business in ChatGPT & Co. | Schmidtke GmbH">
     <meta name="twitter:description" content="Wirst du von KI empfohlen? Finde es heraus. Kostenloses Erstgespräch — 50-80% vom Staat gefördert.">
-    <meta name="twitter:image" content="https://schmidtke-gmbh.de/og-image.jpg">
+    <meta name="twitter:image" content="https://workshop.schmidtke-gmbh.de/og-image.jpg">
 
     <!-- ═══ Structured Data (Schema.org) ═══ -->
     <script type="application/ld+json">
@@ -33,7 +41,7 @@
       "@type": "ProfessionalService",
       "name": "Schmidtke GmbH",
       "description": "Marketing-Agentur und KI-Sichtbarkeitsberatung aus Rottweil. Wir helfen Dienstleistern, Beratern und Coaches, von ChatGPT, Gemini und Perplexity empfohlen zu werden.",
-      "url": "https://schmidtke-gmbh.de/",
+      "url": "https://workshop.schmidtke-gmbh.de/",
       "telephone": "+49-741-1756392",
       "address": {
         "@type": "PostalAddress",
@@ -56,19 +64,9 @@
     }
     </script>
 
-    <!-- Cookiebot – Cookie-Consent (DSGVO) -->
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="DEINE-COOKIEBOT-ID" data-blockingmode="auto" type="text/javascript"></script>
-
-    <!-- Meta Pixel – nach Cookie-Consent -->
-    <script type="text/plain" data-cookieconsent="marketing">
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', 'DEINE-PIXEL-ID');
-      fbq('track', 'PageView');
-    </script>
+    <!-- ═══ Tracking & Cookie-Banner ═══ -->
+    <!-- Wird später über vibetrack.io eingebunden (Cookie-Banner + Tracking) -->
+    <!-- Facebook Pixel ID: 854548551673414 — einbinden sobald vibetrack.io steht -->
 
     <style>
         /* ═══ SK Modernist — Schmidtke GmbH CI Font ═══ */
@@ -505,37 +503,29 @@
             font-weight: 500;
             color: rgba(255,255,255,0.5);
             letter-spacing: 0.3px;
+            height: 28px;
         }
         .found-in-label {
             white-space: nowrap;
         }
-        .found-in-carousel {
-            position: relative;
-            height: 26px;
-            overflow: hidden;
-        }
         .found-in-item {
-            display: flex;
+            display: none;
             align-items: center;
-            gap: 7px;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            gap: 8px;
             white-space: nowrap;
+            animation: fiIn 0.4s ease both;
         }
         .found-in-item.active {
-            opacity: 1;
-            transform: translateY(0);
+            display: flex;
         }
-        .found-in-item svg,
-        .found-in-item img {
-            width: 22px;
-            height: 22px;
+        @keyframes fiIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fi-logo {
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
-            border-radius: 5px;
         }
         .found-in-item .fi-name {
             font-weight: 700;
@@ -2946,6 +2936,7 @@
             width: 75%;
             max-width: 320px;
             pointer-events: none;
+            border: none;
         }
 
         /* Karte 3: Gründer-Foto (links unten, 5 Spalten) */
@@ -3141,28 +3132,26 @@
                 </div>
                 <div class="found-in reveal reveal-delay-1" id="foundInRotator">
                     <span class="found-in-label">Werde gefunden in</span>
-                    <div class="found-in-carousel">
-                        <div class="found-in-item active">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8Y2lyY2xlIGN4PSI2IiBjeT0iNiIgcj0iMi4yIiBmaWxsPSIjNDI4NUY0Ii8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSI2IiByPSIyLjIiIGZpbGw9IiNFQTQzMzUiLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjYiIHI9IjIuMiIgZmlsbD0iI0ZCQkMwNSIvPgogIDxjaXJjbGUgY3g9IjYiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjMzRBODUzIi8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjNDI4NUY0Ii8+CiAgPGNpcmNsZSBjeD0iMTgiIGN5PSIxMiIgcj0iMi4yIiBmaWxsPSIjRUE0MzM1Ii8+CiAgPGNpcmNsZSBjeD0iNiIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiNGQkJDMDUiLz4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiMzNEE4NTMiLz4KICA8Y2lyY2xlIGN4PSIxOCIgY3k9IjE4IiByPSIyLjIiIGZpbGw9IiM0Mjg1RjQiLz4KPC9zdmc+" alt="Google AI">
-                            <span class="fi-name">Google AI</span>
-                        </div>
-                        <div class="found-in-item">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMiIgZmlsbD0iIzEwQTM3RiIvPgogIDxwYXRoIGQ9Ik0xMiA1LjVjLTEuOCAwLTMuNC45LTQuMyAyLjMtLjQtLjEtLjgtLjItMS4yLS4yQzQuNiA3LjYgMyA5LjIgMyAxMS4xYzAgMSAuNCAxLjkgMS4xIDIuNUM0IDEzLjkgNCAxNC4yIDQgMTQuNGMwIDEuOSAxLjYgMy41IDMuNSAzLjUuNCAwIC44LS4xIDEuMi0uMi45IDEuNCAyLjUgMi4zIDQuMyAyLjNzMy40LS45IDQuMy0yLjNjLjQuMS44LjIgMS4yLjIgMS45IDAgMy41LTEuNiAzLjUtMy41IDAtLjIgMC0uNS0uMS0uOC43LS42IDEuMS0xLjUgMS4xLTIuNSAwLTEuOS0xLjYtMy41LTMuNS0zLjUtLjQgMC0uOC4xLTEuMi4yLS45LTEuNC0yLjUtMi4zLTQuMy0yLjN6IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPHBhdGggZD0iTTEyIDh2NS41TTEyIDEzLjVsMy0xLjhNMTIgMTMuNWwtMy0xLjgiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8L3N2Zz4=" alt="ChatGPT">
-                            <span class="fi-name">ChatGPT</span>
-                        </div>
-                        <div class="found-in-item">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiBmaWxsPSIjMUIxQjFCIi8+CiAgPHBhdGggZD0iTTEyIDN2OE0xMiAxMWw2LTVNMTIgMTFMNiA2IiBzdHJva2U9IiMyMkQzRUUiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNNiAxMXY3aDV2LTRoMnY0aDV2LTciIHN0cm9rZT0iIzIyRDNFRSIgc3Ryb2tlLXdpZHRoPSIxLjgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxwYXRoIGQ9Ik00IDExaDE2IiBzdHJva2U9IiMyMkQzRUUiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9zdmc+" alt="Perplexity">
-                            <span class="fi-name">Perplexity</span>
-                        </div>
-                        <div class="found-in-item">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZ20xIiB4MT0iMCIgeTE9IjAiIHgyPSIxIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0Mjg1RjQiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiM5QjcyQ0IiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjRDk2NTcwIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cGF0aCBkPSJNMTIgMkMxMiAyIDE2IDcgMTYgMTJzLTQgMTAtNCAxMGMwIDAtNC01LTQtMTBTMTIgMiAxMiAyeiIgZmlsbD0idXJsKCNnbTEpIi8+CiAgPHBhdGggZD0iTTIgMTJjMCAwIDUtNCAxMC00czEwIDQgMTAgNGMwIDAtNSA0LTEwIDRTMiAxMiAyIDEyeiIgZmlsbD0idXJsKCNnbTEpIiBvcGFjaXR5PSIwLjciLz4KPC9zdmc+" alt="Gemini">
-                            <span class="fi-name">Gemini</span>
-                        </div>
-                        <div class="found-in-item">
-                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij4KICA8cmVjdCB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiBmaWxsPSIjRDk3NzU3Ii8+CiAgPGNpcmNsZSBjeD0iMTIiIGN5PSIxMSIgcj0iNS41IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMS44Ii8+CiAgPGNpcmNsZSBjeD0iMTQuNSIgY3k9IjkuNSIgcj0iMS4yIiBmaWxsPSIjZmZmIi8+Cjwvc3ZnPg==" alt="Claude">
-                            <span class="fi-name">Claude</span>
-                        </div>
-                    </div>
+                    <span class="found-in-item active">
+                        <svg class="fi-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.76h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                        <span class="fi-name">Google AI</span>
+                    </span>
+                    <span class="found-in-item">
+                        <svg class="fi-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z" fill="#10A37F"/></svg>
+                        <span class="fi-name">ChatGPT</span>
+                    </span>
+                    <span class="found-in-item">
+                        <svg class="fi-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0L0 7.054v9.892L12 24l12-7.054V7.054L12 0zm0 1.578l10.191 5.993L12 13.563 1.809 7.571 12 1.578zM1.191 8.577L11.4 14.58v8.828L1.191 17.4V8.577zm12.018 6.003l10.2-5.996v8.815l-10.2 6.009V14.58z" fill="#20808D"/></svg>
+                        <span class="fi-name">Perplexity</span>
+                    </span>
+                    <span class="found-in-item">
+                        <svg class="fi-logo fi-gemini" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4285F4"/><stop offset="50%" stop-color="#9B72CB"/><stop offset="100%" stop-color="#D96570"/></linearGradient></defs><path d="M12 0C12 6.627 6.627 12 0 12c6.627 0 12 5.373 12 12 0-6.627 5.373-12 12-12-6.627 0-12-5.373-12-12z" fill="url(#gGrad)"/></svg>
+                        <span class="fi-name">Gemini</span>
+                    </span>
+                    <span class="found-in-item">
+                        <svg class="fi-logo" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 2C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2z" fill="#D4A27F"/><path d="M24.5 13.8c-.5-.2-1.1 0-1.3.5l-6.4 14.1c-.2.5 0 1.1.5 1.3.1.1.3.1.4.1.4 0 .7-.2.9-.6l6.4-14.1c.2-.5 0-1-.5-1.3zm4.3 1.9c-.5-.2-1.1 0-1.3.5l-4.5 9.9c-.2.5 0 1.1.5 1.3.1.1.3.1.4.1.4 0 .7-.2.9-.6l4.5-9.9c.2-.5 0-1.1-.5-1.3zm-9.6 1.1c-.5-.2-1.1 0-1.3.5l-4.5 9.9c-.2.5 0 1.1.5 1.3.1.1.3.1.4.1.4 0 .7-.2.9-.6l4.5-9.9c.2-.5 0-1-.5-1.3zm13.9 1c-.5-.2-1.1 0-1.3.5l-2.6 5.7c-.2.5 0 1.1.5 1.3.1.1.3.1.4.1.4 0 .7-.2.9-.6l2.6-5.7c.2-.5 0-1.1-.5-1.3zm-18.3 2c-.5-.2-1.1 0-1.3.5L11 26c-.2.5 0 1.1.5 1.3.1.1.3.1.4.1.4 0 .7-.2.9-.6l2.5-5.7c.2-.5 0-1-.5-1.3z" fill="#fff"/></svg>
+                        <span class="fi-name">Claude</span>
+                    </span>
                 </div>
                 <h1 class="reveal reveal-delay-1">
                     Dein Business in<br>
@@ -3173,11 +3162,11 @@
                 </p>
                 <div class="hero-trust reveal reveal-delay-3">
                     <div class="hero-avatars">
-                        <span class="avatar"><img src="avatar-1.jpg" alt="Kunde"></span>
-                        <span class="avatar"><img src="avatar-2.jpg" alt="Kunde"></span>
-                        <span class="avatar"><img src="avatar-3.jpg" alt="Kunde"></span>
-                        <span class="avatar"><img src="avatar-4.jpg" alt="Kunde"></span>
-                        <span class="avatar"><img src="avatar-5.jpg" alt="Kunde"></span>
+                        <span class="avatar"><img src="avatar-1.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
+                        <span class="avatar"><img src="avatar-2.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
+                        <span class="avatar"><img src="avatar-3.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
+                        <span class="avatar"><img src="avatar-4.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
+                        <span class="avatar"><img src="avatar-5.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
                     </div>
                     <div class="hero-trust-text"><strong>Seit 2016</strong> vertrauen uns bereits 100+ Unternehmen</div>
                 </div>
@@ -3680,12 +3669,12 @@
                 <div class="bento-map-text">
                     <h3>100+ Kunden —<br>digital &amp; <span class="gold">messbar<br>erfolgreich.</span></h3>
                 </div>
-                <img src="deutschland-karte.svg" alt="DACH-Karte — Schmidtke GmbH Kunden in Deutschland, Österreich und der Schweiz" class="bento-map-svg" loading="lazy">
+                <object type="image/svg+xml" data="deutschland-karte.svg" class="bento-map-svg" aria-label="DACH-Karte — Schmidtke GmbH Kunden in Deutschland, Österreich und der Schweiz"></object>
             </div>
 
             <!-- KARTE 3: Gründer-Foto (links unten) -->
             <div class="bento-card bento-founder reveal">
-                <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH">
+                <img src="fabian-schmidtke.jpg" alt="Fabian Schmidtke – Gründer der Schmidtke GmbH" loading="lazy">
                 <div class="bento-founder-overlay">
                     <h3>Fabian Schmidtke</h3>
                     <p>Gründer &amp; Geschäftsführer</p>
