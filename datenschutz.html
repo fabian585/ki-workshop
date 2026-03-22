@@ -378,6 +378,20 @@
         if (e.key === 'Escape' && menu.classList.contains('open')) toggleMenu();
     });
 })();
+
+// UTM FORWARDING: Preserve UTMs across pages
+(function() {
+    const params = new URLSearchParams(window.location.search);
+    const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    utmKeys.forEach(key => { const val = params.get(key); if (val) sessionStorage.setItem(key, val); });
+    if (!sessionStorage.getItem('original_referrer')) sessionStorage.setItem('original_referrer', document.referrer || 'direct');
+    if (!sessionStorage.getItem('landing_page')) sessionStorage.setItem('landing_page', window.location.href);
+    document.querySelectorAll('a[href*="formular.html"]').forEach(link => {
+        const url = new URL(link.href, window.location.origin);
+        utmKeys.forEach(key => { const val = params.get(key) || sessionStorage.getItem(key); if (val) url.searchParams.set(key, val); });
+        link.href = url.pathname + url.search;
+    });
+})();
 </script>
 
 </body>
