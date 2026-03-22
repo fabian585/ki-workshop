@@ -556,14 +556,11 @@
                  ══════════════════════════════════════ -->
             <div class="panel active" data-panel="1">
                 <div class="card">
-                    <h2>Was machst du beruflich?</h2>
+                    <h2>Erzähl uns von deinem Business</h2>
                     <p class="sub">Damit wir deine KI-Sichtbarkeit richtig einordnen können.</p>
 
                     <div class="field">
                         <label for="branche">Deine Branche</label>
-                        <!-- ══════════════════════════════════
-                             BRANCHEN ANPASSEN – Hier Optionen ändern/ergänzen
-                             ══════════════════════════════════ -->
                         <select id="branche" name="branche" required>
                             <option value="" disabled selected>Bitte auswählen…</option>
                             <option value="coach">Coach / Trainer</option>
@@ -585,6 +582,25 @@
                         <input type="url" id="website" name="website" placeholder="https://www.deine-seite.de" required>
                         <p class="hint">Wir prüfen, wie KI-Systeme deine Seite aktuell wahrnehmen.</p>
                         <p class="error">Bitte gib deine Website-URL ein.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="dienstleistung">Deine Dienstleistung / dein Produkt</label>
+                        <input type="text" id="dienstleistung" name="dienstleistung" placeholder="z. B. Zahnarztpraxis, SEO-Agentur, Coaching …" required>
+                        <p class="error">Bitte beschreibe kurz, was du anbietest.</p>
+                    </div>
+
+                    <div class="field">
+                        <label for="budget">Monatliches Werbebudget (ca.)</label>
+                        <select id="budget" name="budget" required>
+                            <option value="" disabled selected>Bitte auswählen…</option>
+                            <option value="0">Aktuell kein Werbebudget</option>
+                            <option value="500">Bis 500 € / Monat</option>
+                            <option value="1000">Bis 1.000 € / Monat</option>
+                            <option value="3000">Bis 3.000 € / Monat</option>
+                            <option value="3000+">Über 3.000 € / Monat</option>
+                        </select>
+                        <p class="error">Bitte wähle dein ungefähres Budget.</p>
                     </div>
 
                     <div class="btns">
@@ -616,8 +632,9 @@
                     </div>
 
                     <div class="field">
-                        <label for="telefon">Telefon <span class="optional">(optional)</span></label>
-                        <input type="tel" id="telefon" name="telefon" placeholder="+49 123 456789">
+                        <label for="telefon">Telefon</label>
+                        <input type="tel" id="telefon" name="telefon" placeholder="+49 123 456789" required>
+                        <p class="error">Bitte gib deine Telefonnummer ein.</p>
                     </div>
 
                     <div class="btns">
@@ -799,7 +816,7 @@
         // │  2. WEBHOOK (Optional) — Für Zapier → salesuite.io  │
         // │     Trage deine Zapier-Webhook-URL unten ein:       │
         // └─────────────────────────────────────────────────────┘
-        const WEBHOOK_URL = ''; // <── ZAPIER WEBHOOK-URL HIER EINTRAGEN
+        const WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/9574685/upqb4lt/';
 
         // An Netlify Forms senden
         fetch('/', {
