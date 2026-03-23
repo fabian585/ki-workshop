@@ -1789,6 +1789,33 @@
             font-size: 13px;
             color: var(--text-muted);
         }
+        /* Service Tags */
+        .service-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .service-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: border-color 0.2s;
+        }
+        .service-tag:hover {
+            border-color: rgba(255,255,255,0.15);
+        }
+        .service-icon {
+            font-size: 14px;
+            color: #FF0000;
+        }
         /* Google Partner Badge */
         .google-partner-badge {
             display: inline-flex;
@@ -1815,11 +1842,15 @@
             .yt-result-stat { padding: 16px 14px; }
             .yt-result-stat .val { font-size: 22px; }
             .yt-result-stat .lbl { font-size: 12px; }
+            .service-tags { justify-content: center; gap: 8px; }
+            .service-tag { padding: 8px 12px; font-size: 12px; }
             .google-partner-badge { margin: 0 auto; font-size: 13px; padding: 12px 18px; }
         }
         @media (max-width: 420px) {
             .yt-results-stats { grid-template-columns: 1fr 1fr; gap: 8px; }
             .yt-result-stat .val { font-size: 20px; }
+            .service-tags { gap: 6px; }
+            .service-tag { padding: 7px 10px; font-size: 11px; gap: 6px; }
         }
 
         /* ═══ WARUM SCHMIDTKE (HELL) ═══ */
@@ -3256,7 +3287,7 @@
                     <span class="gold">ChatGPT & Co.</span>
                 </h1>
                 <p class="hero-sub reveal reveal-delay-2">
-                    JEDER deiner Kunden fragt ChatGPT, Gemini und Perplexity um Rat. <strong style="color: var(--white);">"Wer ist der beste Anbieter?"</strong> — KI liefert immer eine Antwort. Aktuell ohne dich.
+                    JEDER deiner Kunden fragt ChatGPT, Gemini und Perplexity um Rat. <strong style="color: var(--white);">"Wer ist der beste Anbieter?"</strong> — KI liefert immer eine Antwort. Aktuell ohne dich. <strong style="color: var(--green);">Wir ändern das.</strong>
                 </p>
                 <div class="hero-trust reveal reveal-delay-3">
                     <div class="hero-avatars">
@@ -3266,7 +3297,7 @@
                         <span class="avatar"><img src="avatar-4.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
                         <span class="avatar"><img src="avatar-5.jpg" alt="Kunde" loading="lazy" width="40" height="40"></span>
                     </div>
-                    <div class="hero-trust-text"><strong>Seit 2016</strong> vertrauen uns bereits 100+ Unternehmen</div>
+                    <div class="hero-trust-text"><strong>Seit 2016</strong> vertrauen uns bereits 100+ Kunden</div>
                 </div>
 
                 <!-- Agenturmarkt Trust-Widget -->
@@ -3294,15 +3325,15 @@
         <div class="hero-stats" id="heroStats">
             <div class="hero-stat">
                 <div class="number" data-count="100" data-suffix="+">0+</div>
-                <div class="label">Unternehmen vertrauen<br>Schmidtke seit 2016</div>
+                <div class="label">Kunden vertrauen<br>Schmidtke seit 2016</div>
             </div>
             <div class="hero-stat">
-                <div class="number" data-count="90" data-suffix="%">0%</div>
-                <div class="label">aller Kaufentscheidungen<br>starten bei KI</div>
+                <div class="number" data-count="10" data-suffix=" Mio.+">0 Mio.+</div>
+                <div class="label">organische YouTube-Aufrufe<br>für Kunden generiert</div>
             </div>
             <div class="hero-stat">
-                <div class="number" data-count="3" data-suffix="×">0×</div>
-                <div class="label">höhere Conversion bei<br>KI-empfohlenen Anbietern</div>
+                <div class="number" data-count="9" data-suffix=" Jahre">0 Jahre</div>
+                <div class="label">Erfahrung im<br>digitalen Marketing</div>
             </div>
         </div>
 
@@ -3313,7 +3344,7 @@
 <div class="proof-bar" role="complementary" aria-label="Vertrauensindikatoren">
     <div class="container">
         <div class="proof-item"><span class="proof-dot"></span> <strong>Seit 2016</strong> am Markt</div>
-        <div class="proof-item"><span class="proof-dot"></span> <strong>100+</strong> betreute Unternehmen</div>
+        <div class="proof-item"><span class="proof-dot"></span> <strong>100+</strong> betreute Kunden</div>
         <div class="proof-item"><span class="proof-dot"></span> <strong>YouTube</strong> & KI-Strategie</div>
         <div class="proof-item"><span class="proof-dot"></span> <strong>Staatlich</strong> geförderte Beratung</div>
     </div>
@@ -3493,7 +3524,7 @@
     <div class="container">
         <div class="workshop-intro-header">
             <span class="section-tag reveal">Die Lösung</span>
-            <h2 class="reveal">Der <span style="color: var(--blue);">KI-Sichtbarkeits-Workshop</span> — in 90 Tagen zur KI-Empfehlung</h2>
+            <h2 class="reveal">Der <span style="color: var(--blue);">KI-Sichtbarkeits-Workshop</span></h2>
             <p class="sub reveal">Wir analysieren gemeinsam, wo du stehst, decken die Lücken auf und bauen dein Unternehmen so auf, dass ChatGPT, Gemini & Co. dich als Experten empfehlen.</p>
         </div>
 
@@ -3580,6 +3611,7 @@
                     <span class="wc-target">Coaches</span>
                     <span class="wc-target">Agenturen</span>
                     <span class="wc-target">Marketing-Teams</span>
+                    <span class="wc-target">Mittelständische Unternehmen</span>
                 </div>
             </div>
         </div>
@@ -4055,6 +4087,71 @@
     </div>
 </section>
 
+<!-- ═══ WARUM SCHMIDTKE ═══ -->
+<section class="why-us" id="warum" aria-label="Warum Schmidtke GmbH">
+    <div class="container">
+        <div class="why-us-header">
+            <span class="section-tag reveal">Warum Schmidtke GmbH</span>
+            <h2 class="reveal">Die Agentur, die versteht, <span style="color: var(--gold);">wie KI denkt</span></h2>
+            <p class="sub reveal">Seit 2016 bauen wir Brands auf — mit YouTube, Social Media, ganzheitlichem Marketing und dem Fokus, deine Marke unverwechselbar zu machen. Heute nutzen wir genau diese Expertise, um dich in ChatGPT, Gemini und Co. sichtbar zu machen.</p>
+        </div>
+
+        <div class="why-us-layout">
+            <div class="why-us-content reveal">
+                <h3>Warum wir der richtige Partner für KI-Sichtbarkeit sind</h3>
+                <p>KI-Systeme wie ChatGPT und Gemini brauchen <strong>vertrauenswürdige Quellen</strong>, um dich zu empfehlen. Die stärksten Signale? <strong>Eine starke Brand, hochwertiger Content und echte Autorität.</strong></p>
+                <p>Genau das bauen wir seit Jahren. Ganzheitliches Marketing — von YouTube und Social Media über Content-Strategie bis hin zu Vertrauensquellen. Unser Fokus: deine Marke so aufzubauen, dass nicht nur Menschen sie lieben, sondern auch KI-Modelle dich als #1 empfehlen.</p>
+
+                <div class="why-us-points">
+                    <div class="why-point">
+                        <div class="point-icon yt">&#9654;</div>
+                        <div>
+                            <h4>Ganzheitliches Marketing</h4>
+                            <p>YouTube, Social Media, Content & Brand Building — wir machen deine Marke zur Referenz in deiner Branche</p>
+                        </div>
+                    </div>
+                    <div class="why-point">
+                        <div class="point-icon press">&#128200;</div>
+                        <div>
+                            <h4>Vertrauensquellen & Autorität</h4>
+                            <p>Systematischer Aufbau von Trust-Signalen — Fachartikel, Bewertungen, strukturierte Daten</p>
+                        </div>
+                    </div>
+                    <div class="why-point">
+                        <div class="point-icon ki">&#129302;</div>
+                        <div>
+                            <h4>KI-Sichtbarkeitsanalyse</h4>
+                            <p>Datenbasierte Analyse deines KI-Rankings mit konkretem Maßnahmenplan</p>
+                        </div>
+                    </div>
+                    <div class="why-point">
+                        <div class="point-icon trust">&#9989;</div>
+                        <div>
+                            <h4>Staatlich gefördert</h4>
+                            <p>50–80 % Förderung — dein Investment ist ein No-Brainer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal reveal-delay-2" style="display: flex; flex-direction: column; gap: 20px; position: sticky; top: 120px;">
+                <div style="width: 100%; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden;">
+                    <img src="agentur-studio.jpg" alt="Schmidtke GmbH Agentur Studio" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
+                </div>
+                <div class="why-us-stats" style="grid-template-columns: 1fr; gap: 16px;">
+                    <div class="why-stat">
+                        <div class="val gold-val">2016</div>
+                        <div class="lbl">Agentur gegründet</div>
+                    </div>
+                    <div style="margin-top: 4px;">
+                        <div class="trustmarkt-widget" data-company-id="K4QBMeN0lxDb0xdXP9GL" data-widget-id="e4GWL1zP2MlX8EmRgqQa" style="height: 115px;"><a rel="nofollow" href="https://agenturmarkt.de/agentur/schmidtke-gmbh-rottweil" aria-label="Agenturmarkt Profil von Schmidtke GmbH"></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ═══ YOUTUBE RESULTS ═══ -->
 <section class="yt-results" aria-label="YouTube Ergebnisse">
     <div class="container">
@@ -4120,7 +4217,7 @@
             <div class="yt-results-text reveal reveal-delay-1">
                 <span class="section-tag">Bewiesene Ergebnisse</span>
                 <h2>Über <span style="color: #FF0000;">10 Mio.</span> organische Aufrufe<br>für unsere Kunden</h2>
-                <p class="sub">Kein Zufall — System. Seit 2016 produzieren wir YouTube-Content, der nicht nur Reichweite bringt, sondern Vertrauen aufbaut. Genau dieses Vertrauen nutzen KI-Systeme, um dich als Experten zu empfehlen.</p>
+                <p class="sub">Kein Zufall — System. Seit 2016 bauen wir ganzheitliche Marketing-Systeme, die Reichweite, Vertrauen und Umsatz generieren. Von YouTube über Ads bis hin zu Webseiten und Branding.</p>
 
                 <div class="yt-results-stats">
                     <div class="yt-result-stat">
@@ -4128,17 +4225,19 @@
                         <div class="lbl">Organische YouTube-Aufrufe</div>
                     </div>
                     <div class="yt-result-stat">
-                        <div class="val" style="color: var(--blue);">50+</div>
-                        <div class="lbl">YouTube-Kanäle betreut</div>
+                        <div class="val" style="color: var(--green);">4 Mio.+€</div>
+                        <div class="lbl">Kundenumsatz generiert</div>
                     </div>
-                    <div class="yt-result-stat">
-                        <div class="val" style="color: var(--gold);">0 €</div>
-                        <div class="lbl">Werbebudget nötig</div>
-                    </div>
-                    <div class="yt-result-stat">
-                        <div class="val" style="color: var(--green);">100%</div>
-                        <div class="lbl">Organisches Wachstum</div>
-                    </div>
+                </div>
+
+                <!-- Systeme / Leistungen -->
+                <div class="service-tags">
+                    <div class="service-tag"><span class="service-icon">&#9654;</span> YouTube</div>
+                    <div class="service-tag"><span class="service-icon" style="color: #1877F2;">&#9899;</span> Facebook & Instagram Ads</div>
+                    <div class="service-tag"><span class="service-icon" style="color: #4285F4;">&#9899;</span> Google Ads</div>
+                    <div class="service-tag"><span class="service-icon" style="color: var(--gold);">&#9733;</span> Branding</div>
+                    <div class="service-tag"><span class="service-icon" style="color: var(--blue);">&#9672;</span> Webseiten & Funnels</div>
+                    <div class="service-tag"><span class="service-icon" style="color: var(--green);">&#10003;</span> KI-Sichtbarkeit</div>
                 </div>
 
                 <!-- Google Partner Badge -->
@@ -4154,80 +4253,6 @@
                 </div>
             </div>
 
-        </div>
-    </div>
-</section>
-
-<!-- ═══ WARUM SCHMIDTKE ═══ -->
-<section class="why-us" id="warum" aria-label="Warum Schmidtke GmbH">
-    <div class="container">
-        <div class="why-us-header">
-            <span class="section-tag reveal">Warum Schmidtke GmbH</span>
-            <h2 class="reveal">Die Agentur, die versteht, <span style="color: var(--gold);">wie KI denkt</span></h2>
-            <p class="sub reveal">Seit 2016 bauen wir Brands auf — mit YouTube, Social Media, ganzheitlichem Marketing und dem Fokus, deine Marke unverwechselbar zu machen. Heute nutzen wir genau diese Expertise, um dich in ChatGPT, Gemini und Co. sichtbar zu machen.</p>
-        </div>
-
-        <div class="why-us-layout">
-            <div class="why-us-content reveal">
-                <h3>Warum wir der richtige Partner für KI-Sichtbarkeit sind</h3>
-                <p>KI-Systeme wie ChatGPT und Gemini brauchen <strong>vertrauenswürdige Quellen</strong>, um dich zu empfehlen. Die stärksten Signale? <strong>Eine starke Brand, hochwertiger Content und echte Autorität.</strong></p>
-                <p>Genau das bauen wir seit Jahren. Ganzheitliches Marketing — von YouTube und Social Media über Content-Strategie bis hin zu Vertrauensquellen. Unser Fokus: deine Marke so aufzubauen, dass nicht nur Menschen sie lieben, sondern auch KI-Modelle dich als #1 empfehlen.</p>
-
-                <div class="why-us-points">
-                    <div class="why-point">
-                        <div class="point-icon yt">&#9654;</div>
-                        <div>
-                            <h4>Ganzheitliches Marketing</h4>
-                            <p>YouTube, Social Media, Content & Brand Building — wir machen deine Marke zur Referenz in deiner Branche</p>
-                        </div>
-                    </div>
-                    <div class="why-point">
-                        <div class="point-icon press">&#128200;</div>
-                        <div>
-                            <h4>Vertrauensquellen & Autorität</h4>
-                            <p>Systematischer Aufbau von Trust-Signalen — Fachartikel, Bewertungen, strukturierte Daten</p>
-                        </div>
-                    </div>
-                    <div class="why-point">
-                        <div class="point-icon ki">&#129302;</div>
-                        <div>
-                            <h4>KI-Sichtbarkeitsanalyse</h4>
-                            <p>Datenbasierte Analyse deines KI-Rankings mit konkretem Maßnahmenplan</p>
-                        </div>
-                    </div>
-                    <div class="why-point">
-                        <div class="point-icon trust">&#9989;</div>
-                        <div>
-                            <h4>Staatlich gefördert</h4>
-                            <p>50–80 % Förderung — dein Investment ist ein No-Brainer</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="reveal reveal-delay-2" style="display: flex; flex-direction: column; gap: 20px; position: sticky; top: 120px;">
-                <div style="width: 100%; aspect-ratio: 4/5; border-radius: 20px; overflow: hidden;">
-                    <img src="agentur-studio.jpg" alt="Schmidtke GmbH Agentur Studio" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
-                </div>
-                <div class="why-us-stats">
-                    <div class="why-stat">
-                        <div class="val gold-val">2016</div>
-                        <div class="lbl">Agentur gegründet</div>
-                    </div>
-                    <div class="why-stat">
-                        <div class="val blue-val">100+</div>
-                        <div class="lbl">betreute Unternehmen</div>
-                    </div>
-                    <div class="why-stat">
-                        <div class="val green-val">4,8</div>
-                        <div class="lbl">Agentur-Score (Sehr gut)</div>
-                    </div>
-                    <div class="why-stat">
-                        <div class="val red-val">650k+</div>
-                        <div class="lbl">YouTube-Aufrufe für Kunden</div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -4717,7 +4742,7 @@
             </div>
             <div class="cta-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                100+ betreute Unternehmen
+                100+ betreute Kunden
             </div>
             <div class="cta-trust-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
