@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <title>KI-Sichtbarkeitsanalyse | Schmidtke GmbH – Wirst du von KI empfohlen?</title>
     <meta name="description" content="Dein Business in ChatGPT & Co. Finde heraus, ob KI dich empfiehlt. Kostenloses Erstgespräch – 50-80% vom Staat gefördert.">
 
@@ -1089,12 +1093,12 @@
         }
 
         /* ═══ FÜR WEN / QUALIFIZIERUNG ═══ */
-        .qualify { padding: 100px 0; background: #f8fafc; position: relative; overflow: hidden; }
+        .qualify { padding: 100px 0; background: linear-gradient(180deg, #0a1c32 0%, var(--navy) 100%); position: relative; overflow: hidden; }
         .qualify .container { position: relative; z-index: 1; }
         .qualify-header { text-align: center; margin-bottom: 64px; }
-        .qualify-header .section-tag { color: var(--blue-dark); }
-        .qualify-header h2 { color: var(--navy); }
-        .qualify-header .sub { color: #4B5563; max-width: 620px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
+        .qualify-header .section-tag { color: var(--blue); }
+        .qualify-header h2 { color: var(--white); }
+        .qualify-header .sub { color: rgba(255,255,255,0.6); max-width: 620px; margin: 12px auto 0; font-size: 17px; line-height: 1.7; }
         .qualify-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1108,45 +1112,46 @@
             position: relative;
         }
         .qualify-card.yes {
-            background: #ffffff;
-            border: 1px solid rgba(52,211,153,0.3);
-            box-shadow: 0 4px 24px rgba(52,211,153,0.06);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(52,211,153,0.25);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
         }
         .qualify-card.no {
-            background: #ffffff;
+            background: rgba(255,255,255,0.04);
             border: 1px solid rgba(230,47,31,0.2);
+            box-shadow: 0 4px 24px rgba(0,0,0,0.2);
         }
         .qualify-card-header {
             display: flex; align-items: center; gap: 14px;
             margin-bottom: 28px; padding-bottom: 20px;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
         .qualify-card.yes .qualify-card-header { border-color: rgba(52,211,153,0.2); }
-        .qualify-card.no .qualify-card-header { border-color: rgba(230,47,31,0.12); }
+        .qualify-card.no .qualify-card-header { border-color: rgba(230,47,31,0.15); }
         .qualify-icon {
             width: 48px; height: 48px; border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
             font-size: 22px; flex-shrink: 0;
         }
-        .qualify-card.yes .qualify-icon { background: rgba(52,211,153,0.15); color: #059669; }
-        .qualify-card.no .qualify-icon { background: rgba(230,47,31,0.1); color: #dc2626; }
+        .qualify-card.yes .qualify-icon { background: rgba(52,211,153,0.15); color: var(--green); }
+        .qualify-card.no .qualify-icon { background: rgba(230,47,31,0.12); color: var(--red); }
         .qualify-card-title { font-size: 22px; font-weight: 800; }
-        .qualify-card.yes .qualify-card-title { color: #059669; }
-        .qualify-card.no .qualify-card-title { color: #dc2626; }
+        .qualify-card.yes .qualify-card-title { color: var(--green); }
+        .qualify-card.no .qualify-card-title { color: var(--red); }
         .qualify-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
         .qualify-list li {
             display: flex; align-items: flex-start; gap: 14px;
             font-size: 16px; line-height: 1.6;
         }
-        .qualify-card.yes .qualify-list li { color: #374151; }
-        .qualify-card.no .qualify-list li { color: #6B7280; }
+        .qualify-card.yes .qualify-list li { color: rgba(255,255,255,0.75); }
+        .qualify-card.no .qualify-list li { color: rgba(255,255,255,0.5); }
         .qualify-check {
             width: 24px; height: 24px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             font-size: 13px; font-weight: 700; flex-shrink: 0; margin-top: 2px;
         }
-        .qualify-card.yes .qualify-check { background: rgba(52,211,153,0.18); color: #059669; font-weight: 800; }
-        .qualify-card.no .qualify-check { background: rgba(230,47,31,0.12); color: #dc2626; font-weight: 800; }
+        .qualify-card.yes .qualify-check { background: rgba(52,211,153,0.18); color: var(--green); font-weight: 800; }
+        .qualify-card.no .qualify-check { background: rgba(230,47,31,0.12); color: var(--red); font-weight: 800; }
 
         @media (max-width: 768px) {
             .qualify { padding: 64px 0; }
@@ -3396,7 +3401,7 @@
             <div class="branchen-tag"><span class="bt-icon">&#127981;</span> Ingenieurbüros</div>
             <div class="branchen-tag"><span class="bt-icon">&#128722;</span> E-Commerce</div>
             <div class="branchen-tag"><span class="bt-icon">&#127918;</span> Kreativagenturen</div>
-            <div class="branchen-tag"><span class="bt-icon">&#128736;</span> SaaS &amp; Tech</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127970;</span> Mittelständische Unternehmen</div>
             <div class="branchen-tag"><span class="bt-icon">&#127811;</span> Naturheilpraxen</div>
             <!-- Duplikat für nahtlose Schleife -->
             <div class="branchen-tag"><span class="bt-icon">&#128176;</span> Finanzberater</div>
@@ -3409,7 +3414,7 @@
             <div class="branchen-tag"><span class="bt-icon">&#127981;</span> Ingenieurbüros</div>
             <div class="branchen-tag"><span class="bt-icon">&#128722;</span> E-Commerce</div>
             <div class="branchen-tag"><span class="bt-icon">&#127918;</span> Kreativagenturen</div>
-            <div class="branchen-tag"><span class="bt-icon">&#128736;</span> SaaS &amp; Tech</div>
+            <div class="branchen-tag"><span class="bt-icon">&#127970;</span> Mittelständische Unternehmen</div>
             <div class="branchen-tag"><span class="bt-icon">&#127811;</span> Naturheilpraxen</div>
         </div>
 
@@ -4772,7 +4777,6 @@
             <a href="impressum.html">Impressum</a>
             <a href="datenschutz.html">Datenschutz</a>
             <a href="agb.html">AGB</a>
-            <a href="https://www.schmidtke-gmbh.de/kontakt">Kontakt</a>
         </div>
     </div>
 </footer>
