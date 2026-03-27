@@ -3329,15 +3329,15 @@
         <!-- Stats unter dem Split -->
         <div class="hero-stats" id="heroStats">
             <div class="hero-stat">
-                <div class="number" data-count="100" data-suffix="+">0+</div>
+                <div class="number" data-count="100" data-suffix="+">100+</div>
                 <div class="label">Kunden vertrauen<br>Schmidtke seit 2016</div>
             </div>
             <div class="hero-stat">
-                <div class="number" data-count="10" data-suffix=" Mio.+">0 Mio.+</div>
+                <div class="number" data-count="10" data-suffix=" Mio.+">10 Mio.+</div>
                 <div class="label">organische YouTube-Aufrufe<br>für Kunden generiert</div>
             </div>
             <div class="hero-stat">
-                <div class="number" data-count="9" data-suffix=" Jahre">0 Jahre</div>
+                <div class="number" data-count="9" data-suffix=" Jahre">9 Jahre</div>
                 <div class="label">Erfahrung im<br>digitalen Marketing</div>
             </div>
         </div>
@@ -3447,7 +3447,7 @@
             <div class="problem-visual-arrow">&#10132;</div>
             <div class="problem-visual-side good">
                 <div class="pv-label">Nach dem Workshop</div>
-                <div class="pv-percent" data-count="92" data-suffix=" %">0 %</div>
+                <div class="pv-percent" data-count="92" data-suffix=" %">92 %</div>
                 <div class="pv-bar"><div class="pv-bar-fill"></div></div>
                 <div class="pv-desc">Top-Empfehlung bei<br>ChatGPT, Gemini & Co.</div>
             </div>
@@ -4169,7 +4169,7 @@
                     <span>YouTube Studio — Kunden-Performance</span>
                 </div>
                 <div class="yt-big-number">
-                    <span class="yt-count" id="ytCounter">0</span> Aufrufe
+                    <span class="yt-count" id="ytCounter">10.000.000+</span> Aufrufe
                 </div>
                 <div class="yt-big-label">Organische Aufrufe für Kunden aus verschiedenen Branchen</div>
 
@@ -5112,39 +5112,16 @@
         }, 2800);
     })();
 
-    // ═══ HERO-STATS SCROLL ZOOM + COUNT-UP ═══
+    // ═══ HERO-STATS SCROLL ZOOM + FADE-IN ═══
+    // No count-up from 0 — real values always visible for AI & users.
     (function() {
         const heroStats = document.getElementById('heroStats');
         if (!heroStats) return;
-        let counted = false;
-
-        function animateCount(el) {
-            const target = parseInt(el.dataset.count);
-            const suffix = el.dataset.suffix || '';
-            const duration = 1800;
-            const start = performance.now();
-            const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
-
-            function tick(now) {
-                const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
-                const value = Math.round(easeOutQuart(progress) * target);
-                el.textContent = value + suffix;
-                if (progress < 1) requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-        }
 
         const zoomObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     heroStats.classList.add('zoomed');
-                    if (!counted) {
-                        counted = true;
-                        heroStats.querySelectorAll('.number[data-count]').forEach((el, i) => {
-                            setTimeout(() => animateCount(el), i * 200);
-                        });
-                    }
                 }
             });
         }, { threshold: 0.3 });
@@ -5287,72 +5264,37 @@
         matrixObs.observe(section);
     })();
 
-    // ═══ PROBLEM VISUAL — BAR + COUNT-UP ANIMATION ═══
+    // ═══ PROBLEM VISUAL — BAR + FADE-IN ANIMATION ═══
+    // No count-up — values always visible for AI crawlers.
     (function() {
         const visual = document.querySelector('.problem-visual');
         if (!visual) return;
         let animated = false;
-
-        function countUp(el) {
-            const target = parseInt(el.dataset.count);
-            const suffix = el.dataset.suffix || '';
-            if (target === 0) { el.textContent = '0' + suffix; return; }
-            const duration = 2000;
-            const start = performance.now();
-            const ease = t => 1 - Math.pow(1 - t, 4);
-            function tick(now) {
-                const p = Math.min((now - start) / duration, 1);
-                el.textContent = Math.round(ease(p) * target) + suffix;
-                if (p < 1) requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-        }
 
         const pvObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !animated) {
                     animated = true;
                     visual.classList.add('animated');
-                    visual.querySelectorAll('.pv-percent[data-count]').forEach((el, i) => {
-                        setTimeout(() => countUp(el), i * 600);
-                    });
                 }
             });
         }, { threshold: 0.4 });
         pvObserver.observe(visual);
     })();
 
-    // ═══ YOUTUBE ANALYTICS COUNTER + BAR ANIMATION ═══
+    // ═══ YOUTUBE ANALYTICS BAR ANIMATION ═══
+    // Counter removed — real value (10.000.000+) always in HTML for AI visibility.
     (function() {
         const section = document.getElementById('ytAnalytics');
         if (!section) return;
-        const counter = document.getElementById('ytCounter');
         const bars = section.querySelectorAll('.yt-channel-bar');
         let animated = false;
-
-        function animateCount(el, target, suffix) {
-            const duration = 2200;
-            const start = performance.now();
-            function tick(now) {
-                const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
-                // ease out cubic
-                const eased = 1 - Math.pow(1 - progress, 3);
-                const current = Math.round(eased * target);
-                // Format with dots (German)
-                el.textContent = current.toLocaleString('de-DE') + (suffix || '');
-                if (progress < 1) requestAnimationFrame(tick);
-            }
-            requestAnimationFrame(tick);
-        }
 
         const ytObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !animated) {
                     animated = true;
-                    // Counter: count to 6.000.000+
-                    animateCount(counter, 10000000, '+');
-                    // Bars animate in
+                    // Bars animate in (width transition only)
                     bars.forEach(bar => {
                         const w = bar.getAttribute('data-width');
                         setTimeout(() => { bar.style.width = w; }, 400);
